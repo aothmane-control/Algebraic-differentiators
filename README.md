@@ -38,7 +38,7 @@ Feel free to contact [Amine](https://www.uni-saarland.de/en/chair/rudolph/staff/
 BSD 3-Clause "New" or "Revised" License, see [License-file](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/LICENSE).
 
 # References
-<a id="1">[1]</a> M. Mboup,  C. Join, and M. Fliess, Numerical differentiation with annihilators in noisy environment. Numerical Algorithms, 50 (4), 439–467, 2009, https://doi.org/10.1007/s11075-008-9236-1
+<a id="1">[1]</a> M. Mboup,  C. Join, and M. Fliess, "Numerical differentiation with annihilators in noisy environment. Numerical Algorithms", 50 (4), 439–467, 2009, https://doi.org/10.1007/s11075-008-9236-1
 
 
 <a id="2">[2]</a> L. Kiltz and J. Rudolph, “Parametrization of algebraic numerical
@@ -49,4 +49,4 @@ IEEE Conf. on Decision and Control, Firenze, Italy, 2013, pp. 7010–
 <a id="3">[3]</a> M. Mboup and S. Riachy, "Frequency-domain analysis and tuning of the algebraic
 differentiators," Int. J. Control , 91 (9), 2073–2081, 2018, https://doi.org/10.1080/00207179.2017.1421776 
 
-<a id="4">[4]</a> A. Othmane, J. Rudolph, and H. Mounier, "Systematic comparison of numerical differentiators and an application to model-free control," Eur. J. Control. (https://doi.org/10.1016/j.ejcon.2021.06.020)
+<a id="4">[4]</a> A. Othmane, J. Rudolph, and H. Mounier, "Systematic comparison of numerical differentiators and an application to model-free control," Eur. J. Control. https://doi.org/10.1016/j.ejcon.2021.06.020
