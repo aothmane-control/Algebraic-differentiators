@@ -25,7 +25,7 @@ The file algebraicDifferentiator.py implements the class AlgebraicDifferentiator
 
 # How to use
 Algebraic differentiators are linear time-invariant filters with finite-duration impulse response. These filters can be approximated as lowpass filters with a computable cutoff frequency and stopband slope. The following figure presents the amplitude and phase spectra of two example filters. The lowpass approximation is also shown. 
-![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators-mirror/blob/    master/data/motivationAlgDiff.png)
+![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators-mirror/blob/master/data/filterSpectrum.png)
 
 The contribution of this implementation is an easy to use framework for the design and discretization of algebraic differentiators to achieve desired filter characteristics, i.e., specify the cutoff frequency and the stopband slope. Different examples are provided as jupyter notebooks and Matlab code in the folder examples. In the folder documentation a sphinxs Makefile for the automatic generation of a documentation is given. The pre-compiled html documentation can be found in documentation/_build/html/index.html
 
