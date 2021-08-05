@@ -12,7 +12,7 @@ Algebraic differentiators have been derived and discussed in the systems and con
 for higher-order derivatives of noisy signals are suited for real-time embedded systems. 
 
 The following figure shows the results of the numerical estimation of the first time derivative of a noisy signal with an algebraic differentiator and the simple quotient rule. This simulation shows the good estimation results using these approaches.
-![Motivation example](https://github.com/aothmane-control/Algebraic-differentiators-mirror/blob/master/data/motivationAlgDiff.png)
+![Motivation example](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/motivationAlgDiff.png)
 
 This code has been created for the research at the [Chair of Systems Theory and Control Engineering](https://www.uni-saarland.de/lehrstuhl/rudolph.html) of Saarland University, Germany.
  We apply algebraic differentiators to solve different problems related to control theory an signal processing: Parameter estimation, feedback control, fault detection and fault tolerant control, modell-free control ...
@@ -25,7 +25,7 @@ The file algebraicDifferentiator.py implements the class AlgebraicDifferentiator
 
 # How to use
 Algebraic differentiators are linear time-invariant filters with finite-duration impulse response. These filters can be approximated as lowpass filters with a computable cutoff frequency and stopband slope. The following figure presents the amplitude and phase spectra of two example filters. The lowpass approximation is also shown. 
-![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators-mirror/blob/master/data/filterSpectrum.png)
+![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/filterSpectrum.png)
 
 The contribution of this implementation is an easy to use framework for the design and discretization of algebraic differentiators to achieve desired filter characteristics, i.e., specify the cutoff frequency and the stopband slope. Different examples are provided as jupyter notebooks and Matlab code in the folder examples. In the folder documentation a sphinxs Makefile for the automatic generation of a documentation is given. The pre-compiled html documentation can be found in documentation/_build/html/index.html
 
