@@ -34,20 +34,68 @@
 <h1>Welcome to Algebraic differentiators’s documentation!<a class="headerlink" href="#welcome-to-algebraic-differentiators-s-documentation" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator">
-<em class="property">class </em><code class="descclassname">algebraicDifferentiator.</code><code class="descname">AlgebraicDifferentiator</code><span class="sig-paren">(</span><em>ts=0.01</em>, <em>alpha=1.0</em>, <em>beta=1.0</em>, <em>N=0</em>, <em>T=1.0</em>, <em>wc=None</em>, <em>display=True</em>, <em>corr='True'</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class implements an algebraic differentiator and all the     methods neccessary for its use, analysis and tuning.</p>
-<dl class="method">
-<dt id="algebraicDifferentiator.AlgebraicDifferentiator.computeTfromWc">
-<code class="descname">computeTfromWc</code><span class="sig-paren">(</span><em>wc</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.computeTfromWc" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function compute the filter window length for a desired
-cutoff frequenc.</p>
+<em class="property">class </em><code class="descclassname">algebraicDifferentiator.</code><code class="descname">AlgebraicDifferentiator</code><span class="sig-paren">(</span><em>ts=0.01</em>, <em>alpha=1.0</em>, <em>beta=1.0</em>, <em>N=0</em>, <em>T=1.0</em>, <em>wc=None</em>, <em>display=True</em>, <em>corr=True</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class implements an algebraic differentiator and all the     methods necessary for its use, analysis, tuning, and discretization. The
+differentiators which are LTI filters can be parametrized to achieve desired filter
+characteristics: Cutoff frequency and stopband slope. A cutoff frequency
+<span class="math notranslate nohighlight">\(\omega_{\mathrm{c}}\)</span> or a filter window length <span class="math notranslate nohighlight">\(T\)</span> can be
+specified. If the filter window length is specified the cutoff frequency
+is computed. For frequencies lower than the cutoff frequency the amplitude
+of the Fourier transform is <span class="math notranslate nohighlight">\(0\)</span> dB. For frequencies higher the
+amplitude falls with <span class="math notranslate nohighlight">\(\mu=\min\{\alpha,\beta\}+1\)</span> dB per decade.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">T</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ts</strong> (<em>float</em>) – Sampling period.</li>
+<li><strong>alpha</strong> (<em>float</em>) – Parameter <span class="math notranslate nohighlight">\(\alpha\)</span> of the weight function of the
+Jacobi polynomials. This parameter should satisfy <span class="math notranslate nohighlight">\(\alpha&gt;n-1\)</span>,
+with <span class="math notranslate nohighlight">\(n\)</span> the highest derivative to be estimated.</li>
+<li><strong>beta</strong> (<em>float</em>) – Parameter <span class="math notranslate nohighlight">\(\beta\)</span> of the weight function of the
+Jacobi polynomials. This parameter should satisfy <span class="math notranslate nohighlight">\(\beta&gt;n-1\)</span>,
+with <span class="math notranslate nohighlight">\(n\)</span> the highest derivative to be estimated. The stopband
+slope is given by <span class="math notranslate nohighlight">\(\mu=\min\{\alpha,\beta\}+1\)</span>, i.e., frequencies
+higher than the cutoff frequency are attenuated by <span class="math notranslate nohighlight">\(20\mu\)</span> dB
+per decade. Frequencies lower than the cutoff frequency are attenuated
+by <span class="math notranslate nohighlight">\(0\,\)</span> dB.</li>
+<li><strong>N</strong> (<em>int</em>) – Truncation order of the generalized Fourier series. A delay-free
+derivative approximation is only possible for <span class="math notranslate nohighlight">\(N\geq 1\)</span>. See the
+method set_theta for more details.</li>
+<li><strong>T</strong> (<em>float</em>) – Filter window length. Takes a positive values if the length has
+to be specified. The cutoff frequency is then computed automatically.
+It should take the value None if the cutoff frequency is
+specified.</li>
+<li><strong>wc</strong> – Cutoff frequency of the differentiator. Takes a positive values
+if the cutoff frequency has to be specified. The filter window length
+is then computed automatically. It should take the value None
+if the filter window length is specified.</li>
+<li><strong>display</strong> (<em>Bool</em>) – Boolean variable indicating if all the information
+characterizing the differentiator should be printed.</li>
+<li><strong>corr</strong> (<em>Bool</em>) – Boolean variable that indicates if errors stemming from the
+discretization should be corrected.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tbody>
+</table>
+<dl class="method">
+<dt id="algebraicDifferentiator.AlgebraicDifferentiator.computeTfromWc">
+<code class="descname">computeTfromWc</code><span class="sig-paren">(</span><em>wc</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.computeTfromWc" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function computes the filter window length for a desired
+cutoff frequency.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>wc</strong> – Cutoff frequency.</li>
+<li><strong>type</strong> – float</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">T as a float</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -56,24 +104,22 @@ cutoff frequenc.</p>
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.discretize">
 <code class="descname">discretize</code><span class="sig-paren">(</span><em>der</em>, <em>method='mid-point'</em>, <em>redFilLength=False</em>, <em>redTol=0.01</em>, <em>discreteSpectrum=False</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.discretize" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function performs the discretization of the filter for the         estimation of the derivative of order der.
-Three discretization schemes are implemented: midpoint, trapezoidal        and using the analytical integration. The error stemming from        the discretization if corrected using a correction factor.</p>
+<dd><p>This function performs the discretization of the filter for the                 estimation of the derivative of order <span class="math notranslate nohighlight">\(der\)</span>.        Three discretization schemes are implemented: midpoint, trapezoidal        and using the analytical integration. The mid-point rule uses one        filter coefficient less than the trapezoidal rule. It also reduces        the estimation delay by half a sampling period. The analytical        integration rule is recommended for small filter window lengths,         i.e., less than 20 filter coefficients. This discretization method         can only be used for the first order or any higher derivative.        The error stemming from        the discretization is corrected using a correction factor, if the         differentiator has been initialized to do so.</p>
+<p>When the parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are large,        the filter kernel has very low values at the beginning and the at        the end of the filter window. This the length of the window can be        reduced to save computation time and memory. This can be performed        by enabling the redFilterLength parameter and giving a tolerance        redTolerance. This tolerance automatically computes the size of        the new window such that the truncation is performed symmetrically.        If this is enabled, the functions also returns the times at which        the filter was truncated.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>der</strong> (<em>int</em>) – order of the derivative to be estimated</li>
-<li><strong>method</strong> (<em>string</em>) – discretization scheme</li>
-<li><strong>reduceFilterLength</strong> (<em>bool</em>) – reduce or not the filter window length</li>
-<li><strong>redTol</strong> (<em>float.</em>) – tolerance to be used when the filter length is reduced</li>
+<li><strong>der</strong> (<em>int</em>) – Order of the derivative to be estimated.</li>
+<li><strong>method</strong> (<em>string</em>) – Discretization scheme: “mid-point”, “trapezoidal”,        “analytic”.</li>
+<li><strong>reduceFilLength</strong> (<em>bool</em>) – Reduce or not the filter window length.</li>
+<li><strong>redTol</strong> (<em>float.</em>) – Tolerance to be used when the filter length is reduced.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">discretized filter</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy array</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Discretized filter in a dict where the keys are the used
+discretization methods.</p>
 </td>
 </tr>
 </tbody>
@@ -83,25 +129,28 @@ Three discretization schemes are implemented: midpoint, trapezoidal        and u
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.estimateDer">
 <code class="descname">estimateDer</code><span class="sig-paren">(</span><em>k</em>, <em>x</em>, <em>method='mid-point'</em>, <em>conv='same'</em>, <em>redFilLength=False</em>, <em>redTol=0.01</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.estimateDer" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function estimates the derivative of order <span class="math notranslate nohighlight">\(k\geq0\)</span>        using the discretization method given. If the filter was not        discretized before the function performs the discretization.</p>
+<dd><p>This function estimates the derivative of order <span class="math notranslate nohighlight">\(k\geq0\)</span>        using the discretization method given. If the filter was not        discretized before the function performs the discretization.        See the method discretize for more details on the discretization.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>k</strong> (<em>int</em>) – order of the derivative to be estimated</li>
-<li><strong>x</strong> (<em>numpy array</em>) – signal whose derivative has to be estimated</li>
-<li><strong>conv</strong> (<em>string</em>) – parameter to specify the type of convolution
-the numpy conv function does</li>
-<li><strong>reduceFilterLength</strong> (<em>bool</em>) – reduce or not the filter window length</li>
-<li><strong>redTol</strong> (<em>float.</em>) – tolerance to be used when the filter length is reduced</li>
+<li><strong>k</strong> (<em>int</em>) – Order of the derivative to be estimated.</li>
+<li><strong>x</strong> (<em>numpy array</em>) – Signal whose derivative has to be estimated.</li>
+<li><strong>conv</strong> (<em>string</em>) – Parameter to specify the type of convolution
+the numpy conv function does. See the numpy documentation
+for more details.</li>
+<li><strong>method</strong> (<em>string</em>) – Discretization method: “mid-point”,
+“trapezoidal”, “analytic”</li>
+<li><strong>reduceFilterLength</strong> (<em>bool</em>) – Specify whether or not the filter window
+length should be reduced or not. See the discretize method for more
+details.</li>
+<li><strong>redTol</strong> (<em>float.</em>) – Tolerance to be used when the filter length is reduced</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">estimated derivative</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy array of same size as x</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Estimated derivative in a numpy array with the same dimensions
+as the variable x</p>
 </td>
 </tr>
 </tbody>
@@ -111,16 +160,14 @@ the numpy conv function does</li>
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.evalKernel">
 <code class="descname">evalKernel</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.evalKernel" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function evaluates the kernel of the algebraic differentiator at        times t.</p>
+<dd><p>This function evaluates the kernel of the algebraic differentiator at        times t. It corresponds to the impulse response of the filter.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> (<em>numpy array</em>) – time where kernel should be evaluated</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> (<em>numpy array</em>) – Time instants where the kernel should be evaluated.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">evaluated kernel</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">numpy array</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Evaluated kernel in a numpy array with same dimensions as t.</td>
 </tr>
 </tbody>
 </table>
@@ -135,15 +182,13 @@ the numpy conv function does</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>t</strong> (<em>numpy array</em>) – time where the derivative should be evaluated</li>
-<li><strong>k</strong> (<em>int</em>) – order of the derivative to be evaluated</li>
+<li><strong>t</strong> (<em>numpy array</em>) – Time instants where the derivative should be evaluated.</li>
+<li><strong>k</strong> (<em>int</em>) – Order of the derivative to be evaluated.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">evaluated derivative</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy array</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Evaluated derivative in a numpy array with same dimensions as
+t.</p>
 </td>
 </tr>
 </tbody>
@@ -158,9 +203,7 @@ the numpy conv function does</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(N\)</span></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(N\)</span> as a float.</td>
 </tr>
 </tbody>
 </table>
@@ -169,14 +212,12 @@ the numpy conv function does</li>
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_T">
 <code class="descname">get_T</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_T" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function window length of the algebraic differentiator.</p>
+<dd><p>This function returns the filter window length of the algebraic differentiator.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">window length</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Filter window length as a float.</td>
 </tr>
 </tbody>
 </table>
@@ -190,9 +231,7 @@ the numpy conv function does</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(\alpha\)</span></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(\alpha\)</span> as a float.</td>
 </tr>
 </tbody>
 </table>
@@ -208,35 +247,37 @@ the numpy conv function does</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>omega</strong> (<em>numpy array</em>) – Frequencies where the amplitude and phase should be                         evaluated</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">amplitude and phase of Fourier transform of the filter</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">numpy arrays</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>amp</strong> (<em>numpy array</em>) – Amplitude of the Fourier transform of the filter.</li>
+<li><strong>phase</strong> (<em>numpy array</em>) – Phase of the Fourier transform of the filter.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_amplSpectrumDiscreteFilter">
-<code class="descname">get_amplSpectrumDiscreteFilter</code><span class="sig-paren">(</span><em>omega</em>, <em>n</em>, <em>method='mid-point'</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_amplSpectrumDiscreteFilter" title="Permalink to this definition">¶</a></dt>
+<dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_ampSpectrumDiscreteFilter">
+<code class="descname">get_ampSpectrumDiscreteFilter</code><span class="sig-paren">(</span><em>omega</em>, <em>n</em>, <em>method='mid-point'</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_ampSpectrumDiscreteFilter" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function computes the amplitude spectrum of the discretized filter
 for the estimation of the <span class="math notranslate nohighlight">\(n\)</span> -th derivative at the frequencies
-<span class="math notranslate nohighlight">\(\omega\)</span>. The filter is discretized using the given method.</p>
+<span class="math notranslate nohighlight">\(\omega\)</span>. The filter is discretized using the given method. See
+the discretize method for more details.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>omega</strong> (<em>numpy array</em>) – frequencies where the amplitude should be evaluated</li>
-<li><strong>n</strong> (<em>integer</em>) – derivative to be estimated</li>
-<li><strong>method</strong> (<em>string</em>) – method used for the discretization</li>
+<li><strong>omega</strong> (<em>numpy array</em>) – Frequencies where the amplitude should be evaluated.</li>
+<li><strong>n</strong> (<em>integer</em>) – Derivative to be estimated.</li>
+<li><strong>method</strong> (<em>string</em>) – Method used for the discretization: “mid-point”,
+“trapezoidal”, “analytic”.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">amplitude spectrum</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">numpy array</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Amplitude spectrum of the discrete filter in a numy array with
+same dimensions as omega.</p>
 </td>
 </tr>
 </tbody>
@@ -247,15 +288,19 @@ for the estimation of the <span class="math notranslate nohighlight">\(n\)</span
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_asymptotesAmpFilter">
 <code class="descname">get_asymptotesAmpFilter</code><span class="sig-paren">(</span><em>omega</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_asymptotesAmpFilter" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function evaluates the upper and lower bounds of the         amplitude of the Fourier transform of the algebraic differentiator        at the frequencies omega. Note that these bounds hold only for        frequencies greater than the cutoff frequency.</p>
+<p>The function also return the approximation as a low pass filter.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>omega</strong> (<em>numpy array</em>) – Frequencies where the bounds shoudl be evaluated</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>omega</strong> (<em>numpy array</em>) – Frequencies where the bounds should be evaluated</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">upper and lower bounds and the cutoff frequency</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">two numpy array and a float</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>up</strong> (<em>numpy array</em>) – Upper bound for the amplitude spectrum.</li>
+<li><strong>lb</strong> (<em>numpy array</em>) – Lower bound for the amplitude spectrum.</li>
+<li><strong>mb</strong> (<em>numpy array</em>) – Lowpass approximation of the filter.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -269,9 +314,7 @@ for the estimation of the <span class="math notranslate nohighlight">\(n\)</span
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(\beta\)</span></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(\beta\)</span> as a float.</td>
 </tr>
 </tbody>
 </table>
@@ -280,14 +323,12 @@ for the estimation of the <span class="math notranslate nohighlight">\(n\)</span
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_cutoffFreq">
 <code class="descname">get_cutoffFreq</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_cutoffFreq" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function return the cutoff frequency <span class="math notranslate nohighlight">\(\omega_c\)</span>        of the algebraic differentiator.</p>
+<dd><p>This function returns the cutoff frequency <span class="math notranslate nohighlight">\(\omega_c\)</span>        of the algebraic differentiator.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">cutoff frequency</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Cutoff frequency as a float.</td>
 </tr>
 </tbody>
 </table>
@@ -296,14 +337,12 @@ for the estimation of the <span class="math notranslate nohighlight">\(n\)</span
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_degreeExactness">
 <code class="descname">get_degreeExactness</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_degreeExactness" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function return the degree of exactness <span class="math notranslate nohighlight">\(\gamma\)</span>                when the <span class="math notranslate nohighlight">\(n\)</span>-th derivative is approximated.</p>
+<dd><p>This function returns the degree of exactness <span class="math notranslate nohighlight">\(\gamma\)</span>                when the <span class="math notranslate nohighlight">\(n\)</span>-th derivative is approximated.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">degree of exactness</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Degree of exactness as an integer.</td>
 </tr>
 </tbody>
 </table>
@@ -312,14 +351,12 @@ for the estimation of the <span class="math notranslate nohighlight">\(n\)</span
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_delay">
 <code class="descname">get_delay</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_delay" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function the estimation delay <span class="math notranslate nohighlight">\(\delta_t\)</span> of the        the algebraic differentiator.</p>
+<dd><p>This function returns the estimation delay <span class="math notranslate nohighlight">\(\delta_t\)</span> of the        the algebraic differentiator.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(\delta_t\)</span></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(\delta_t\)</span> as a float</td>
 </tr>
 </tbody>
 </table>
@@ -328,14 +365,12 @@ for the estimation of the <span class="math notranslate nohighlight">\(n\)</span
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_delayDiscrete">
 <code class="descname">get_delayDiscrete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_delayDiscrete" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function the estimation delay <span class="math notranslate nohighlight">\(\delta_t\)</span> of the        the algebraic differentiator.</p>
+<dd><p>This function returns the estimation delay <span class="math notranslate nohighlight">\(\delta_{t,\mathrm{d}}\)</span> of the                discrete algebraic differentiator.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(\delta_t\)</span></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(\delta_{t,\mathrm{d}}\)</span> as a float</td>
 </tr>
 </tbody>
 </table>
@@ -345,16 +380,15 @@ for the estimation of the <span class="math notranslate nohighlight">\(n\)</span
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_ratioNyquistCutoff">
 <code class="descname">get_ratioNyquistCutoff</code><span class="sig-paren">(</span><em>k</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_ratioNyquistCutoff" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function computes the ratio
-<span class="math notranslate nohighlight">\(k_N=\frac{\omega_N^k\big|\mathcal{G}(\omega_N)\big|}{\omega_c^k\Big|\mathcal{G}(\omega_c)\Big|}\)</span>, with <span class="math notranslate nohighlight">\(\omega_N=\pi/t_s\)</span>, the Nyquist frequency and <span class="math notranslate nohighlight">\(\omega_c\)</span> the cutoff frequency.</p>
+<span class="math notranslate nohighlight">\(k_N=\frac{\omega_N^k\big|\mathcal{G}(\omega_N)\big|}{\omega_c^k\Big|\mathcal{G}(\omega_c)\Big|}\)</span>, with <span class="math notranslate nohighlight">\(\omega_N=\pi/t_s\)</span>, the Nyquist frequency and <span class="math notranslate nohighlight">\(\omega_c\)</span> the                cutoff frequency.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>k</strong> (<em>list of natural numbers</em>) – order of derivative to be estimated</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>k</strong> (<em>list of natural numbers</em>) – Orders of derivatives to be estimated.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(k_N\)</span></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">numpy array with unit dB and length=len(k)</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(k_N\)</span> in a numpy array with same dimensions as the
+variable k</td>
 </tr>
 </tbody>
 </table>
@@ -363,16 +397,14 @@ for the estimation of the <span class="math notranslate nohighlight">\(n\)</span
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_stepResponse">
 <code class="descname">get_stepResponse</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_stepResponse" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function returs the step response of the differentiator         evalaluated at t.</p>
+<dd><p>This function returns the step response of the differentiator         evaluated at the time instants in t.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> (<em>numpy array</em>) – time where the step response is evaluated.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> (<em>numpy array</em>) – Time instants where the step response should be evaluated.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">evaluated step response</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">numpy array</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Evaluated step response in a numpy array.</td>
 </tr>
 </tbody>
 </table>
@@ -381,14 +413,12 @@ for the estimation of the <span class="math notranslate nohighlight">\(n\)</span
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_theta">
 <code class="descname">get_theta</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_theta" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function return the parameter <span class="math notranslate nohighlight">\(\vartheta\)</span>.</p>
+<dd><p>This function returns the parameter <span class="math notranslate nohighlight">\(\vartheta\)</span>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(\vartheta\)</span></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(\vartheta\)</span> as a float.</td>
 </tr>
 </tbody>
 </table>
@@ -397,14 +427,12 @@ for the estimation of the <span class="math notranslate nohighlight">\(n\)</span
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_ts">
 <code class="descname">get_ts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_ts" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function return the sampling period.</p>
+<dd><p>This function returns the sampling period.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">sampling period</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Sampling period as a float.</td>
 </tr>
 </tbody>
 </table>
@@ -421,23 +449,31 @@ differentiator.</p>
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.reduceFilterLength">
 <code class="descname">reduceFilterLength</code><span class="sig-paren">(</span><em>der</em>, <em>tol=0.01</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.reduceFilterLength" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function returns a distribution function that can
-be used to reduce the filter window length</p>
+be used to reduce the filter window length. The length is reduced such
+that the truncation is of the same amount on both sides of the filter
+window.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>der</strong> – The sough derivative</li>
+<li><strong>der</strong> (<em>integer</em>) – The sought derivative.</li>
 <li><strong>tol</strong> (<em>float</em>) – The tolerance that for reducing the filter length</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">tau1, tau2, d the evaluated  distribution function and
-its evaluation points. tau1 and tau2 are indexes.
-Multiply with sampling period to get the time</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">two floats and a numpy array</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>tau1</strong> (<em>float</em>) – New starting point of the window. The value 0, i.e., the old
+starting point, is taken as the reference.</li>
+<li><strong>tau2</strong> (<em>float</em>) – New end point of the window. The value 0, i.e., the old starting
+point, is taken as the reference.</li>
+<li><strong>d</strong> (<em>numpy array</em>) – Distribution function used for the truncation.</li>
+<li><strong>t</strong> (<em>numpy array</em>) – Times instants where distribution function has been evaluated.</li>
+<li><strong>n</strong> (<em>int</em>) – Factor relating the sampling rate of the measurements and the
+sampling rate used for the the evaluation of the distribution
+function.</li>
+</ul>
+</p>
 </td>
 </tr>
 </tbody>
@@ -452,7 +488,7 @@ Multiply with sampling period to get the time</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>N</strong> (<em>int</em>) – Order of the approximating polynomial</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>N</strong> (<em>int</em>) – Order of the approximating polynomial.</td>
 </tr>
 </tbody>
 </table>
@@ -461,20 +497,26 @@ Multiply with sampling period to get the time</p>
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.set_T">
 <code class="descname">set_T</code><span class="sig-paren">(</span><em>T</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.set_T" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function sets the parameter <span class="math notranslate nohighlight">\(T\)</span> of the window length of        the algebraic differentiator to the value T.
-:param T: window length
-:type alpha: float</p>
+<dd><p>This function sets the parameter <span class="math notranslate nohighlight">\(T\)</span> of the window length of        the algebraic differentiator to the value T.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>T</strong> (<em>float</em>) – Filter window length.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.set_alpha">
 <code class="descname">set_alpha</code><span class="sig-paren">(</span><em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.set_alpha" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function sets the parameter <span class="math notranslate nohighlight">\(\alpha\)</span> of the weight        function of the algebraic        differentiator to the value alpha. The value must satisfy        <span class="math notranslate nohighlight">\(\alpha&gt;n\)</span>, with <span class="math notranslate nohighlight">\(n\)</span> the derivative to be estimated.</p>
+<dd><p>This function sets the parameter <span class="math notranslate nohighlight">\(\alpha\)</span> of the weight        function of the algebraic        differentiator to the value alpha. The value must satisfy        <span class="math notranslate nohighlight">\(\alpha&gt;n-1\)</span>, with <span class="math notranslate nohighlight">\(n\)</span> the derivative to be estimated.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>alpha</strong> (<em>float</em>) – Order of the approximating polynomial</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>alpha</strong> (<em>float</em>) – Parameter of the weight function.</td>
 </tr>
 </tbody>
 </table>
@@ -483,12 +525,12 @@ Multiply with sampling period to get the time</p>
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.set_beta">
 <code class="descname">set_beta</code><span class="sig-paren">(</span><em>beta</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.set_beta" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function sets the parameter <span class="math notranslate nohighlight">\(\beta\)</span> of the weight        function of the algebraic        differentiator to the value beta. The value must satisfy        <span class="math notranslate nohighlight">\(\beta&gt;n\)</span>, with <span class="math notranslate nohighlight">\(n\)</span> the derivative to be estimated.If a filter was discretized earlier, the functions computes the        discretized filter with this new parameter.</p>
+<dd><p>This function sets the parameter <span class="math notranslate nohighlight">\(\beta\)</span> of the weight        function of the algebraic        differentiator to the value beta. The value must satisfy        <span class="math notranslate nohighlight">\(\beta&gt;n-1\)</span>, with <span class="math notranslate nohighlight">\(n\)</span> the derivative to be estimated.If a filter was discretized earlier, the functions computes the        discretized filter with this new parameter.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>beta</strong> (<em>float</em>) – Order of the approximating polynomial</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>beta</strong> (<em>float</em>) – Parameter of the weight function.</td>
 </tr>
 </tbody>
 </table>
@@ -498,22 +540,31 @@ Multiply with sampling period to get the time</p>
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.set_samplingPeriod">
 <code class="descname">set_samplingPeriod</code><span class="sig-paren">(</span><em>ts</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.set_samplingPeriod" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function sets the sampling period <span class="math notranslate nohighlight">\(t_s\)</span> of the discrete
-measurements.
-:param ts: sampling period
-:type ts: float</p>
+measurements.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ts</strong> (<em>float</em>) – Sampling period.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.set_theta">
 <code class="descname">set_theta</code><span class="sig-paren">(</span><em>theta</em>, <em>rootJacobiPol</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.set_theta" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function sets the parameter <span class="math notranslate nohighlight">\(\vartheta\)</span> of the algebraic        differentiator to the value theta. If a filter was discretized        earlier, the functions computes the discretized filter with this new        parameter.</p>
+<dd><p>This function sets the parameter <span class="math notranslate nohighlight">\(\vartheta\)</span> of the algebraic        differentiator to the value theta. For a delay-free approximation
+the choice <span class="math notranslate nohighlight">\(\vartheta=1\)</span> is required. If a filter was discretized        earlier, the functions computes the discretized filter with this new        parameter.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>theta</strong> (<em>float</em>) – parameter describing <span class="math notranslate nohighlight">\(\vartheta\)</span></li>
-<li><strong>rootJacobiPol</strong> (<em>bool</em>) – True if the value theta is equal to a zero of        the jacobi polynomial of order <span class="math notranslate nohighlight">\(N+1\)</span>.</li>
+<li><strong>theta</strong> (<em>float</em>) – Parameter <span class="math notranslate nohighlight">\(\vartheta\)</span> of the algebraic
+differentiator.</li>
+<li><strong>rootJacobiPol</strong> (<em>bool</em>) – True if the value theta is equal to a zero of        the jacobi polynomial of order <span class="math notranslate nohighlight">\(N+1\)</span>. For the delay-free
+approximation use False, since <span class="math notranslate nohighlight">\(1\)</span> is not a zero.</li>
 </ul>
 </td>
 </tr>
@@ -524,16 +575,14 @@ measurements.
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.timeShift">
 <code class="descname">timeShift</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.timeShift" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function the time transformation <span class="math notranslate nohighlight">\(\theta(t)=1-2/T\)</span>, with        <span class="math notranslate nohighlight">\(T\)</span> the window length of the filter.</p>
+<dd><p>This function computes the time transformation <span class="math notranslate nohighlight">\(\theta(t)=1-2/T\)</span>, with        <span class="math notranslate nohighlight">\(T\)</span> the window length of the filter.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> (<em>numpy array</em>) – time where kernel should be evaluated</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> (<em>numpy array</em>) – Time instants where the transformation should be evaluated.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">evaluated transformation</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">numpy array</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Evaluated transformation with the same type as the variable t.</td>
 </tr>
 </tbody>
 </table>
@@ -542,16 +591,20 @@ measurements.
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.weightFcn">
 <code class="descname">weightFcn</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.weightFcn" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function evaluates the weight function of the algebraic differentiator at        times t.</p>
+<dd><p>This function evaluates the weight function of the algebraic differentiator at                the time instants <span class="math notranslate nohighlight">\(t\)</span>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> (<em>numpy array</em>) – time where weight function should be evaluated</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> (<em>float</em>) – Parameter <span class="math notranslate nohighlight">\(\alpha&gt;-1\)</span> of the weight function</li>
+<li><strong>b</strong> (<em>float</em>) – Parameter <span class="math notranslate nohighlight">\(\beta&gt;-1\)</span> of the weight function</li>
+<li><strong>t</strong> (<em>numpy array</em>) – Time instants where weight function should be evaluated.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">evaluated weight function</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">numpy array</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Evaluated weight function in a numpy array.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -566,8 +619,6 @@ measurements.
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
 </div>
 
