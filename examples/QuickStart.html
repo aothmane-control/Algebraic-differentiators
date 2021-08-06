@@ -14259,7 +14259,7 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Quick-start-into-numerical-differentiation-using-algebraic-differentiators">Quick start into numerical differentiation using algebraic differentiators<a class="anchor-link" href="#Quick-start-into-numerical-differentiation-using-algebraic-differentiators">&#182;</a></h1><p>Algebraic differentiators are linear time-invariant filters with finite-duration impulse response. These filters can be approximated as lowpass filters with a known cutoff frequency and a known stopband slope. They depend on 4 parameters:</p>
+<h1 id="Quick-start-into-numerical-differentiation-using-algebraic-differentiators">Quick start into numerical differentiation using algebraic differentiators<a class="anchor-link" href="#Quick-start-into-numerical-differentiation-using-algebraic-differentiators">&#182;</a></h1><p>Algebraic differentiators are linear time-invariant filters with a finite-duration impulse response. These filters can be approximated as lowpass filters with a known cutoff frequency and a known stopband slope. They depend on 4 parameters:</p>
 <ul>
 <li>The filter window length $T$</li>
 <li>The powers of the weight function of Jacobi polynomials $\alpha$ and $\beta$</li>
@@ -14269,9 +14269,9 @@ a.anchor-link {
 <p>The effects of the parameters can be very briefly summarized as follows (see the second notebook for a detailed discussion):</p>
 <ul>
 <li>Increasing $T$ decreases the effect of measurement disturbances but increases the error from the generalized Fourier series truncation. The filter window length $T$ can be computed from a desired cutoff frequency.</li>
-<li>Increasing $N$ deacreases the error from the truncation of the generalized Fourier series expansion but increases the effect of measurement disturbances. A delay-free estimation is only possible for $N&gt;0$. The accuracy is however decreased when the estimate is delay-free.</li>
+<li>Increasing $N$ decreases the error from the truncation of the generalized Fourier series expansion but increases the effect of measurement disturbances. A delay-free estimation is only possible for $N&gt;0$. The accuracy is however decreased when the estimate is delay-free.</li>
 <li>The parameters $\alpha$ and $\beta$ have to satisfy $\alpha,\beta&gt;n-1$, with $n$ the highest derivative to be estimated. </li>
-<li>In most applications $\alpha=\beta$ is a good starting point. For large frequencies compared to the cutoff frequency the signals are attenuated by $20\mu$ dB, with $\mu=\min\{\alpha,\beta\}+1$, per decade. For small window lenghts $\alpha$ and $\beta$ have to be chosen large to avoid discretization effect. Always compare the Amplitude spectrum of the continous-time and discrete-time filters!</li>
+<li>In most applications $\alpha=\beta$ is a good starting point. For large frequencies compared to the cutoff frequency the signals are attenuated by $20\mu$ dB, with $\mu=\min\{\alpha,\beta\}+1$, per decade. For small window lengths $\alpha$ and $\beta$ have to be chosen large to avoid discretization effect. Always compare the amplitude spectrum of the continuous-time and discrete-time filters!</li>
 </ul>
 <p>In the following example the derivatives of a signal are estimated.</p>
 
@@ -14440,9 +14440,9 @@ Discrete window length: 91
 
 
 
-<div id="c68a3f0f-0c6e-4ce0-af19-9f7be1cd9b89" class="jp-RenderedJavaScript jp-OutputArea-output " data-mime-type="application/javascript">
+<div id="07e54ae1-d8d9-455d-a7fa-c7ea98df8a39" class="jp-RenderedJavaScript jp-OutputArea-output " data-mime-type="application/javascript">
 <script type="text/javascript">
-var element = document.getElementById('c68a3f0f-0c6e-4ce0-af19-9f7be1cd9b89');
+var element = document.getElementById('07e54ae1-d8d9-455d-a7fa-c7ea98df8a39');
 /* Put everything inside the global mpl namespace */
 /* global mpl */
 window.mpl = {};
@@ -15461,9 +15461,9 @@ if (IPython.notebook.kernel !== null) {
 
 
 
-<div id="c68a3f0f-0c6e-4ce0-af19-9f7be1cd9b89" class="jp-RenderedJavaScript jp-OutputArea-output " data-mime-type="application/javascript">
+<div id="07e54ae1-d8d9-455d-a7fa-c7ea98df8a39" class="jp-RenderedJavaScript jp-OutputArea-output " data-mime-type="application/javascript">
 <script type="text/javascript">
-var element = document.getElementById('c68a3f0f-0c6e-4ce0-af19-9f7be1cd9b89');
+var element = document.getElementById('07e54ae1-d8d9-455d-a7fa-c7ea98df8a39');
 /* Put everything inside the global mpl namespace */
 /* global mpl */
 window.mpl = {};
