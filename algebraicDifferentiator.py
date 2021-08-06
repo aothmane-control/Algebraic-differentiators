@@ -118,7 +118,7 @@ class AlgebraicDifferentiator(object):
 
         When the parameters :math:`\\alpha` and :math:`\\beta` are large,\
         the filter kernel has very low values at the beginning and the at\
-        the end of the filter window. This the length of the window can be\
+        the end of the filter window. The length of the window can be\
         reduced to save computation time and memory. This can be performed\
         by enabling the redFilterLength parameter and giving a tolerance\
         redTolerance. This tolerance automatically computes the size of\
