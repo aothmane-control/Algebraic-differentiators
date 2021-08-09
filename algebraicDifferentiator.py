@@ -509,7 +509,7 @@ class AlgebraicDifferentiator(object):
         amp = absVec(F)
         phase = argVec(F)
         ampF = np.array(amp.tolist(),dtype=np.float64)
-        phaseF = np.array(phase.tolist(),dtype=np.float64)%(-2*np.pi)
+        phaseF = np.unwrap(np.array(phase.tolist(),dtype=np.float64))
 
         return ampF, phaseF
 
