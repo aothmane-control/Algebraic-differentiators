@@ -104,22 +104,42 @@ cutoff frequency.</p>
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.discretize">
 <code class="descname">discretize</code><span class="sig-paren">(</span><em>der</em>, <em>method='mid-point'</em>, <em>redFilLength=False</em>, <em>redTol=0.01</em>, <em>discreteSpectrum=False</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.discretize" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function performs the discretization of the filter for the                 estimation of the derivative of order <span class="math notranslate nohighlight">\(der\)</span>.        Three discretization schemes are implemented: midpoint, trapezoidal        and using the analytical integration. The mid-point rule uses one        filter coefficient less than the trapezoidal rule. It also reduces        the estimation delay by half a sampling period. The analytical        integration rule is recommended for small filter window lengths,         i.e., less than 20 filter coefficients. This discretization method         can only be used for the first order or any higher derivative.        The error stemming from        the discretization is corrected using a correction factor, if the         differentiator has been initialized to do so.</p>
-<p>When the parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are large,        the filter kernel has very low values at the beginning and the at        the end of the filter window. The length of the window can be        reduced to save computation time and memory. This can be performed        by enabling the redFilterLength parameter and giving a tolerance        redTolerance. This tolerance automatically computes the size of        the new window such that the truncation is performed symmetrically.        If this is enabled, the functions also returns the times at which        the filter was truncated.</p>
+<dd><p>This function performs the discretization of the filter for the
+estimation of the derivative of order <span class="math notranslate nohighlight">\(der\)</span>.
+Three discretization schemes are implemented: midpoint, trapezoidal
+and using the analytical integration. The mid-point rule uses one
+filter coefficient less than the trapezoidal rule. It also reduces
+the estimation delay by half a sampling period. The analytical
+integration rule is recommended for small filter window lengths,
+i.e., in generalless than 20 filter coefficients. This discretization
+method can only be used for the first order or any higher derivative.
+The error stemming from
+the discretization is corrected using a correction factor, if the
+differentiator has been initialized to do so.
+When the parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are large,
+the filter kernel has very low values at the beginning and the at
+the end of the filter window. The length of the window can be
+reduced to save computation time and memory. This can be performed
+by enabling the redFilterLength parameter and giving a tolerance
+redTolerance. This tolerance automatically computes the size of
+the new window such that the truncation is performed symmetrically.
+If this is enabled, the functions also returns the times at which
+the filter was truncated.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>der</strong> (<em>int</em>) – Order of the derivative to be estimated.</li>
-<li><strong>method</strong> (<em>string</em>) – Discretization scheme: “mid-point”, “trapezoidal”,        “analytic”.</li>
-<li><strong>reduceFilLength</strong> (<em>bool</em>) – Reduce or not the filter window length.</li>
+<li><strong>method</strong> (<em>string</em>) – Discretization scheme: “mid-point”, “trapezoidal”,            “analytic”.</li>
+<li><strong>reduceFilLength</strong> (<em>Bool</em>) – Reduce or not the filter window length.</li>
 <li><strong>redTol</strong> (<em>float.</em>) – Tolerance to be used when the filter length is reduced.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Discretized filter in a dict where the keys are the used
-discretization methods.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Discretized filter in a dict where the keys are the derivative
+for which a filter has been discretized. Each element is a dict. with
+keys the used discretization methods.</p>
 </td>
 </tr>
 </tbody>
@@ -142,7 +162,7 @@ the numpy conv function does. See the numpy documentation
 for more details.</li>
 <li><strong>method</strong> (<em>string</em>) – Discretization method: “mid-point”,
 “trapezoidal”, “analytic”</li>
-<li><strong>reduceFilterLength</strong> (<em>bool</em>) – Specify whether or not the filter window
+<li><strong>reduceFilterLength</strong> (<em>Bool</em>) – Specify whether or not the filter window
 length should be reduced or not. See the discretize method for more
 details.</li>
 <li><strong>redTol</strong> (<em>float.</em>) – Tolerance to be used when the filter length is reduced</li>
@@ -276,8 +296,13 @@ the discretize method for more details.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Amplitude spectrum of the discrete filter in a numy array with
-same dimensions as omega.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>amplitude</strong> (<em>numpy array</em>) – Amplitude of the Fourier transform of the discretized
+filter evaluated at omega.</li>
+<li><strong>phase</strong> (<em>numpy array</em>) – Phase of the Fourier transform of the discretized
+filter evaluated at omega.</li>
+</ul>
+</p>
 </td>
 </tr>
 </tbody>
@@ -296,9 +321,9 @@ same dimensions as omega.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>omega</strong> (<em>numpy array</em>) – Frequencies where the bounds should be evaluated</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
-<li><strong>up</strong> (<em>numpy array</em>) – Upper bound for the amplitude spectrum.</li>
-<li><strong>lb</strong> (<em>numpy array</em>) – Lower bound for the amplitude spectrum.</li>
-<li><strong>mb</strong> (<em>numpy array</em>) – Lowpass approximation of the filter.</li>
+<li><strong>up</strong> (<em>numpy array</em>) – Upper bound for the amplitude spectrum evaluated at omega..</li>
+<li><strong>lb</strong> (<em>numpy array</em>) – Lower bound for the amplitude spectrum evaluated at omega..</li>
+<li><strong>mb</strong> (<em>numpy array</em>) – Lowpass approximation of the filter evaluated at omega..</li>
 </ul>
 </td>
 </tr>
@@ -511,7 +536,7 @@ function.</li>
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.set_alpha">
 <code class="descname">set_alpha</code><span class="sig-paren">(</span><em>alpha</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.set_alpha" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function sets the parameter <span class="math notranslate nohighlight">\(\alpha\)</span> of the weight        function of the algebraic        differentiator to the value alpha. The value must satisfy        <span class="math notranslate nohighlight">\(\alpha&gt;n-1\)</span>, with <span class="math notranslate nohighlight">\(n\)</span> the derivative to be estimated.</p>
+<dd><p>This function sets the parameter <span class="math notranslate nohighlight">\(\alpha\)</span> of the weight        function of the algebraic        differentiator to the value alpha. The value must satisfy        <span class="math notranslate nohighlight">\(\alpha&gt;n-1\)</span>, with <span class="math notranslate nohighlight">\(n\)</span> the highest derivative to be estimated.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -563,7 +588,7 @@ the choice <span class="math notranslate nohighlight">\(\vartheta=1\)</span> is 
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>theta</strong> (<em>float</em>) – Parameter <span class="math notranslate nohighlight">\(\vartheta\)</span> of the algebraic
 differentiator.</li>
-<li><strong>rootJacobiPol</strong> (<em>bool</em>) – True if the value theta is equal to a zero of        the jacobi polynomial of order <span class="math notranslate nohighlight">\(N+1\)</span>. For the delay-free
+<li><strong>rootJacobiPol</strong> (<em>Bool</em>) – True if the value theta is equal to a zero of        the jacobi polynomial of order <span class="math notranslate nohighlight">\(N+1\)</span>. For the delay-free
 approximation use False, since <span class="math notranslate nohighlight">\(1\)</span> is not a zero.</li>
 </ul>
 </td>

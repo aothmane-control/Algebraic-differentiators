@@ -103,41 +103,41 @@ class AlgebraicDifferentiator(object):
     def discretize(self,der,method="mid-point",redFilLength=False,\
                    redTol=0.01,discreteSpectrum=False):
         """
-        This function performs the discretization of the filter for the \
-                estimation of the derivative of order :math:`der`.\
-        Three discretization schemes are implemented: midpoint, trapezoidal\
-        and using the analytical integration. The mid-point rule uses one\
-        filter coefficient less than the trapezoidal rule. It also reduces\
-        the estimation delay by half a sampling period. The analytical\
-        integration rule is recommended for small filter window lengths, \
-        i.e., less than 20 filter coefficients. This discretization method \
-        can only be used for the first order or any higher derivative.\
-        The error stemming from\
-        the discretization is corrected using a correction factor, if the \
+        This function performs the discretization of the filter for the 
+        estimation of the derivative of order :math:`der`.
+        Three discretization schemes are implemented: midpoint, trapezoidal
+        and using the analytical integration. The mid-point rule uses one
+        filter coefficient less than the trapezoidal rule. It also reduces
+        the estimation delay by half a sampling period. The analytical
+        integration rule is recommended for small filter window lengths,
+        i.e., in generalless than 20 filter coefficients. This discretization 
+        method can only be used for the first order or any higher derivative.
+        The error stemming from
+        the discretization is corrected using a correction factor, if the 
         differentiator has been initialized to do so.
-
-        When the parameters :math:`\\alpha` and :math:`\\beta` are large,\
-        the filter kernel has very low values at the beginning and the at\
-        the end of the filter window. The length of the window can be\
-        reduced to save computation time and memory. This can be performed\
-        by enabling the redFilterLength parameter and giving a tolerance\
-        redTolerance. This tolerance automatically computes the size of\
-        the new window such that the truncation is performed symmetrically.\
-        If this is enabled, the functions also returns the times at which\
+        When the parameters :math:`\\alpha` and :math:`\\beta` are large,
+        the filter kernel has very low values at the beginning and the at
+        the end of the filter window. The length of the window can be
+        reduced to save computation time and memory. This can be performed
+        by enabling the redFilterLength parameter and giving a tolerance
+        redTolerance. This tolerance automatically computes the size of
+        the new window such that the truncation is performed symmetrically.
+        If this is enabled, the functions also returns the times at which
         the filter was truncated.
 
         :param der: Order of the derivative to be estimated.
         :type der: int
         :param method: Discretization scheme: "mid-point", "trapezoidal",\
-        "analytic".
+            "analytic".
         :type method: string
         :param reduceFilLength: Reduce or not the filter window length.
-        :type reduceFilLength: bool
+        :type reduceFilLength: Bool
         :param redTol: Tolerance to be used when the filter length is reduced.
         :type redTol: float.
 
-        :return: Discretized filter in a dict where the keys are the used
-               discretization methods.
+        :return: Discretized filter in a dict where the keys are the derivative
+            for which a filter has been discretized. Each element is a dict. with
+            keys the used discretization methods.
         """
         theta0 = 0
         theta = theta0
@@ -251,7 +251,7 @@ class AlgebraicDifferentiator(object):
         :param reduceFilterLength: Specify whether or not the filter window
                 length should be reduced or not. See the discretize method for more
                 details.
-        :type reduceFilterLength: bool
+        :type reduceFilterLength: Bool
         :param redTol: Tolerance to be used when the filter length is reduced
         :type redTol: float.
         :return: Estimated derivative in a numpy array with the same dimensions
@@ -530,8 +530,14 @@ class AlgebraicDifferentiator(object):
             "trapezoidal", "analytic".
         :type method: string 
         
-        :return: Amplitude spectrum of the discrete filter in a numy array with
-            same dimensions as omega.
+        Returns
+        -------
+        amplitude: numpy array
+            Amplitude of the Fourier transform of the discretized
+            filter evaluated at omega. 
+        phase: numpy array 
+            Phase of the Fourier transform of the discretized
+            filter evaluated at omega.
         """
         w,theta = self.discretize(n,method,discreteSpectrum=True)
         k = np.arange(0,len(w[n][method]))
@@ -553,11 +559,11 @@ class AlgebraicDifferentiator(object):
         Returns
         -------
         up: numpy array
-            Upper bound for the amplitude spectrum.
+            Upper bound for the amplitude spectrum evaluated at omega..
         lb: numpy array
-            Lower bound for the amplitude spectrum.
+            Lower bound for the amplitude spectrum evaluated at omega..
         mb: numpy array
-            Lowpass approximation of the filter.
+            Lowpass approximation of the filter evaluated at omega..
         """
 
         kappa = np.abs(self.__beta-self.__alpha)
@@ -688,7 +694,7 @@ class AlgebraicDifferentiator(object):
         This function sets the parameter :math:`\\alpha` of the weight\
         function of the algebraic\
         differentiator to the value alpha. The value must satisfy\
-        :math:`\\alpha>n-1`, with :math:`n` the derivative to be estimated.
+        :math:`\\alpha>n-1`, with :math:`n` the highest derivative to be estimated.
 
         :param alpha: Parameter of the weight function.
         :type alpha: float
@@ -754,7 +760,7 @@ class AlgebraicDifferentiator(object):
         :param rootJacobiPol: True if the value theta is equal to a zero of\
         the jacobi polynomial of order :math:`N+1`. For the delay-free
             approximation use False, since :math:`1` is not a zero.
-        :type rootJacobiPol: bool
+        :type rootJacobiPol: Bool
         """
 
         self.__thetaBool = rootJacobiPol
