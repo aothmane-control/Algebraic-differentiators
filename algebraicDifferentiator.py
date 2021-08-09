@@ -536,7 +536,7 @@ class AlgebraicDifferentiator(object):
         w,theta = self.discretize(n,method,discreteSpectrum=True)
         k = np.arange(0,len(w[n][method]))
         Gdis =  np.array([np.exp(-1j*omegai*(k+theta)*self.__ts).dot(w[n][method]) for omegai in omega])
-        return np.abs(Gdis) 
+        return np.abs(Gdis), np.unwrap(np.angle(Gdis))
 
     def get_asymptotesAmpFilter(self,omega):
         """
