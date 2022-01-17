@@ -1,5 +1,5 @@
-# Algebraic differentiators
-A Python class that provides all necessary tools for the design, analysis, and discretization of algebraic differentiators. An interface to Matlab is also provided.
+# AlgDiff
+AlgDiff: A Python class that provides all necessary tools for the design, analysis, and discretization of algebraic differentiators. An interface to Matlab is also provided.
 
 The toolbox is licensed under the BSD-3-Clause License, which is suitable for both academic and industrial/commercial purposes.
 # Motivation 
