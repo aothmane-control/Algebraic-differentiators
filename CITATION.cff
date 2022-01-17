@@ -4,7 +4,7 @@ authors:
 - family-names: "Othmane"
   given-names: "Amine"
   orcid: "https://orcid.org/0000-0002-8871-3472"
-title: "A Python package with Matlab coupling implementing all necessary tools for the design, analysis, and discretization of algebraic differentiators."
+title: "AlgDiff: A Python package with Matlab coupling implementing all necessary tools for the design, analysis, and discretization of algebraic differentiators."
 version: 1.0.0
 doi: 10.5281/zenodo.5172198
 date-released: 2021-08-09
