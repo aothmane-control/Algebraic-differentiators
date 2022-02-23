@@ -1,5 +1,6 @@
-# Algebraic differentiators
-A Python class that provides all necessary tools for the design, analysis, and discretization of algebraic differentiators. An interface to Matlab is also provided.
+# AlgDiff
+AlgDiff: A Python class that provides all necessary tools for the design, analysis, and discretization of algebraic differentiators. An interface to Matlab is also provided.
+This implementation was released as part of the survey paper [[1]](#1).  
 
 The toolbox is licensed under the BSD-3-Clause License, which is suitable for both academic and industrial/commercial purposes.
 # Motivation 
@@ -8,8 +9,8 @@ fields of engineering and applied mathematics. It is, however, a longstanding il
 and challenging problem, in the sense that a small error in measurement data can
 induce a significant error in the estimated derivatives.
 
-Algebraic differentiators have been derived and discussed in the systems and control theory community. The initial works based on differential-algebraic methods have been developed by Mboup,  Join, and Fliess in [[1]](#1). These numerical, non-asymptotic approximation approaches
-for higher-order derivatives of noisy signals are well suited for real-time embedded systems. 
+Algebraic differentiators have been derived and discussed in the systems and control theory community. The initial works based on differential-algebraic methods have been developed by Mboup,  Join, and Fliess in [[2]](#2). These numerical, non-asymptotic approximation approaches
+for higher-order derivatives of noisy signals are well suited for real-time embedded systems. A historical overview and a detailed discussion of these differentiators and their time-domain and frequency-domain properties are given in the survey paper [[1]](#1).  
 
 The following figure shows the results of the numerical estimation of the first time derivative of a noisy signal based on an algebraic differentiator on the one hand and the simple difference quotient rule on the other. This simulation shows the excellent performance of this numerical differentiation approach. 
 ![Motivation example](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/motivationAlgDiff.png)
@@ -17,7 +18,7 @@ The following figure shows the results of the numerical estimation of the first 
 Algebraic differentiators are linear time-invariant filters with a finite-duration impulse response. These filters can be approximated as lowpass filters with a known cutoff frequency and a stopband slope. The following figure presents the amplitude and phase spectra of two exemplary filters. The lowpass approximation is also shown. 
 ![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/filterSpectrum.png)
 
-See [[2]](#2), [[3]](#3), and [[4]](#4) for more details on the parametrization of these differentiators.
+See [[3]](#3), [[4]](#4), and [[5]](#5) for more details on the parametrization of these differentiators.
 
 This code has been created for research purposes at the [Chair of Systems Theory and Control Engineering](https://www.uni-saarland.de/en/chair/rudolph.html) of Saarland University, Germany.
  We apply algebraic differentiators to solve different problems related to control theory and signal processing: Parameter estimation, feedback control, fault detection and fault tolerant control, model-free control ...
@@ -45,15 +46,17 @@ Feel free to contact [Amine](https://www.uni-saarland.de/en/chair/rudolph/staff/
 BSD 3-Clause "New" or "Revised" License, see [License-file](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/LICENSE).
 
 # References
-<a id="1">[1]</a> M. Mboup,  C. Join, and M. Fliess, "Numerical differentiation with annihilators in noisy environment. Numerical Algorithms", 50 (4), 439–467, 2009, https://doi.org/10.1007/s11075-008-9236-1
+<a id="5">[1]</a> A. Othmane, L. Kiltz, and J. Rudolph, "Survey on algebraic numerical differentiation: historical developments, parametrization, examples, and applications", Int. J. Syst. Sci. https://www.tandfonline.com/doi/full/10.1080/00207721.2022.2025948
+
+<a id="1">[2]</a> M. Mboup,  C. Join, and M. Fliess, "Numerical differentiation with annihilators in noisy environment. Numerical Algorithms", 50 (4), 439–467, 2009, https://doi.org/10.1007/s11075-008-9236-1
 
 
-<a id="2">[2]</a> L. Kiltz and J. Rudolph, “Parametrization of algebraic numerical
+<a id="2">[3]</a> L. Kiltz and J. Rudolph, “Parametrization of algebraic numerical
 differentiators to achieve desired filter characteristics,” in Proc. 52nd
 IEEE Conf. on Decision and Control, Firenze, Italy, 2013, pp. 7010–
 7015, https://doi.org/10.1109/CDC.2013.6761000
 
-<a id="3">[3]</a> M. Mboup and S. Riachy, "Frequency-domain analysis and tuning of the algebraic
-differentiators," Int. J. Control , 91 (9), 2073–2081, 2018, https://doi.org/10.1080/00207179.2017.1421776 
+<a id="3">[4]</a> M. Mboup and S. Riachy, "Frequency-domain analysis and tuning of the algebraic differentiators," Int. J. Control , 91 (9), 2073–2081, 2018, https://doi.org/10.1080/00207179.2017.1421776 
 
-<a id="4">[4]</a> A. Othmane, J. Rudolph, and H. Mounier, "Systematic comparison of numerical differentiators and an application to model-free control," Eur. J. Control. https://doi.org/10.1016/j.ejcon.2021.06.020
+<a id="4">[5]</a> A. Othmane, J. Rudolph, and H. Mounier, "Systematic comparison of numerical differentiators and an application to model-free control", Eur. J. Control. https://doi.org/10.1016/j.ejcon.2021.06.020
+
