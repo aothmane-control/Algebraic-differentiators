@@ -69,7 +69,7 @@ Feel free to contact [Amine](https://www.uni-saarland.de/en/chair/rudolph/staff/
 BSD 3-Clause "New" or "Revised" License, see [License-file](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/LICENSE).
 
 # References
-<a id="5">[1]</a> A. Othmane, L. Kiltz, and J. Rudolph, "Survey on algebraic numerical differentiation: historical developments, parametrization, examples, and applications", Int. J. Syst. Sci. https://www.tandfonline.com/doi/full/10.1080/00207721.2022.2025948
+<a id="5">[1]</a> A. Othmane, L. Kiltz, and J. Rudolph, "Survey on algebraic numerical differentiation: historical developments, parametrization, examples, and applications", Int. J. Syst. Sci. https://doi.org/10.1080/00207721.2022.2025948
 
 <a id="1">[2]</a> M. Mboup,  C. Join, and M. Fliess, "Numerical differentiation with annihilators in noisy environment. Numerical Algorithms", 50 (4), 439–467, 2009, https://doi.org/10.1007/s11075-008-9236-1
 
