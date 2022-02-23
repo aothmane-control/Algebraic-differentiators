@@ -31,7 +31,7 @@ The approximation-theoretic derivation recalled in the survey [[1]](#1) permits 
 1. Projection: At time <img src="https://render.githubusercontent.com/render/math?math=t">, the sough <img src="https://render.githubusercontent.com/render/math?math=n">-th order time derivative <img src="https://render.githubusercontent.com/render/math?math=y^{(n)}"> over the interval <img src="https://render.githubusercontent.com/render/math?math=I_{T}(t)"> is projected onto the space of polynomials of degree <img src="https://render.githubusercontent.com/render/math?math=\mathrm{N}">. This yields the polynomial <img src="https://render.githubusercontent.com/render/math?math=p_\mathrm{N}"> depicted in the left and middle part of the Figure.
 2. Evaluation: The polynomial <img src="https://render.githubusercontent.com/render/math?math=p_\mathrm{N}"> is evaluated at <img src="https://render.githubusercontent.com/render/math?math=t-\delta_t">, which gives an estimate <img src="https://render.githubusercontent.com/render/math?math={\hat{y}^{(n)}(t)=p_{\N}(t-\delta_t)}"> for the derivative <img src="https://render.githubusercontent.com/render/math?math=y^{(n)}(t)"> as depicted in the central part of Figure below. Choosing the delay to be the largest root of a special Jacobi polynomial increases the approximation order by 1 with a minimal delay. Alternatively, a delay-free estimation or even a prediction of the future derivative might be
     selected, at the cost of a reduced accuracy.
-3. Repetition: The first two steps are repeated at each time instant <img src="https://render.githubusercontent.com/render/math?math=t_i"> while keeping the parameters of the differentiator constant. This yields  the estimate <img src="https://render.githubusercontent.com/render/math?math=\hat{y}^{(n)}"> depicted in the right part of Figure.
+3. Repetition: The first two steps are repeated at each discrete time instant <img src="https://render.githubusercontent.com/render/math?math=t_i"> while keeping the parameters of the differentiator constant. This yields  the estimate <img src="https://render.githubusercontent.com/render/math?math=\hat{y}^{(n)}"> depicted in the right part of Figure.
 
 ![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/interpretationDifferentiators.png)
 
@@ -41,10 +41,10 @@ Algebraic differentiators can be interpreted as linear time-invariant filters wi
 
 See [[1]](#1), [[3]](#3), [[4]](#4), and [[5]](#5) for more details on the parametrization of these differentiators.
 
-# Prerequisites
+# Prerequisites for the implementation
 The code is implemented in Python 3. To use all functionalities, the following packages are required: [scipy](https://www.scipy.org/), [numpy](https://numpy.org/), [mpmath](https://mpmath.org/), and [math](https://docs.python.org/3/library/math.html). The examples implemented in Python are written in [jupyter notebooks](https://jupyter.org/) and require the packages [jupyter_latex_envs](https://github.com/jfbercher/jupyter_latex_envs) for the generation of useful documentations and [matplotlib](https://matplotlib.org/) for the creation of plots. The functions in the toolbox can also be used in Matlab for which different examples are also included. Check the Matlab [documentation](https://de.mathworks.com/help/matlab/matlab_external/install-supported-python-implementation.html) for more details on the compatibility of your Matlab version with Python.
 
-# How to use
+# How to use  the implementation
 The contribution of this implementation is an easy to use framework for the design and discretization of algebraic differentiators to achieve desired filter characteristics, i.e., to specify the cutoff frequency and the stopband slope. The file [algebraicDifferentiator.py](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/algebraicDifferentiator.py) implements the class AlgebraicDifferentiator. This class contains all necessary functions for the design, analysis, and discretization of the differentiators.
 
 Different examples are provided as jupyter notebooks and Matlab code in the following:
