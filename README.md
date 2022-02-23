@@ -3,25 +3,40 @@ AlgDiff: A Python class that provides all necessary tools for the design, analys
 This implementation was released as part of the survey paper [[1]](#1).  
 
 The toolbox is licensed under the BSD-3-Clause License, which is suitable for both academic and industrial/commercial purposes.
+
+This code has been created for research purposes at the [Chair of Systems Theory and Control Engineering](https://www.uni-saarland.de/en/chair/rudolph.html) of Saarland University, Germany.
+ We apply algebraic differentiators to solve different problems related to control theory and signal processing: Parameter estimation, feedback control, fault detection and fault tolerant control, model-free control ...
+
 # Motivation 
 Estimating the derivatives of noisy signals is of paramount importance in many
 fields of engineering and applied mathematics. It is, however, a longstanding ill-posed
 and challenging problem, in the sense that a small error in measurement data can
 induce a significant error in the estimated derivatives.
 
-Algebraic differentiators have been derived and discussed in the systems and control theory community. The initial works based on differential-algebraic methods have been developed by Mboup,  Join, and Fliess in [[2]](#2). These numerical, non-asymptotic approximation approaches
-for higher-order derivatives of noisy signals are well suited for real-time embedded systems. A historical overview and a detailed discussion of these differentiators and their time-domain and frequency-domain properties are given in the survey paper [[1]](#1).  
+
 
 The following figure shows the results of the numerical estimation of the first time derivative of a noisy signal based on an algebraic differentiator on the one hand and the simple difference quotient rule on the other. This simulation shows the excellent performance of this numerical differentiation approach. 
 ![Motivation example](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/motivationAlgDiff.png)
+
+
+
+
+
+# On algebraic differentiators
+Algebraic differentiators have been derived and discussed in the systems and control theory community. The initial works based on differential-algebraic methods have been developed by Mboup,  Join, and Fliess in [[2]](#2). These numerical, non-asymptotic approximation approaches
+for higher-order derivatives of noisy signals are well suited for real-time embedded systems. A historical overview and a detailed discussion of these differentiators and their time-domain and frequency-domain properties are given in the survey paper [[1]](#1).  
+
+The approximation-theoretic derivation recalled in the survey [[1]](#1) permits the interpretation of the estimation process by the following three steps stemming from [[1]](#1) and illustrated in the figure below:
+
+1. Projection: At time <img src="https://render.githubusercontent.com/render/math?math=t">, the sough <img src="https://render.githubusercontent.com/render/math?math=n">-th order time derivative <img src="https://render.githubusercontent.com/render/math?math=y^{(n)}"> over the interval <img src="https://render.githubusercontent.com/render/math?math=\mathcal{I}_{\AlgT}(t)"> is projected onto the space of polynomials of degree <img src="https://render.githubusercontent.com/render/math?math=\mathrm{N}">. This yields the polynomial <img src="https://render.githubusercontent.com/render/math?math=p_\mathrm{N}"> depicted in the left and middle part of the Figure.
+2. Evaluation: The polynomial $p_{\AlgN}$ is evaluated at $t-\AlgDel$, which gives an estimate ${\hat{y}^{(n)}(t)=p_{\AlgN}(t-\AlgDel)}$ for the derivative $y^{(n)}(t)$ as depicted in the central part of Figure \ref{fig:AlgDiffScheme}. Choosing the delay to be the largest root of the Jacobi polynomial $\jacPol_{\AlgN+1}^{(\AlgAlpha,\AlgBeta)}$ increases the approximation order by 1 with a minimal delay. Alternatively, a delay-free estimation or even a prediction of the future derivative might be
+    selected, at the cost of a reduced accuracy.
+3. Repetition: The first two steps are repeated at each time instant $t_i$ while keeping the parameters $\AlgAlpha$, $\AlgBeta$, $\AlgN$, $\AlgT$, and $\AlgTheta$ constant, i.e., evaluating \eqref{eq:filterContinuous} at every time instant $t_i$. This yields  the estimate $\hat{y}^{(n)}$ depicted in the right part of Figure \ref{fig:AlgDiffScheme}.
 
 Algebraic differentiators are linear time-invariant filters with a finite-duration impulse response. These filters can be approximated as lowpass filters with a known cutoff frequency and a stopband slope. The following figure presents the amplitude and phase spectra of two exemplary filters. The lowpass approximation is also shown. 
 ![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/filterSpectrum.png)
 
 See [[3]](#3), [[4]](#4), and [[5]](#5) for more details on the parametrization of these differentiators.
-
-This code has been created for research purposes at the [Chair of Systems Theory and Control Engineering](https://www.uni-saarland.de/en/chair/rudolph.html) of Saarland University, Germany.
- We apply algebraic differentiators to solve different problems related to control theory and signal processing: Parameter estimation, feedback control, fault detection and fault tolerant control, model-free control ...
 
 # Prerequisites
 The code is implemented in Python 3. To use all functionalities, the following packages are required: [scipy](https://www.scipy.org/), [numpy](https://numpy.org/), [mpmath](https://mpmath.org/), and [math](https://docs.python.org/3/library/math.html). The examples implemented in Python are written in [jupyter notebooks](https://jupyter.org/) and require the packages [jupyter_latex_envs](https://github.com/jfbercher/jupyter_latex_envs) for the generation of useful documentations and [matplotlib](https://matplotlib.org/) for the creation of plots. The functions in the toolbox can also be used in Matlab for which different examples are also included. Check the Matlab [documentation](https://de.mathworks.com/help/matlab/matlab_external/install-supported-python-implementation.html) for more details on the compatibility of your Matlab version with Python.
