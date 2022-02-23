@@ -1,6 +1,6 @@
 # AlgDiff
 AlgDiff: A Python class that provides all necessary tools for the design, analysis, and discretization of algebraic differentiators. An interface to Matlab is also provided.
-This implementation was released as part of the survey paper [[1]](#1).  
+This implementation was released as part of the survey [[1]](#1).  
 
 The toolbox is licensed under the BSD-3-Clause License, which is suitable for both academic and industrial/commercial purposes.
 
@@ -25,7 +25,7 @@ The following figure shows the results of the numerical estimation of the first 
 
 # On algebraic differentiators
 Algebraic differentiators have been derived and discussed in the systems and control theory community. The initial works based on differential-algebraic methods have been developed by Mboup,  Join, and Fliess in [[2]](#2). These numerical, non-asymptotic approximation approaches
-for higher-order derivatives of noisy signals are well suited for real-time embedded systems. A historical overview and a detailed discussion of these differentiators and their time-domain and frequency-domain properties are given in the survey paper [[1]](#1).  
+for higher-order derivatives of noisy signals are well suited for real-time embedded systems. A historical overview and a detailed discussion of these differentiators and their time-domain and frequency-domain properties are given in the survey [[1]](#1).  
 
 The approximation-theoretic derivation recalled in the survey [[1]](#1) permits the interpretation of the estimation process by the following three steps illustrated in the figure below stemming from [[1]](#1):
 
