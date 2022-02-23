@@ -17,7 +17,7 @@ induce a significant error in the estimated derivatives.
 
 The following figure shows the results of the numerical estimation of the first time derivative of a noisy signal based on an algebraic differentiator on the one hand and the simple difference quotient rule on the other. This simulation shows the excellent performance of this numerical differentiation approach. 
 ![Motivation example](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/motivationAlgDiff.png)
-
+*Numerical differentiation of a noisy signal*
 
 
 
@@ -33,11 +33,13 @@ The approximation-theoretic derivation recalled in the survey [[1]](#1) permits 
     selected, at the cost of a reduced accuracy.
 3. Repetition: The first two steps are repeated at each discrete time instant <img src="https://render.githubusercontent.com/render/math?math=t_i"> while keeping the parameters of the differentiator constant. This yields  the estimate <img src="https://render.githubusercontent.com/render/math?math=\hat{y}^{(n)}"> depicted in the right part of Figure.
 
-![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/interpretationDifferentiators.png) *Three-step process of the estimation of the  <img src="https://render.githubusercontent.com/render/math?math=n">-th order derivative <img src="https://render.githubusercontent.com/render/math?math={y^{(n)}:t\mapsto y^{(n)}(t)}"> of a signal <img src="https://render.githubusercontent.com/render/math?math=y:t\mapsto y(t)"> using  algebraic differentiators.*
+![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/interpretationDifferentiators.png) 
+*Three-step process of the estimation of the  <img src="https://render.githubusercontent.com/render/math?math=n">-th order derivative <img src="https://render.githubusercontent.com/render/math?math={y^{(n)}:t\mapsto y^{(n)}(t)}"> of a signal <img src="https://render.githubusercontent.com/render/math?math=y:t\mapsto y(t)"> using  algebraic differentiators.*
 
 
 Algebraic differentiators can be interpreted as linear time-invariant filters with a finite-duration impulse response. These filters can be approximated as lowpass filters with a known cutoff frequency and a stopband slope. The following figure presents the amplitude and phase spectra of two exemplary filters. The lowpass approximation is also shown. 
 ![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/filterSpectrum.png)
+*Amplitude and phase spectra of two different filters\n and the corresponding lowpass approximation of the amplitude spectrum*
 
 See [[1]](#1), [[3]](#3), [[4]](#4), and [[5]](#5) for more details on the parametrization of these differentiators.
 
