@@ -18,7 +18,7 @@ induce a significant error in the estimated derivatives.
 The following figure shows the results of the numerical estimation of the first time derivative of a noisy signal based on an algebraic differentiator on the one hand and the simple difference quotient rule on the other. This simulation shows the excellent performance of this numerical differentiation approach. 
 | ![Motivation example](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/motivationAlgDiff.png) |
 |:--:| 
-| Numerical differentiation of a noisy signal |
+| Numerical differentiation of a noisy signal using a simple difference quotient on the one hand and an algebraic differentiator on the other |
 
 
 
