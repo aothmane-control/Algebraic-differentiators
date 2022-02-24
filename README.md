@@ -15,10 +15,10 @@ induce a significant error in the estimated derivatives.
 
 
 
-The following figure shows the results of the numerical estimation of the first time derivative of a noisy signal based on an algebraic differentiator on the one hand and the simple difference quotient rule on the other. This simulation shows the excellent performance of this numerical differentiation approach. 
+Figure 1 shows the results of the numerical estimation of the first time derivative of a noisy signal based on an algebraic differentiator on the one hand and the simple difference quotient rule on the other. This simulation shows the excellent performance of this numerical differentiation approach. 
 | ![Motivation example](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/motivationAlgDiff.png) |
 |:--:| 
-| Numerical differentiation of a noisy signal using a simple difference quotient on the one hand and an algebraic differentiator on the other |
+| Figure 1. Numerical differentiation of a noisy signal using a simple difference quotient on the one hand and an algebraic differentiator on the other |
 
 
 
@@ -29,20 +29,20 @@ for higher-order derivatives of noisy signals are well suited for real-time embe
 
 The approximation-theoretic derivation recalled in the survey [[1]](#1) permits the interpretation of the estimation process by the following three steps illustrated in the figure below stemming from [[1]](#1):
 
-1. Projection: At time <img src="https://render.githubusercontent.com/render/math?math=t">, the sough <img src="https://render.githubusercontent.com/render/math?math=n">-th order time derivative <img src="https://render.githubusercontent.com/render/math?math=y^{(n)}"> over the interval <img src="https://render.githubusercontent.com/render/math?math=I_{T}(t)"> is projected onto the space of polynomials of degree <img src="https://render.githubusercontent.com/render/math?math=\mathrm{N}">. This yields the polynomial <img src="https://render.githubusercontent.com/render/math?math=p_\mathrm{N}"> depicted in the left and middle part of the Figure.
-2. Evaluation: The polynomial <img src="https://render.githubusercontent.com/render/math?math=p_\mathrm{N}"> is evaluated at <img src="https://render.githubusercontent.com/render/math?math=t-\delta_t">, which gives an estimate <img src="https://render.githubusercontent.com/render/math?math={\hat{y}^{(n)}(t)=p_{\N}(t-\delta_t)}"> for the derivative <img src="https://render.githubusercontent.com/render/math?math=y^{(n)}(t)"> as depicted in the central part of Figure below. Choosing the delay to be the largest root of a special Jacobi polynomial increases the approximation order by 1 with a minimal delay. Alternatively, a delay-free estimation or even a prediction of the future derivative might be
+1. Projection: At time <img src="https://render.githubusercontent.com/render/math?math=t">, the sough <img src="https://render.githubusercontent.com/render/math?math=n">-th order time derivative <img src="https://render.githubusercontent.com/render/math?math=y^{(n)}"> over the interval <img src="https://render.githubusercontent.com/render/math?math=I_{T}(t)"> is projected onto the space of polynomials of degree <img src="https://render.githubusercontent.com/render/math?math=\mathrm{N}">. This yields the polynomial <img src="https://render.githubusercontent.com/render/math?math=p_\mathrm{N}"> depicted in the left and middle part of Figure 2.
+2. Evaluation: The polynomial <img src="https://render.githubusercontent.com/render/math?math=p_\mathrm{N}"> is evaluated at <img src="https://render.githubusercontent.com/render/math?math=t-\delta_t">, which gives an estimate <img src="https://render.githubusercontent.com/render/math?math={\hat{y}^{(n)}(t)=p_{\N}(t-\delta_t)}"> for the derivative <img src="https://render.githubusercontent.com/render/math?math=y^{(n)}(t)"> as depicted in the central part of Figure 2. Choosing the delay to be the largest root of a special Jacobi polynomial increases the approximation order by 1 with a minimal delay. Alternatively, a delay-free estimation or even a prediction of the future derivative might be
     selected, at the cost of a reduced accuracy.
-3. Repetition: The first two steps are repeated at each discrete time instant <img src="https://render.githubusercontent.com/render/math?math=t_i"> while keeping the parameters of the differentiator constant. This yields  the estimate <img src="https://render.githubusercontent.com/render/math?math=\hat{y}^{(n)}"> depicted in the right part of Figure.
+3. Repetition: The first two steps are repeated at each discrete time instant <img src="https://render.githubusercontent.com/render/math?math=t_i"> while keeping the parameters of the differentiator constant. This yields  the estimate <img src="https://render.githubusercontent.com/render/math?math=\hat{y}^{(n)}"> depicted in the right part of the Figure 2.
 
 | ![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/interpretationDifferentiators.png) |
 |:--:| 
-| Three-step process of the estimation of the  <img src="https://render.githubusercontent.com/render/math?math=n">-th order derivative <img src="https://render.githubusercontent.com/render/math?math={y^{(n)}:t\mapsto y^{(n)}(t)}"> of a signal <img src="https://render.githubusercontent.com/render/math?math=y:t\mapsto y(t)"> using  algebraic differentiators (figure from [[1]](#1)) |
+| Figure 2. Three-step process of the estimation of the  <img src="https://render.githubusercontent.com/render/math?math=n">-th order derivative <img src="https://render.githubusercontent.com/render/math?math={y^{(n)}:t\mapsto y^{(n)}(t)}"> of a signal <img src="https://render.githubusercontent.com/render/math?math=y:t\mapsto y(t)"> using  algebraic differentiators (figure from [[1]](#1)) |
 
 
-Algebraic differentiators can be interpreted as linear time-invariant filters with a finite-duration impulse response. These filters can be approximated as lowpass filters with a known cutoff frequency and a stopband slope. The following figure presents the amplitude and phase spectra of two exemplary filters. The lowpass approximation is also shown. 
+Algebraic differentiators can be interpreted as linear time-invariant filters with a finite-duration impulse response. These filters can be approximated as lowpass filters with a known cutoff frequency and a stopband slope. Figure 3 presents the amplitude and phase spectra of two exemplary filters. The lowpass approximation is also shown. 
 | ![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/filterSpectrum.png) |
 |:--:| 
-| Amplitude and phase spectra of two different filters\n and the corresponding lowpass approximation of the amplitude spectrum |
+| Figure 3. Amplitude and phase spectra of two different filters\n and the corresponding lowpass approximation of the amplitude spectrum |
 
 See [[1]](#1), [[3]](#3), [[4]](#4), and [[5]](#5) for more details on the parametrization of these differentiators.
 
