@@ -390,12 +390,12 @@ filter evaluated at omega.</li>
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_delayDiscrete">
 <code class="descname">get_delayDiscrete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_delayDiscrete" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function returns the estimation delay <span class="math notranslate nohighlight">\(\delta_{t,\mathrm{d}}\)</span> of the                discrete algebraic differentiator.</p>
+<dd><p>This function returns the estimation delay <span class="math notranslate nohighlight">\(\delta_{t,\mathrm{d}}\)</span> of the                discrete algebraic differentiator. The delay can vary depending on the                used discretization method.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><span class="math notranslate nohighlight">\(\delta_{t,\mathrm{d}}\)</span> as a float</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Dictionary with keys the used discretization schemes.                for each key a value of the delay is provided.</td>
 </tr>
 </tbody>
 </table>

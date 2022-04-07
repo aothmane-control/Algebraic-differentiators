@@ -654,9 +654,11 @@ class AlgebraicDifferentiator(object):
     def get_delayDiscrete(self):
         """
         This function returns the estimation delay :math:`\delta_{t,\mathrm{d}}` of the\
-                discrete algebraic differentiator. 
+                discrete algebraic differentiator. The delay can vary depending on the\
+                used discretization method.
 
-        :return:  :math:`\delta_{t,\mathrm{d}}` as a float 
+        :return:  Dictionary with keys the used discretization schemes.\
+                for each key a value of the delay is provided.
         """
         return self.__delayDisc
 
