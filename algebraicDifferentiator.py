@@ -792,7 +792,7 @@ class AlgebraicDifferentiator(object):
 
     def get_ratioNyquistCutoff(self,k):
         """This function computes the ratio
-        :math:`k_N=\\frac{\omega_N^k\\big|\mathcal{G}(\omega_N)\\big|}{\omega_c^k\Big|\mathcal{G}(\omega_c)\Big|}`, with :math:`\omega_N=\pi/t_s`, the Nyquist frequency and :math:`\omega_c` the                cutoff frequency.
+        :math:`k_N=20\\log_{10}\\left(\\frac{\omega_N^k\\big|\mathcal{G}(\omega_N)\\big|}{\omega_c^k\Big|\mathcal{G}(\omega_c)\Big|}\\right)`, with :math:`\omega_N=\pi/t_s`, the Nyquist frequency and :math:`\omega_c` the                cutoff frequency.
 
         :param k: Orders of derivatives to be estimated.
         :type k: list of natural numbers
@@ -804,7 +804,7 @@ class AlgebraicDifferentiator(object):
         wN = np.pi/self.__ts
         G, tmp = self.get_ampAndPhaseFilter(np.array([wc,wN]))
 
-        return 10*np.log10(np.power(wN,k)*G[1]/np.power(wc,k)/G[0])
+        return 20*np.log10(np.power(wN,k)*G[1]/np.power(wc,k)/G[0])
 
     def reduceFilterLength(self,der,tol=0.01):
         """ This function returns a distribution function that can
