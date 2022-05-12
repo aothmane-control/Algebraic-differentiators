@@ -39,10 +39,16 @@ The approximation-theoretic derivation recalled in the survey [[1]](#1) permits 
 | Figure 2. Three-step process of the estimation of the  <img src="https://render.githubusercontent.com/render/math?math=n">-th order derivative <img src="https://render.githubusercontent.com/render/math?math={y^{(n)}:t\mapsto y^{(n)}(t)}"> of a signal <img src="https://render.githubusercontent.com/render/math?math=y:t\mapsto y(t)"> using  algebraic differentiators (figure from [[1]](#1)) |
 
 
-Algebraic differentiators can be interpreted as linear time-invariant filters with a finite-duration impulse response. These filters can be approximated as lowpass filters with a known cutoff frequency and a stopband slope. Figure 3 presents the amplitude and phase spectra of two exemplary filters. The lowpass approximation is also shown. 
+Algebraic differentiators can be interpreted as linear time-invariant filters with a finite-duration impulse response. Figure 3 visualizes the online estimation process of the first derivative of a noisy signal. The filter window, the buffered signal, and the filter kernel can be clearly seen. 
+
+| ![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/animationEstimation.gif) |
+|:--:| 
+| Figure 3. Visualization of the online estimation of the first derivative a noisy signal using an algebraic differentiator.|
+
+These filters can be approximated as lowpass filters with a known cutoff frequency and a stopband slope. Figure 4 presents the amplitude and phase spectra of two exemplary filters. The lowpass approximation is also shown. 
 | ![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/filterSpectrum.png) |
 |:--:| 
-| Figure 3. Amplitude and phase spectra of two different filters\n and the corresponding lowpass approximation of the amplitude spectrum |
+| Figure 4. Amplitude and phase spectra of two different filters\n and the corresponding lowpass approximation of the amplitude spectrum |
 
 See [[1]](#1), [[3]](#3), [[4]](#4), and [[5]](#5) for more details on the parametrization of these differentiators.
 
