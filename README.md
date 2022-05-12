@@ -41,7 +41,7 @@ The approximation-theoretic derivation recalled in the survey [[1]](#1) permits 
 
 Algebraic differentiators can be interpreted as linear time-invariant filters with a finite-duration impulse response. Figure 3 visualizes the online estimation process of the first derivative of a noisy signal. The filter window, the buffered signal, and the filter kernel can be clearly seen. 
 
-| ! <img src="https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/animationEstimation.gif" height="80">|
+| ! <img src="https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/animationEstimation.gif" height="200">|
 |:--:| 
 | Figure 3. Visualization of the online estimation of the first derivative a noisy signal using an algebraic differentiator.|
 
