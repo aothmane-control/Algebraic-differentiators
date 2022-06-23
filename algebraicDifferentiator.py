@@ -138,13 +138,23 @@ class AlgebraicDifferentiator(object):
             :math:`\\theta` used in the discretization is returned. See survey paper
             for more details.
         :type discreteSpectrum: Bool
-
-        :return: Discretized filter in a dict where the keys are the derivative
+        
+        Returns
+        -------
+        coeff: dictionary
+            Discretized filter in a dict where the keys are the derivative
             for which a filter has been discretized. Each element is a dict. with
-            keys the used discretization methods. If redFilLength is set, 
-            the time instants :math:`\\tau_1` and :math:`\\tau_2`  where the filter
-            window is reduced are also returned. If discreteSpectrum is set then
-            the parameter :math:`\\theta` is also returned.
+            keys the used discretization methods. 
+        tau_1: float
+            If redFilLength is set, tau_1 is the time where the filter window is reduced
+            before at the left side of the interval. The estimation delay is 
+            reduced by tau_1.
+        tau_2: float
+            If redFilLength is set, tau_2 is the time where the filter window is reduced
+            before at the right side of the interval. This value does not affect the
+            delay.
+        theta: float
+            If discreteSpectrum is set then the parameter :math:`\\theta` is also returned.
         """
         theta0 = 0
         theta = theta0
