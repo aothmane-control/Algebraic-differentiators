@@ -134,10 +134,17 @@ class AlgebraicDifferentiator(object):
         :type reduceFilLength: Bool
         :param redTol: Tolerance to be used when the filter length is reduced.
         :type redTol: float.
+        :param discreteSpectrum: If it is set, then the parameter \
+            :math:`\\theta` used in the discretization is returned. See survey paper
+            for more details.
+        :type discreteSpectrum: Bool
 
         :return: Discretized filter in a dict where the keys are the derivative
             for which a filter has been discretized. Each element is a dict. with
-            keys the used discretization methods.
+            keys the used discretization methods. If redFilLength is set, 
+            the time instants :math:`\\tau_1` and :math:`\\tau_2`  where the filter
+            window is reduced are also returned. If discreteSpectrum is set then
+            the parameter :math:`\\theta` is also returned.
         """
         theta0 = 0
         theta = theta0

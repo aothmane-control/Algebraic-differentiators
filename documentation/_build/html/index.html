@@ -134,12 +134,17 @@ the filter was truncated.</p>
 <li><strong>method</strong> (<em>string</em>) – Discretization scheme: “mid-point”, “trapezoidal”,            “analytic”.</li>
 <li><strong>reduceFilLength</strong> (<em>Bool</em>) – Reduce or not the filter window length.</li>
 <li><strong>redTol</strong> (<em>float.</em>) – Tolerance to be used when the filter length is reduced.</li>
+<li><strong>discreteSpectrum</strong> (<em>Bool</em>) – If it is set, then the parameter             <span class="math notranslate nohighlight">\(\theta\)</span> used in the discretization is returned. See survey paper
+for more details.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Discretized filter in a dict where the keys are the derivative
 for which a filter has been discretized. Each element is a dict. with
-keys the used discretization methods.</p>
+keys the used discretization methods. If redFilLength is set,
+the time instants <span class="math notranslate nohighlight">\(\tau_1\)</span> and <span class="math notranslate nohighlight">\(\tau_2\)</span>  where the filter
+window is reduced are also returned. If discreteSpectrum is set then
+the parameter <span class="math notranslate nohighlight">\(\theta\)</span> is also returned.</p>
 </td>
 </tr>
 </tbody>
