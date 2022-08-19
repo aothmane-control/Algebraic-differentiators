@@ -856,7 +856,7 @@ class AlgebraicDifferentiator(object):
             Times instants where distribution function has been evaluated.
         n: int
             Factor relating the sampling rate of the measurements and the
-            sampling rate used for the the evaluation of the distribution
+            sampling rate used for the evaluation of the distribution
             function.
         """
         # Compute the first moment of the n-th derivative of the kernel
