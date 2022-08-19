@@ -203,13 +203,13 @@ class AlgebraicDifferentiator(object):
             self.__w[der][method+red][0] = self.__w[der][method+red][0]/2
             self.__w[der][method+red][-1] = self.__w[der][method+red][-1]/2
         elif method=="analytic":
-            self.__L = 1+L0
+            self.__L = L0
             self.__delayDisc[method+red] = self.get_delay()-self.__ts/2\
                                             -tau1*self.__ts
             if der==0:
                 print("Error: Method not available for this derivative order")
             elif der>1:
-                theta = theta0
+                theta = 0.5+theta0
                 k = (np.array(range(self.__L))+theta)*self.__ts
                 p1 = self.evalKernelDer(k,der-1)
                 p2 = self.evalKernelDer(k+self.__ts,der-1)
@@ -218,7 +218,7 @@ class AlgebraicDifferentiator(object):
                 else:
                     self.__w[der] = {method+red:p2-p1}
             elif der==1:
-                theta = theta0
+                theta = 0.5+theta0
                 k = (np.array(range(self.__L))+theta)*self.__ts
                 p1 = self.evalKernel(k)
                 p2 = self.evalKernel(k+self.__ts)
