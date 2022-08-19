@@ -60,7 +60,9 @@ higher than the cutoff frequency are attenuated by <span class="math notranslate
 per decade. Frequencies lower than the cutoff frequency are attenuated
 by <span class="math notranslate nohighlight">\(0\,\)</span> dB.</li>
 <li><strong>N</strong> (<em>int</em>) – Truncation order of the generalized Fourier series. A delay-free
-derivative approximation is only possible for <span class="math notranslate nohighlight">\(N\geq 1\)</span>. See the
+derivative approximation is only possible for <span class="math notranslate nohighlight">\(N\geq 1\)</span>. The
+differentiator is parametrized by default such that the non-zero delay is
+minimized for the choice <span class="math notranslate nohighlight">\(N\geq 1\)</span>. See the
 method set_theta for more details.</li>
 <li><strong>T</strong> (<em>float</em>) – Filter window length. Takes a positive values if the length has
 to be specified. The cutoff frequency is then computed automatically.
@@ -591,7 +593,10 @@ measurements.</p>
 <dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.set_theta">
 <code class="descname">set_theta</code><span class="sig-paren">(</span><em>theta</em>, <em>rootJacobiPol</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.set_theta" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function sets the parameter <span class="math notranslate nohighlight">\(\vartheta\)</span> of the algebraic        differentiator to the value theta. For a delay-free approximation
+<dd><p>This function sets the parameter <span class="math notranslate nohighlight">\(\vartheta\)</span> of the algebraic        differentiator to the value theta. The differentiator is parametrized
+by default such that <span class="math notranslate nohighlight">\(\vartheta\)</span> is the largest zero of the
+the Jacobi polynomial of degree <span class="math notranslate nohighlight">\(N+1\)</span>. Thus, the delay is
+minimized. For a delay-free approximation
 the choice <span class="math notranslate nohighlight">\(\vartheta=1\)</span> is required. If a filter was discretized        earlier, the functions computes the discretized filter with this new        parameter.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

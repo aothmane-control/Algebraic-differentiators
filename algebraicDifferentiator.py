@@ -36,7 +36,9 @@ class AlgebraicDifferentiator(object):
         by :math:`0\,` dB.
     :type beta: float
     :param N: Truncation order of the generalized Fourier series. A delay-free
-        derivative approximation is only possible for :math:`N\geq 1`. See the
+        derivative approximation is only possible for :math:`N\geq 1`. The 
+        differentiator is parametrized by default such that the non-zero delay is
+        minimized for the choice :math:`N\geq 1`. See the
         method set_theta for more details.
     :type N: int
     :param T: Filter window length. Takes a positive values if the length has
@@ -767,7 +769,10 @@ class AlgebraicDifferentiator(object):
     def set_theta(self,theta,rootJacobiPol):
         """
         This function sets the parameter :math:`\\vartheta` of the algebraic\
-        differentiator to the value theta. For a delay-free approximation 
+        differentiator to the value theta. The differentiator is parametrized 
+        by default such that :math:`\\vartheta` is the largest zero of the
+        Jacobi polynomial of degree :math:`N+1`. Thus, the delay is 
+        minimized. For a delay-free approximation 
         the choice :math:`\\vartheta=1` is required. If a filter was discretized\
         earlier, the functions computes the discretized filter with this new\
         parameter.
