@@ -74,8 +74,8 @@ is then computed automatically. It should take the value None
 if the filter window length is specified.</li>
 <li><strong>display</strong> (<em>Bool</em>) – Boolean variable indicating if all the information
 characterizing the differentiator should be printed.</li>
-<li><strong>corr</strong> (<em>Bool</em>) – Boolean variable that indicates if errors stemming from the
-discretization should be corrected.</li>
+<li><strong>corr</strong> (<em>Bool</em>) – Boolean variable that indicates if errors in the DC component of the
+approximated signal stemming from the discretization should be corrected.</li>
 </ul>
 </td>
 </tr>
@@ -144,7 +144,9 @@ for more details.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
 <li><strong>coeff</strong> (<em>dictionary</em>) – Discretized filter in a dict where the keys are the derivative
 for which a filter has been discretized. Each element is a dict. with
-keys the used discretization methods.</li>
+keys the used discretization methods. If the correction of the DC
+component has been enabled with the parameter corr of the class
+initialization, this output contains the corrected filter coefficients.</li>
 <li><strong>tau_1</strong> (<em>float</em>) – If redFilLength is set, tau_1 is the time where the filter window is reduced
 before at the left side of the interval. The estimation delay is
 reduced by tau_1.</li>

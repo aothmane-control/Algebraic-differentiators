@@ -54,8 +54,8 @@ class AlgebraicDifferentiator(object):
     :param display: Boolean variable indicating if all the information
         characterizing the differentiator should be printed.
     :type display: Bool
-    :param corr: Boolean variable that indicates if errors stemming from the 
-        discretization should be corrected.
+    :param corr: Boolean variable that indicates if errors in the DC component of the 
+        approximated signal stemming from the discretization should be corrected.
     :type corr: Bool
 
     """
@@ -146,7 +146,10 @@ class AlgebraicDifferentiator(object):
         coeff: dictionary
             Discretized filter in a dict where the keys are the derivative
             for which a filter has been discretized. Each element is a dict. with
-            keys the used discretization methods. 
+            keys the used discretization methods. If the correction of the DC
+            component has been enabled with the parameter corr of the class
+            initialization, this output contains the corrected filter coefficients.
+
         tau_1: float
             If redFilLength is set, tau_1 is the time where the filter window is reduced
             before at the left side of the interval. The estimation delay is 
