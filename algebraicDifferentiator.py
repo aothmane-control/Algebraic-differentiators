@@ -812,9 +812,11 @@ class AlgebraicDifferentiator(object):
         print("Alpha: %2.6f"%(self.__alpha))
         print("Beta: %2.6f"%(self.__beta))
         print("Window length in s: %2.6f"%(self.__T))
+        print("Sampling period in s: %2.6f"%(self.__ts))
         print("Polynomial degree: %d"%(self.__N))
         print("Estimation delay in s: %2.6f"%(self.get_delay()))
-        print("Cutoff Frequency: %3.6f"%(self.get_cutoffFreq()))
+        print("Cutoff Frequency in rad/s: %3.6f"%(self.get_cutoffFreq()))
+        print("Cutoff Frequency in Hz: %3.6f"%(self.get_cutoffFreq()/2/np.pi))
         print("Discrete window length: %d"%(int(self.__T/self.__ts)))
 
     def get_ratioNyquistCutoff(self,k):
