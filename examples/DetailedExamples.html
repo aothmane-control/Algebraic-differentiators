@@ -14268,7 +14268,7 @@ a.anchor-link {
 \end{equation}
 with the filter kernel
 \begin{equation}
-g(t)=\frac{2}{T}\sum_{i=0}^{N}\frac{P_i^{(\alpha,\beta)}(\vartheta)}{\big\lVert{P_i^{(\alpha,\beta)}\big\rVert}^2}w^{(\alpha,\beta)}\left(\nu(t)\right)P_i^{(\alpha,\beta)}\left(\nu(t)\right).
+g_T(t)=\frac{2}{T}\sum_{i=0}^{N}\frac{P_i^{(\alpha,\beta)}(\vartheta)}{\big\lVert{P_i^{(\alpha,\beta)}\big\rVert}^2}w^{(\alpha,\beta)}\left(\nu(t)\right)P_i^{(\alpha,\beta)}\left(\nu(t)\right).
 \end{equation}
 In the latter equation $\nu(t)=1-\frac{2}{T}t$, $\big\lVert{x}\big\rVert=\sqrt{\langle x,x\rangle}$ is the norm induced by the inner product
     \begin{equation}
@@ -14305,7 +14305,7 @@ with $p_{N+1,k}^{(\alpha,\beta)}$ the $k$-th zero of the Jacobi polynomial of de
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#%matplotlib widget</span>
@@ -14343,17 +14343,21 @@ with $p_{N+1,k}^{(\alpha,\beta)}$ the $k$-th zero of the Jacobi polynomial of de
 Alpha: 4.000000
 Beta: 4.000000
 Window length in s: 0.100000
+Sampling period in s: 0.001000
 Polynomial degree: 0
 Estimation delay in s: 0.050000
-Cutoff Frequency: 68.534675
+Cutoff Frequency in rad/s: 68.534675
+Cutoff Frequency in Hz: 10.907632
 Discrete window length: 100
 The differentiator has the parameters:
 Alpha: 4.000000
 Beta: 4.000000
 Window length in s: 0.091000
+Sampling period in s: 0.001000
 Polynomial degree: 1
 Estimation delay in s: 0.031781
-Cutoff Frequency: 100.901547
+Cutoff Frequency in rad/s: 100.901547
+Cutoff Frequency in Hz: 16.058980
 Discrete window length: 91
 </pre>
 </div>
@@ -14366,7 +14370,7 @@ Discrete window length: 91
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plot the impulse and step response of the filter</span>
@@ -14424,7 +14428,7 @@ Discrete window length: 91
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plot the first derivative of the kernel</span>
@@ -14499,7 +14503,7 @@ with $\omega_{\mathrm{c}}$ the cutoff frequency of the algebraic differentiator 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">800</span><span class="p">,</span><span class="mi">4</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
@@ -14559,7 +14563,7 @@ with $\omega_{\mathrm{c}}$ the cutoff frequency of the algebraic differentiator 
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>&lt;ipython-input-5-bfc8592069b9&gt;:23: RuntimeWarning: divide by zero encountered in log10
+<pre>&lt;ipython-input-1-bfc8592069b9&gt;:23: RuntimeWarning: divide by zero encountered in log10
   ax[0].plot(omegaH/diffA.get_cutoffFreq(),20*np.log10(lA),label=r&#34;$|\mathcal{G}_{\mathrm{A}}^-(\omega)|$&#34;)
 </pre>
 </div>
@@ -14594,7 +14598,7 @@ with $\omega_{\mathrm{c}}$ the cutoff frequency of the algebraic differentiator 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
@@ -14697,9 +14701,11 @@ with $\omega_{\mathrm{c}}$ the cutoff frequency of the algebraic differentiator 
 Alpha: 4.000000
 Beta: 4.000000
 Window length in s: 0.111000
+Sampling period in s: 0.001000
 Polynomial degree: 1
 Estimation delay in s: 0.000000
-Cutoff Frequency: 101.490088
+Cutoff Frequency in rad/s: 101.490088
+Cutoff Frequency in Hz: 16.152649
 Discrete window length: 111
 </pre>
 </div>
@@ -14734,7 +14740,7 @@ Discrete window length: 111
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">join</span> <span class="k">as</span> <span class="n">pjoin</span>
@@ -14793,9 +14799,11 @@ Discrete window length: 111
 Alpha: 4.000000
 Beta: 4.000000
 Window length in s: 0.270000
+Sampling period in s: 0.005000
 Polynomial degree: 0
 Estimation delay in s: 0.135000
-Cutoff Frequency: 25.383213
+Cutoff Frequency in rad/s: 25.383213
+Cutoff Frequency in Hz: 4.039864
 Discrete window length: 54
 </pre>
 </div>
