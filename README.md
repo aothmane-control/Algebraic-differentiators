@@ -52,6 +52,13 @@ These filters can be approximated as lowpass filters with a known cutoff frequen
 
 See [[1]](#1), [[3]](#3), [[4]](#4), and [[5]](#5) for more details on the parametrization of these differentiators.
 
+# GUI
+Since Version 1.1 a GUI is provided. Executable files for Linux and Windows operating systems are provided and do not require the installation of additional software. Neither Python not Matlab have to be installed to start designing algebraic differentiators, get discrete filter coefficients, and estimate derivatives. This GUI can be used to plot relevant data (impulse and step responses, amplitude and phase spectra, estimated derivatives, ...), display relevant properties of the differentiators (estimation delay, cutoff frequency, window length, discretization effects, ...), and load measured signals for the estimation of their derivatives without a single line of code. Relevant properties, signals, spectra, and discrete filter coefficients can be exported for further processing. 
+
+| ![GUI](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/figureGUI.png) |
+|:--:| 
+| Figure 5. GUI for the interactive design, analysis, and use of algebraic differentiators |
+
 # Prerequisites for the implementation
 The code is implemented in Python 3. To use all functionalities, the following packages are required: [scipy](https://www.scipy.org/), [numpy](https://numpy.org/), [mpmath](https://mpmath.org/), and [math](https://docs.python.org/3/library/math.html). The examples implemented in Python are written in [jupyter notebooks](https://jupyter.org/) and require the packages [jupyter_latex_envs](https://github.com/jfbercher/jupyter_latex_envs) for the generation of useful documentations and [matplotlib](https://matplotlib.org/) for the creation of plots. The functions in the toolbox can also be used in Matlab for which different examples are also included. Check the Matlab [documentation](https://de.mathworks.com/help/matlab/matlab_external/install-supported-python-implementation.html) for more details on the compatibility of your Matlab version with Python. (***Matlab bug reports***: The Matlab versiona R2022a and R2022b may display errors when the python class from this repository is used or if the given examples are executed. See [mathworks](https://de.mathworks.com/support/bugreports/details/2613867) for more details and fix options.)
 
