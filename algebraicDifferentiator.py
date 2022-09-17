@@ -407,11 +407,18 @@ class AlgebraicDifferentiator(object):
         :type t: numpy array
         :return: Evaluated weight function in a numpy array.
         """
-        t[t>1] = 1
-        t[t<-1] = -1
-        w = np.multiply(np.power(1.-t,a),np.power(t+1., b))
-        w[t>=1] = 0
-        w[t<=-1] = 0
+        if a<0 or b<0:
+            t[t>=1] = 1
+            t[t<=-1] = -1
+            w = np.multiply(np.power(1.-t,a),np.power(t+1., b))
+            w[t>=1] = 0
+            w[t<=-1] = 0
+        else:
+            t[t>1] = 1.1
+            t[t<-1] = -1.1
+            w = np.multiply(np.power(1.-t,a),np.power(t+1., b))
+            w[t>1] = 0
+            w[t<-1] = 0
 
         return w
 
