@@ -18,12 +18,12 @@ sys.path.insert(0, os.path.abspath('../'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Algebraic differentiators'
-copyright = '2021, Amine Othmane'
+project = 'Algebraic differentiator'
+copyright = '2022, Amine Othmane'
 author = 'Amine Othmane'
 master_doc = 'index'
 # The full version, including alpha/beta/rc tags
-release = '1.0'
+release = '1.1.0'
 
 
 # -- General configuration ---------------------------------------------------

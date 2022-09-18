@@ -1,5 +1,5 @@
-Welcome to Algebraic differentiators's documentation!
-=====================================================
+Welcome to the documentation of the class AlgebraicDifferentiator
+==================================================================
 
 .. autoclass:: algebraicDifferentiator.AlgebraicDifferentiator
    :members:
