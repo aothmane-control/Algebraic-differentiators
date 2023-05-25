@@ -418,6 +418,33 @@ filter evaluated at omega.</li>
 </dd></dl>
 
 <dl class="method">
+<dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_discretizationError">
+<code class="descname">get_discretizationError</code><span class="sig-paren">(</span><em>k</em>, <em>Omega</em>, <em>n=1000</em>, <em>method='mid-point'</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_discretizationError" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function computes the error
+<span class="math notranslate nohighlight">\(\mathcal{J}=\frac{\int_{0}^{\Omega}\left|{\mathcal{F}\left\{g^{(n)}-\hat{g} ^{(n)}\right\}(\omega)}\right|^2\mathrm{d}\omega}
+{\int_{0}^{\Omega}\left|{\mathcal{F}\left\{g^{(n)}\right\}(\omega)}\right|^2\mathrm{d}\omega}\)</span>.
+Therein <span class="math notranslate nohighlight">\(g\)</span> and <span class="math notranslate nohighlight">\(\hat{g}\)</span> are the continuous and discrete time differentiators, respectively.
+A reasonable choice for <span class="math notranslate nohighlight">\(\Omega_N\)</span> is the Nyquist frequency <span class="math notranslate nohighlight">\(\pi/t_s\)</span>.
+The integral is approximated using the trapezoidal rule.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>k</strong> (<em>integer</em>) – Order of derivative to be estimated.</li>
+<li><strong>Omega</strong> (<em>float</em>) – Upper bound of integration interval.</li>
+<li><strong>n</strong> (<em>integer</em>) – The interval <span class="math notranslate nohighlight">\([0,\Omega]\)</span> is divided into n parts.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">cost function <span class="math notranslate nohighlight">\(\mathcal{J}\)</span> in dB</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="algebraicDifferentiator.AlgebraicDifferentiator.get_ratioNyquistCutoff">
 <code class="descname">get_ratioNyquistCutoff</code><span class="sig-paren">(</span><em>k</em><span class="sig-paren">)</span><a class="headerlink" href="#algebraicDifferentiator.AlgebraicDifferentiator.get_ratioNyquistCutoff" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function computes the ratio
