@@ -112,7 +112,7 @@ class AlgebraicDifferentiator(object):
         filter coefficient less than the trapezoidal rule. It also reduces
         the estimation delay by half a sampling period. The analytical
         integration rule is recommended for small filter window lengths,
-        i.e., in generalless than 20 filter coefficients. This discretization 
+        i.e., in general less than 20 filter coefficients. This discretization
         method can only be used for the first order or any higher derivative.
         The error stemming from
         the discretization is corrected using a correction factor, if the 
