@@ -166,6 +166,21 @@ class AlgebraicDifferentiator(object):
         L0 = int(self.__T/self.__ts)
         red = ""
         tau1 = 0
+        
+        def newton_cotes_rules(p,order,L):
+            order -= 1
+            out = np.zeros((L,))
+            out[0] = p[0]
+            for i in range(1,L-1):
+                if i%order==0:
+                    out[i] = p[0]+p[-1]
+                else:
+                    out[i] = p[i%order]
+            out[-1] = p[-1]
+            print(out)
+            return out
+
+                
         if redFilLength:
             tau1,tau2,_,_,_ = self.reduceFilterLength(der,tol=redTol)
             theta0 = tau1/self.__ts
@@ -175,6 +190,24 @@ class AlgebraicDifferentiator(object):
             # Discretized window length
             self.__L = L0
             theta = 0.5+theta0
+            self.__delayDisc[method+red] =\
+            self.get_delay()-self.__ts/2-tau1
+            k = (np.array(range(self.__L))+theta)*self.__ts
+            if der==0:
+                if der in self.__w.keys():
+                    self.__w[der][method+red] = self.__ts*self.evalKernel(k)
+                else:
+                    self.__w[der]= {method+red: self.__ts*self.evalKernel(k)}
+            else:
+                if der in self.__w.keys():
+                    self.__w[der][method+red] = self.__ts*self.evalKernelDer(k,der)
+                else:
+                    self.__w[der] =\
+                    {method+red:self.__ts*self.evalKernelDer(k,der)}
+        if method=="euler":
+            # Discretized window length
+            self.__L = L0+1
+            theta = theta0
             self.__delayDisc[method+red] =\
             self.get_delay()-self.__ts/2-tau1
             k = (np.array(range(self.__L))+theta)*self.__ts
@@ -207,6 +240,118 @@ class AlgebraicDifferentiator(object):
                     {method+red:self.__ts*self.evalKernelDer(k,der)}
             self.__w[der][method+red][0] = self.__w[der][method+red][0]/2
             self.__w[der][method+red][-1] = self.__w[der][method+red][-1]/2
+        elif method=="simpson rule":
+            order = 3
+            self.__L = L0
+            print(self.__L)
+            if self.__L%(order)!=0:
+                self.__L += order-self.__L%order
+            print(self.__L)
+            theta = theta0
+            self.__delayDisc[method+red] = self.get_delay()-tau1*self.__ts
+            k = np.linspace(0,self.__T,self.__L)
+            p = [1/3,4/3,1/3]
+            weight = newton_cotes_rules(p,order,self.__L)
+            if der==0:
+                if der in self.__w.keys():
+                    self.__w[der][method+red] = weight*self.__ts*self.evalKernel(k)
+                else:
+                    self.__w[der]= {method+red: weight*self.__ts*self.evalKernel(k)}
+            else:
+                if der in self.__w.keys():
+                    self.__w[der][method+red] = weight*self.__ts*self.evalKernelDer(k,der)
+                else:
+                    self.__w[der] =\
+                    {method+red:weight*self.__ts*self.evalKernelDer(k,der)}
+        elif method=="simpson 3/8 rule":
+            order = 4
+            self.__L = L0
+            print(self.__L)
+            if self.__L%(order)!=0:
+                self.__L += order-self.__L%order
+            print(self.__L)
+            theta = theta0
+            self.__delayDisc[method+red] = self.get_delay()-tau1*self.__ts
+            k = np.linspace(0,self.__T,self.__L)
+            p = np.array([1/8,3/8,3/8,1/8])*3
+            weight = newton_cotes_rules(p,order,self.__L)
+            if der==0:
+                if der in self.__w.keys():
+                    self.__w[der][method+red] = weight*self.__ts*self.evalKernel(k)
+                else:
+                    self.__w[der]= {method+red: weight*self.__ts*self.evalKernel(k)}
+            else:
+                if der in self.__w.keys():
+                    self.__w[der][method+red] = weight*self.__ts*self.evalKernelDer(k,der)
+                else:
+                    self.__w[der] =\
+                    {method+red:weight*self.__ts*self.evalKernelDer(k,der)}
+        elif method=="boole rule":
+            order = 5
+            self.__L = L0
+            if self.__L%(order)!=0:
+                self.__L += order-self.__L%order
+            theta = theta0
+            self.__delayDisc[method+red] = self.get_delay()-tau1*self.__ts
+            k = np.linspace(0,self.__T,self.__L)
+            p = 1/90*np.array([7,32,12,32,7])*(order-1)
+            weight = newton_cotes_rules(p,order,self.__L)
+            if der==0:
+                if der in self.__w.keys():
+                    self.__w[der][method+red] = weight*self.__ts*self.evalKernel(k)
+                else:
+                    self.__w[der]= {method+red: weight*self.__ts*self.evalKernel(k)}
+            else:
+                if der in self.__w.keys():
+                    self.__w[der][method+red] = weight*self.__ts*self.evalKernelDer(k,der)
+                else:
+                    self.__w[der] =\
+                    {method+red:weight*self.__ts*self.evalKernelDer(k,der)}
+        elif method=="newton-cotes order 6":
+            order = 6
+            self.__L = L0
+            if self.__L%(order)!=0:
+                self.__L += order-self.__L%order
+            theta = theta0
+            self.__delayDisc[method+red] = self.get_delay()-tau1*self.__ts
+            k = np.linspace(0,self.__T,self.__L)
+            p = np.array([41/840, 9/35, 9/280, 34/105, 9/280, 9/35, 41/840])*(order-1)
+            weight = newton_cotes_rules(p,order,self.__L)
+            if der==0:
+                if der in self.__w.keys():
+                    self.__w[der][method+red] = weight*self.__ts*self.evalKernel(k)
+                else:
+                    self.__w[der]= {method+red: weight*self.__ts*self.evalKernel(k)}
+            else:
+                if der in self.__w.keys():
+                    self.__w[der][method+red] = weight*self.__ts*self.evalKernelDer(k,der)
+                else:
+                    self.__w[der] =\
+                    {method+red:weight*self.__ts*self.evalKernelDer(k,der)}
+        elif method=="newton-cotes order 7":
+            order = 7
+            self.__L = L0
+            print(self.__L)
+            if self.__L%(order)!=0:
+                self.__L += order-self.__L%order
+            print(self.__L)
+            theta = theta0
+            self.__delayDisc[method+red] = self.get_delay()-tau1*self.__ts
+            k = np.linspace(0,self.__T,self.__L)
+            p = np.array([751/17280, 3577/17280, 49/640, 2989/17280,\
+                          2989/17280, 49/640, 3577/17280, 751/17280])*(order-1)
+            weight = newton_cotes_rules(p,order,self.__L)
+            if der==0:
+                if der in self.__w.keys():
+                    self.__w[der][method+red] = weight*self.__ts*self.evalKernel(k)
+                else:
+                    self.__w[der]= {method+red: weight*self.__ts*self.evalKernel(k)}
+            else:
+                if der in self.__w.keys():
+                    self.__w[der][method+red] = weight*self.__ts*self.evalKernelDer(k,der)
+                else:
+                    self.__w[der] =\
+                    {method+red:weight*self.__ts*self.evalKernelDer(k,der)}
         elif method=="analytic":
             self.__L = L0
             self.__delayDisc[method+red] = self.get_delay()-self.__ts/2\
@@ -841,6 +986,32 @@ class AlgebraicDifferentiator(object):
         G, tmp = self.get_ampAndPhaseFilter(np.array([wc,wN]))
 
         return 20*np.log10(np.power(wN,k)*G[1]/np.power(wc,k)/G[0])
+    
+    def get_discretizationError(self,k,Omega,n=1000,method='mid-point'):
+        """This function computes the error
+        :math:`\\mathcal{J}=\\frac{\\int_{0}^{\\Omega}\\left|{\\mathcal{F}\\left\\{g^{(n)}-\\hat{g} ^{(n)}\\right\\}(\\omega)}\\right|^2\\mathrm{d}\\omega}
+        {\\int_{0}^{\\Omega}\\left|{\\mathcal{F}\\left\\{g^{(n)}\\right\\}(\\omega)}\\right|^2\\mathrm{d}\\omega}`. 
+        Therein :math:`g` and :math:`\\hat{g}` are the continuous and discrete time differentiators, respectively. 
+        A reasonable choice for :math:`\\Omega_N` is the Nyquist frequency :math:`\\pi/t_s`. 
+        The integral is approximated using the trapezoidal rule.
+
+        :param k: Order of derivative to be estimated.
+        :type k: integer
+        :param Omega: Upper bound of integration interval.
+        :type Omega: float
+        :param n: The interval :math:`[0,\\Omega]` is divided into n parts. 
+        :type n: integer
+        :return:  cost function :math:`\\mathcal{J}`
+        """
+
+        omega = np.linspace(0,Omega,n)
+        amp,phase = self.get_ampAndPhaseFilter(omega)
+        F = amp*np.exp(1j*phase)*(1j*omega)**k
+        ampDisc,phaseDisc = self.get_ampSpectrumDiscreteFilter(omega,k,\
+                                        method)
+        Fd = ampDisc*np.exp(1j*phaseDisc)
+        e = np.trapz(np.abs(Fd-F)**2,x=omega)/np.trapz(np.abs(F)**2,x=omega)
+        return e
 
     def reduceFilterLength(self,der,tol=0.01):
         """ This function returns a distribution function that can
