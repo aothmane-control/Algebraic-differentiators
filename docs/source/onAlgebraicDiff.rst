@@ -15,12 +15,12 @@ The approximation-theoretic derivation recalled in the survey
 following three steps illustrated in the figure below stemming from
 `[1] <#1>`__:
 
-1. Projection: At time , the sough -th order time derivative over the
-   interval is projected onto the space of polynomials of degree . This
-   yields the polynomial depicted in the left and middle part of Figure
+1. Projection: At time :math:`t`, the sough :math:`n`-th order time derivative :math:`y^{(n)}` over the
+   interval :math:`I_T(t)` is projected onto the space of polynomials of degree :math:`N`. This
+   yields the polynomial :math:`p_N` depicted in the left and middle part of Figure
    2.
-2. Evaluation: The polynomial is evaluated at , which gives an estimate
-   for the derivative as depicted in the central part of Figure 2.
+2. Evaluation: The polynomial :math:`p_N` is evaluated at :math:`t-\delta_t`, which gives an estimate :math:`\hat{y}^{(n)}(t)=p_N(t-\delta_t)`
+   for the derivative :math:`y^{(n)}` as depicted in the central part of Figure 2.
    Choosing the delay to be the largest root of a special Jacobi
    polynomial increases the approximation order by 1 with a minimal
    delay. Alternatively, a delay-free estimation or even a prediction of
@@ -28,13 +28,13 @@ following three steps illustrated in the figure below stemming from
    accuracy.
 3. Repetition: The first two steps are repeated at each discrete time
    instant while keeping the parameters of the differentiator constant.
-   This yields the estimate depicted in the right part of the Figure 2.
+   This yields the estimate :math:`\hat{y}^{(n)}` depicted in the right part of the Figure 2.
 
 .. figure:: interpretationDifferentiators.png
-   :scale: 50 %
+   :scale: 80 %
    :alt: Three-step process of the estimation
 
-   Figure 2. Three-step process of the estimation of the -th order derivative of a signal using algebraic differentiators (figure from `[1] <#1>`__)
+   Figure 2. Three-step process of the estimation of the :math:`n`-th order derivative :math:`y^{(n)}\mapsto y^{(n)}(t)` of a signal :math:`y\mapsto y(t)` using algebraic differentiators (figure from `[1] <#1>`__)
    
 Algebraic differentiators can be interpreted as linear time-invariant
 filters with a finite-duration impulse response. Figure 3 visualizes the
