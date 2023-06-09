@@ -14,7 +14,7 @@ of their derivatives without a single line of code. Relevant properties,
 signals, spectra, and discrete filter coefficients can be exported for
 further processing.
 
-.. figure:: figureGUI.gif
+.. figure:: figureGUI.png
    :scale: 50 %
    :alt: GUI
 
