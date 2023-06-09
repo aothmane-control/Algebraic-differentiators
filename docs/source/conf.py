@@ -3,7 +3,7 @@
 # -- Project information
 
 project = 'Algebraic differentiator'
-copyright = '2022, Amine Othmane'
+copyright = '2023, Amine Othmane'
 author = 'Amine Othmane'
 
 # The full version, including alpha/beta/rc tags
