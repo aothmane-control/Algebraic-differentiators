@@ -42,6 +42,7 @@ Contents
 .. toctree::
    
    onAlgebraicDiff
+   gui
    usage
    api
    references
