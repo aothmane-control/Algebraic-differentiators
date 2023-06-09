@@ -5,7 +5,7 @@ Estimating the derivatives of noisy signals is of paramount importance in many f
 
 Figure 1 shows the results of the numerical estimation of the first time derivative of a noisy signal based on an algebraic differentiator on the one hand and the simple difference quotient rule on the other. This simulation shows the excellent performance of this numerical differentiation approach.
 
-.. figure:: https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/motivationAlgDiff.png
+.. figure:: motivationAlgDiff.png
    :scale: 100 %
    :alt: Numerical differentiation of a noisy signal
 
