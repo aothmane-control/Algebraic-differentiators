@@ -52,9 +52,16 @@ seen.
 These filters can be approximated as lowpass filters with a known cutoff
 frequency and a stopband slope. Figure 4 presents the amplitude and
 phase spectra of two exemplary filters. The lowpass approximation is
-also shown. \| |filter_characteristics| \| \|:–:\| \| Figure 4.
-Amplitude and phase spectra of two different filters and the
-corresponding lowpass approximation of the amplitude spectrum \|
+also shown.
 
+
+.. figure:: filterSpectrum.png
+   :scale: 50 %
+   :alt: Visualization of the online estimation
+
+   Figure 4. Amplitude and phase spectra of two different filters and the
+corresponding lowpass approximation of the amplitude spectrum. 
+   
+   
 See `[1] <#1>`__, `[3] <#3>`__, `[4] <#4>`__, and `[5] <#5>`__ for more
 details on the parametrization of these differentiators.
