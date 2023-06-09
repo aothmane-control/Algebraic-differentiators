@@ -5,5 +5,3 @@ build:
   tools:
     python: "3.10"
 
-requirements_file: requirements.txt
-
