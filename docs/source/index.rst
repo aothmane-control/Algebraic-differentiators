@@ -32,7 +32,6 @@ Contents
    onAlgebraicDiff
    gui
    usage
-   api
    contact
    license
    references
