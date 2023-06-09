@@ -4,7 +4,9 @@ Welcome to the documentation of AlgDiff
 **AlgDiff** is a Python class that provides all necessary tools for the
 design, analysis, and discretization of algebraic differentiators. An
 interface to Matlab is also provided. This implementation was released
-as part of the survey `[1] <#1>`__.
+as part of the survey `[1] <#1>`__. Check out the :doc:`usage` section for further information, including
+how to :ref:`installation` the project.
+
 
 The toolbox is licensed under the BSD-3-Clause License, which is
 suitable for both academic and industrial/commercial purposes.
@@ -19,8 +21,6 @@ fault tolerant control, model-free control …
 
 
 
-Check out the :doc:`usage` section for further information, including
-how to :ref:`installation` the project.
 
 
 Contents
@@ -35,3 +35,6 @@ Contents
    contact
    license
    references
+   
+.. autoclass:: algebraicDifferentiator.AlgebraicDifferentiator
+   :members:
