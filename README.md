@@ -60,7 +60,14 @@ Since Version 1.1 a GUI is provided. Executable files for Linux and Windows oper
 | Figure 5. GUI for the interactive design, analysis, and use of algebraic differentiators |
 
 # Prerequisites for the implementation
-The code is implemented in Python 3. To use all functionalities, the following packages are required: [scipy](https://www.scipy.org/), [numpy](https://numpy.org/), [mpmath](https://mpmath.org/), and [math](https://docs.python.org/3/library/math.html). The examples implemented in Python are written in [jupyter notebooks](https://jupyter.org/) and require the packages [jupyter_latex_envs](https://github.com/jfbercher/jupyter_latex_envs) for the generation of useful documentations and [matplotlib](https://matplotlib.org/) for the creation of plots. The functions in the toolbox can also be used in Matlab for which different examples are also included. Check the Matlab [documentation](https://de.mathworks.com/help/matlab/matlab_external/install-supported-python-implementation.html) for more details on the compatibility of your Matlab version with Python. (***Matlab bug reports***: The Matlab version R2022a and R2022b may display errors when the python class from this repository is used or if the given examples are executed. See [mathworks](https://de.mathworks.com/support/bugreports/details/2613867) for more details and fix options.)
+The code is implemented in Python 3. To use all functionalities the required packages are given in the requirements.txt file. The examples implemented in Python are written in [jupyter notebooks](https://jupyter.org/) and require the packages [jupyter_latex_envs](https://github.com/jfbercher/jupyter_latex_envs) for the generation of useful documentations and [matplotlib](https://matplotlib.org/) for the creation of plots. The functions in the toolbox can also be used in Matlab for which different examples are also included. Check the Matlab [documentation](https://de.mathworks.com/help/matlab/matlab_external/install-supported-python-implementation.html) for more details on the compatibility of your Matlab version with Python.
+
+# Installation
+To use AlgDiff using pip run the following in the command line: 
+
+```
+   $ pip install AlgDiff
+```
 
 # How to use  the implementation
 The contribution of this implementation is an easy to use framework for the design and discretization of algebraic differentiators to achieve desired filter characteristics, i.e., to specify the cutoff frequency and the stopband slope. The file [algebraicDifferentiator.py](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/algebraicDifferentiator.py) implements the class AlgebraicDifferentiator. This class contains all necessary functions for the design, analysis, and discretization of the differentiators.
@@ -68,6 +75,7 @@ The contribution of this implementation is an easy to use framework for the desi
 Different examples are provided as jupyter notebooks and Matlab code in the following:
 * A quick start in a jupyter [notebook](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/QuickStart.ipynb) available also as an [HTML file](https://htmlpreview.github.io/?https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/QuickStart.html)
 * A detailed jupyter [notebook](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/DetailedExamples.ipynb) available also as an [HTML file](https://htmlpreview.github.io/?https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/DetailedExamples.html)
+* The simultaneous elimination of a harmonic disturbance and approximation of derivatives is demonstrated in the jupyter [notebook](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/EliminationDisturbancesExample.ipynb) available also as an [HTML file](https://htmlpreview.github.io/?https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/EliminationDisturbancesExample.html)
 * A quick start in [Matlab](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/QuickStart.mlx)
 * A [Matlab](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/DetailedExamples.mlx) code with several examples
 
