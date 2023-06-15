@@ -8,7 +8,7 @@ setup(
   author = 'Amine Othmane',
   author_email = 'amine.othmane@uni-saarland.de',
   url = 'https://github.com/aothmane-control/Algebraic-differentiators',
-  download_url = 'https://github.com/aothmane-control/Algebraic-differentiators/releases/tag/v1.1.3',
+  download_url = 'https://github.com/aothmane-control/Algebraic-differentiators/releases/tag/v2.0',
   keywords = ['numerical-differentiation ', 'fir-filters', 'orthogonal-polynomials', 'numerical-methods '],
   install_requires=[            # I get to this in a second
           'scipy',
