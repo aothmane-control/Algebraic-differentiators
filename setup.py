@@ -1,10 +1,19 @@
 from distutils.core import setup
+
+from pathlib import Path
+this_directory = Path(__file__).parent
+long_description = (this_directory / "docs/source/usage.rst").read_text()
+
 setup(
   name = 'AlgDiff',
   packages = ['AlgDiff'],
-  version = '2.0',
+  version = '2.0.2',
   license='bsd-3-clause',
   description = 'AlgDiff is a Python class implementing all necessary tools for the design, analysis, and discretization of algebraic differentiators. An interface to Matlab is also provided.',
+  
+  long_description = long_description,
+  long_description_content_type='text/x-rst',
+  
   author = 'Amine Othmane',
   author_email = 'amine.othmane@uni-saarland.de',
   url = 'https://github.com/aothmane-control/Algebraic-differentiators',

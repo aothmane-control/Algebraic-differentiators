@@ -81,9 +81,8 @@ Different examples are provided as jupyter notebooks and Matlab code in the foll
 * A quick start in [Matlab](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/QuickStart.mlx)
 * A [Matlab](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/DetailedExamples.mlx) code with several examples
 
- In the folder documentation, a sphinxs Makefile for the automatic generation of a documentation is given. The pre-compiled html documentation can be found in the file [documentation/_build/html/index.html](https://htmlpreview.github.io/?https://github.com/aothmane-control/Algebraic-differentiators/blob/master/documentation/_build/html/index.html)
-
-
+# Documentation
+ A detailed [documentation](https://algebraic-differentiators.readthedocs.io/en/latest/documentation.html) for all the functions is also provided in the webpage of the [project](https://algebraic-differentiators.readthedocs.io/en/latest/index.html).
 
 # Questions  & Contact
 Feel free to contact [Amine](https://www.uni-saarland.de/en/chair/rudolph/staff/aothmane.html) in case of suggestions or questions.
