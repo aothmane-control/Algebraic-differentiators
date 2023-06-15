@@ -1,3 +1,4 @@
+[![PyPI version](https://badge.fury.io/py/AlgDiff.svg)](https://badge.fury.io/py/AlgDiff)
 # AlgDiff
 AlgDiff: A Python class that provides all necessary tools for the design, analysis, and discretization of algebraic differentiators. An interface to Matlab is also provided.
 This implementation was released as part of the survey [[1]](#1).  
