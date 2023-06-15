@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'AlgDiff',
   packages = ['AlgDiff'],
-  version = '1.1.3',
+  version = '2.0',
   license='bsd-3-clause',
   description = 'AlgDiff is a Python class implementing all necessary tools for the design, analysis, and discretization of algebraic differentiators. An interface to Matlab is also provided.',
   author = 'Amine Othmane',
