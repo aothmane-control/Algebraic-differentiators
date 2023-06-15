@@ -4,6 +4,12 @@ current_dir = os.path.dirname(__file__)
 target_dir = os.path.abspath(os.path.join(current_dir, "../../"))
 sys.path.insert(0, target_dir)
 
+import mock
+ 
+MOCK_MODULES = ['numpy', 'scipy', 'mpmath']
+for mod_name in MOCK_MODULES:
+	sys.modules[mod_name] = mock.Mock()
+
 print(target_dir)
 
 # Configuration file for the Sphinx documentation builder.
