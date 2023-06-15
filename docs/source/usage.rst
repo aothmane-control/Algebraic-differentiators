@@ -35,5 +35,10 @@ The first order derivative of a signal :math:`y` given as a numpy array and samp
 
 >>> dydt = g.estimateDer(1,y) # y is a numpy array
 
-Further detailed examples are provided in the `jupyter notebooks <https://github.com/aothmane-control/Algebraic-differentiators/tree/master/examples>`_ given the repository.
+Further detailed examples are provided in the `jupyter notebooks <https://github.com/aothmane-control/Algebraic-differentiators/tree/master/examples>`_ given the repository. Therein three different notebooks are provided:
+
+- A `quick start <https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/QuickStart.ipynb>`_ with a very brief introduction
+- A `detailed discussion <https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/DetailedExamples.ipynb>`_ of algebraic differentiators
+- The `simultaneous <https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/EliminationDisturbancesExample.ipynb>`_ simultaneous elimination of a harmonic disturbance and approximation of derivatives
+
 
