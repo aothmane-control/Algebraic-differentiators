@@ -130,7 +130,7 @@ class AlgebraicDifferentiator(object):
         :param der: Order of the derivative to be estimated.
         :type der: int
         :param method: Discretization scheme: "mid-point", "trapezoidal",\
-            "analytic".
+            "analytic", "simpson rule".
         :type method: string
         :param reduceFilLength: Reduce or not the filter window length.
         :type reduceFilLength: Bool
