@@ -50,13 +50,14 @@ class AlgebraicDifferentiator(object):
         if the cutoff frequency has to be specified. The filter window length
         is then computed automatically. It should take the value None 
         if the filter window length is specified.
+    :type wc: float
     :type T: float
     :param display: Boolean variable indicating if all the information
         characterizing the differentiator should be printed.
-    :type display: Bool
+    :type display: bool
     :param corr: Boolean variable that indicates if errors in the DC component of the 
         approximated signal stemming from the discretization should be corrected.
-    :type corr: Bool
+    :type corr: bool
 
     """
 
@@ -133,13 +134,13 @@ class AlgebraicDifferentiator(object):
             "analytic", "simpson rule".
         :type method: string
         :param reduceFilLength: Reduce or not the filter window length.
-        :type reduceFilLength: Bool
+        :type reduceFilLength: bool
         :param redTol: Tolerance to be used when the filter length is reduced.
         :type redTol: float.
         :param discreteSpectrum: If it is set, then the parameter \
             :math:`\\theta` used in the discretization is returned. See survey paper
             for more details.
-        :type discreteSpectrum: Bool
+        :type discreteSpectrum: bool
         
         :returns:
         	- coeff (dictionary) - Discretized filter in a dict where the keys are the derivative \
@@ -413,7 +414,7 @@ class AlgebraicDifferentiator(object):
         :param reduceFilterLength: Specify whether or not the filter window
                 length should be reduced or not. See the discretize method for more
                 details.
-        :type reduceFilterLength: Bool
+        :type reduceFilterLength: bool
         :param redTol: Tolerance to be used when the filter length is reduced
         :type redTol: float.
         :return: Estimated derivative in a numpy array with the same dimensions
@@ -766,9 +767,10 @@ class AlgebraicDifferentiator(object):
         cutoff frequency.
 
         :param wc: Cutoff frequency.
-        :param type: float
+        :type wc: float
 
-        :return: T as a float
+        :returns:
+        	- T (:py:class:`float`) -  filter window length
         """
 
         kappa = np.abs(self.__beta-self.__alpha)
@@ -922,7 +924,7 @@ class AlgebraicDifferentiator(object):
         :param rootJacobiPol: True if the value theta is equal to a zero of\
         the jacobi polynomial of order :math:`N+1`. For the delay-free
             approximation use False, since :math:`1` is not a zero.
-        :type rootJacobiPol: Bool
+        :type rootJacobiPol: bool
         """
 
         self.__thetaBool = rootJacobiPol
