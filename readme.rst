@@ -1,0 +1,218 @@
+AlgDiff
+=======
+
+AlgDiff: A Python class that provides all necessary tools for the
+design, analysis, and discretization of algebraic differentiators. An
+interface to Matlab is also provided. This implementation was released
+as part of the survey `[1] <#1>`__.
+
+The toolbox is licensed under the BSD-3-Clause License, which is
+suitable for both academic and industrial/commercial purposes.
+
+This code has been created for research purposes at the `Chair of
+Systems Theory and Control
+Engineering <https://www.uni-saarland.de/en/chair/rudolph.html>`__ of
+Saarland University, Germany. We apply algebraic differentiators to
+solve different problems related to control theory and signal
+processing: Parameter estimation, feedback control, fault detection and
+fault tolerant control, model-free control …
+
+Motivation
+==========
+
+Estimating the derivatives of noisy signals is of paramount importance
+in many fields of engineering and applied mathematics. It is, however, a
+longstanding ill-posed and challenging problem, in the sense that a
+small error in measurement data can induce a significant error in the
+estimated derivatives.
+
+Figure 1 shows the results of the numerical estimation of the first time
+derivative of a noisy signal based on an algebraic differentiator on the
+one hand and the simple difference quotient rule on the other. This
+simulation shows the excellent performance of this numerical
+differentiation approach. \| |Motivation example| \| \|:–:\| \| Figure
+1. Numerical differentiation of a noisy signal using a simple difference
+quotient on the one hand and an algebraic differentiator on the other \|
+
+On algebraic differentiators
+============================
+
+Algebraic differentiators have been derived and discussed in the systems
+and control theory community. The initial works based on
+differential-algebraic methods have been developed by Mboup, Join, and
+Fliess in `[2] <#2>`__. These numerical, non-asymptotic approximation
+approaches for higher-order derivatives of noisy signals are well suited
+for real-time embedded systems. A historical overview and a detailed
+discussion of these differentiators and their time-domain and
+frequency-domain properties are given in the survey `[1] <#1>`__.
+
+The approximation-theoretic derivation recalled in the survey
+`[1] <#1>`__ permits the interpretation of the estimation process by the
+following three steps illustrated in the figure below stemming from
+`[1] <#1>`__:
+
+1. Projection: At time , the sough -th order time derivative over the
+   interval is projected onto the space of polynomials of degree . This
+   yields the polynomial depicted in the left and middle part of Figure
+   2.
+2. Evaluation: The polynomial is evaluated at , which gives an estimate
+   for the derivative as depicted in the central part of Figure 2.
+   Choosing the delay to be the largest root of a special Jacobi
+   polynomial increases the approximation order by 1 with a minimal
+   delay. Alternatively, a delay-free estimation or even a prediction of
+   the future derivative might be selected, at the cost of a reduced
+   accuracy.
+3. Repetition: The first two steps are repeated at each discrete time
+   instant while keeping the parameters of the differentiator constant.
+   This yields the estimate depicted in the right part of the Figure 2.
+
++-----------------------------------------------------------------------+
+| |filter_characteristics|                                              |
++=======================================================================+
+| Figure 2. Three-step process of the estimation of the -th order       |
+| derivative of a signal using algebraic differentiators (figure from   |
+| `[1] <#1>`__)                                                         |
++-----------------------------------------------------------------------+
+
+Algebraic differentiators can be interpreted as linear time-invariant
+filters with a finite-duration impulse response. Figure 3 visualizes the
+online estimation process of the first derivative of a noisy signal. The
+filter window, the buffered signal, and the filter kernel can be clearly
+seen.
+
++-----------------------------------------------------------------------+
+|                                                                       |
++=======================================================================+
+| Figure 3. Visualization of the online estimation of the first         |
+| derivative a noisy signal using an algebraic differentiator.          |
++-----------------------------------------------------------------------+
+
+These filters can be approximated as lowpass filters with a known cutoff
+frequency and a stopband slope. Figure 4 presents the amplitude and
+phase spectra of two exemplary filters. The lowpass approximation is
+also shown. \| |filter_characteristics| \| \|:–:\| \| Figure 4.
+Amplitude and phase spectra of two different filters and the
+corresponding lowpass approximation of the amplitude spectrum \|
+
+See `[1] <#1>`__, `[3] <#3>`__, `[4] <#4>`__, and `[5] <#5>`__ for more
+details on the parametrization of these differentiators.
+
+GUI
+===
+
+Since Version 1.1 a GUI is provided. Executable files for Linux and
+Windows operating systems are provided and do not require the
+installation of additional software. Neither Python not Matlab have to
+be installed to start designing algebraic differentiators, get discrete
+filter coefficients, and estimate derivatives. This GUI can be used to
+plot relevant data (impulse and step responses, amplitude and phase
+spectra, estimated derivatives, …), display relevant properties of the
+differentiators (estimation delay, cutoff frequency, window length,
+discretization effects, …), and load measured signals for the estimation
+of their derivatives without a single line of code. Relevant properties,
+signals, spectra, and discrete filter coefficients can be exported for
+further processing.
+
++-----------------------------------------------------------------------+
+| |GUI|                                                                 |
++=======================================================================+
+| Figure 5. GUI for the interactive design, analysis, and use of        |
+| algebraic differentiators                                             |
++-----------------------------------------------------------------------+
+
+Prerequisites for the implementation
+====================================
+
+The code is implemented in Python 3. To use all functionalities, the
+following packages are required: `scipy <https://www.scipy.org/>`__,
+`numpy <https://numpy.org/>`__, `mpmath <https://mpmath.org/>`__, and
+`math <https://docs.python.org/3/library/math.html>`__. The examples
+implemented in Python are written in `jupyter
+notebooks <https://jupyter.org/>`__ and require the packages
+`jupyter_latex_envs <https://github.com/jfbercher/jupyter_latex_envs>`__
+for the generation of useful documentations and
+`matplotlib <https://matplotlib.org/>`__ for the creation of plots. The
+functions in the toolbox can also be used in Matlab for which different
+examples are also included. Check the Matlab
+`documentation <https://de.mathworks.com/help/matlab/matlab_external/install-supported-python-implementation.html>`__
+for more details on the compatibility of your Matlab version with
+Python. (**Matlab bug reports**: The Matlab version R2022a and R2022b
+may display errors when the python class from this repository is used or
+if the given examples are executed. See
+`mathworks <https://de.mathworks.com/support/bugreports/details/2613867>`__
+for more details and fix options.)
+
+How to use the implementation
+=============================
+
+The contribution of this implementation is an easy to use framework for
+the design and discretization of algebraic differentiators to achieve
+desired filter characteristics, i.e., to specify the cutoff frequency
+and the stopband slope. The file
+`algebraicDifferentiator.py <https://github.com/aothmane-control/Algebraic-differentiators/blob/master/algebraicDifferentiator.py>`__
+implements the class AlgebraicDifferentiator. This class contains all
+necessary functions for the design, analysis, and discretization of the
+differentiators.
+
+Different examples are provided as jupyter notebooks and Matlab code in
+the following: \* A quick start in a jupyter
+`notebook <https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/QuickStart.ipynb>`__
+available also as an `HTML
+file <https://htmlpreview.github.io/?https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/QuickStart.html>`__
+\* A detailed jupyter
+`notebook <https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/DetailedExamples.ipynb>`__
+available also as an `HTML
+file <https://htmlpreview.github.io/?https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/DetailedExamples.html>`__
+\* A quick start in
+`Matlab <https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/QuickStart.mlx>`__
+\* A
+`Matlab <https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/DetailedExamples.mlx>`__
+code with several examples
+
+In the folder documentation, a sphinxs Makefile for the automatic
+generation of a documentation is given. The pre-compiled html
+documentation can be found in the file
+`documentation/_build/html/index.html <https://htmlpreview.github.io/?https://github.com/aothmane-control/Algebraic-differentiators/blob/master/documentation/_build/html/index.html>`__
+
+Questions & Contact
+===================
+
+Feel free to contact
+`Amine <https://www.uni-saarland.de/en/chair/rudolph/staff/aothmane.html>`__
+in case of suggestions or questions.
+
+License
+=======
+
+BSD 3-Clause “New” or “Revised” License, see
+`License-file <https://github.com/aothmane-control/Algebraic-differentiators/blob/master/LICENSE>`__.
+
+References
+==========
+
+[1] A. Othmane, L. Kiltz, and J. Rudolph, “Survey on algebraic numerical
+differentiation: historical developments, parametrization, examples, and
+applications”, Int. J. Syst. Sci.
+https://doi.org/10.1080/00207721.2022.2025948
+
+[2] M. Mboup, C. Join, and M. Fliess, “Numerical differentiation with
+annihilators in noisy environment”, Numerical Algorithms, 50 (4),
+439–467, 2009, https://doi.org/10.1007/s11075-008-9236-1
+
+[3] L. Kiltz and J. Rudolph, “Parametrization of algebraic numerical
+differentiators to achieve desired filter characteristics,” in Proc.
+52nd IEEE Conf. on Decision and Control, Firenze, Italy, 2013, pp. 7010–
+7015, https://doi.org/10.1109/CDC.2013.6761000
+
+[4] M. Mboup and S. Riachy, “Frequency-domain analysis and tuning of the
+algebraic differentiators,” Int. J. Control , 91 (9), 2073–2081, 2018,
+https://doi.org/10.1080/00207179.2017.1421776
+
+[5] A. Othmane, J. Rudolph, and H. Mounier, “Systematic comparison of
+numerical differentiators and an application to model-free control”,
+Eur. J. Control. https://doi.org/10.1016/j.ejcon.2021.06.020
+
+.. |Motivation example| image:: https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/motivationAlgDiff.png
+.. |filter_characteristics| image:: https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/interpretationDifferentiators.png
+.. |filter_characteristics| image:: https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/filterSpectrum.png
+.. |GUI| image:: https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/figureGUI.png
