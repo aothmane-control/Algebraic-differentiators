@@ -14,7 +14,6 @@ setup(
           'scipy',
           'mpmath',
           'numpy',
-          'math'
       ],
   classifiers=[
     'License :: OSI Approved :: BSD License',
