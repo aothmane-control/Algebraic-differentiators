@@ -3,7 +3,7 @@ GUI
 
 Since Version 1.1 a GUI is provided. Executable files for Linux and
 Windows operating systems are provided and do not require the
-installation of additional software. Neither Python not Matlab have to
+installation of additional software. The binary files of the GUIs for different operating systems can be downloaded from the latest release `page <https://github.com/aothmane-control/Algebraic-differentiators/releases>`_. Neither Python not Matlab have to
 be installed to start designing algebraic differentiators, get discrete
 filter coefficients, and estimate derivatives. This GUI can be used to
 plot relevant data (impulse and step responses, amplitude and phase
