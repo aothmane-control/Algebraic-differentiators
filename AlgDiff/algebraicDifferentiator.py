@@ -141,25 +141,20 @@ class AlgebraicDifferentiator(object):
             for more details.
         :type discreteSpectrum: Bool
         
-        Returns
-        -------
-        coeff: dictionary
-            Discretized filter in a dict where the keys are the derivative
-            for which a filter has been discretized. Each element is a dict. with
-            keys the used discretization methods. If the correction of the DC
-            component has been enabled with the parameter corr of the class
-            initialization, this output contains the corrected filter coefficients.
-
-        tau_1: float
-            If redFilLength is set, tau_1 is the time where the filter window is reduced
-            before at the left side of the interval. The estimation delay is 
-            reduced by tau_1.
-        tau_2: float
-            If redFilLength is set, tau_2 is the time where the filter window is reduced
-            before at the right side of the interval. This value does not affect the
-            delay.
-        theta: float
-            If discreteSpectrum is set then the parameter :math:`\\theta` is also returned.
+        :returns:
+        	- coeff (dictionary) - Discretized filter in a dict where the keys are the derivative \
+            		for which a filter has been discretized. Each element is a dict. with \
+            		keys the used discretization methods. If the correction of the DC \
+            		component has been enabled with the parameter corr of the class \
+            		initialization, this output contains the corrected filter coefficients.
+        	- tau_1 (:py:class:`float`) - If redFilLength is set, tau_1 is the time where the filter \
+        		window is reduced \
+            		before at the left side of the interval. The estimation delay is reduced by tau_1.
+        	- tau_2 (:py:class:`float`) - If redFilLength is set, tau_2 is the time where the filter \
+        	 	window is reduced\
+            		before at the right side of the interval. This value does not affect the delay.
+        	- theta (:py:class:`float`) - If discreteSpectrum is set then the parameter\
+        		 :math:`\\theta` is also returned.
         """
         theta0 = 0
         theta = theta0
@@ -656,12 +651,9 @@ class AlgebraicDifferentiator(object):
                         evaluated
         :type omega: numpy array
         
-        Returns
-        -------
-        amp: numpy array
-            Amplitude of the Fourier transform of the filter.
-        phase: numpy array 
-            Phase of the Fourier transform of the filter.
+        :returns:
+        	- amp (:py:class:`numpy array`) - Amplitude of the Fourier transform of the filter.
+        	- phase (:py:class:`numpy array`) - Phase of the Fourier transform of the filter.
         """
 
         mp.dps = 150; mp.pretty = True
@@ -704,14 +696,9 @@ class AlgebraicDifferentiator(object):
             "trapezoidal", "analytic".
         :type method: string 
         
-        Returns
-        -------
-        amplitude: numpy array
-            Amplitude of the Fourier transform of the discretized
-            filter evaluated at omega. 
-        phase: numpy array 
-            Phase of the Fourier transform of the discretized
-            filter evaluated at omega.
+        :returns:
+        	- amplitude (:py:class:`numpy array`) - Amplitude of the Fourier transform of the discretized filter evaluated at omega. 
+        	- phase (:py:class:`numpy array`) - Phase of the Fourier transform of the discretized filter evaluated at omega.
         """
         w,theta = self.discretize(n,method,discreteSpectrum=True)
         k = np.arange(0,len(w[n][method]))
@@ -730,14 +717,10 @@ class AlgebraicDifferentiator(object):
         :param omega: Frequencies where the bounds should be evaluated
         :type omega: numpy array
 
-        Returns
-        -------
-        up: numpy array
-            Upper bound for the amplitude spectrum evaluated at omega..
-        lb: numpy array
-            Lower bound for the amplitude spectrum evaluated at omega..
-        mb: numpy array
-            Lowpass approximation of the filter evaluated at omega..
+        :returns:
+	        - ub - (:py:class:`numpy array`) - Upper bound for the amplitude spectrum evaluated at omega..
+        	- lb - (:py:class:`numpy array`) -  Lower bound for the amplitude spectrum evaluated at omega..
+        	- mb - (:py:class:`numpy array`) - Lowpass approximation of the filter evaluated at omega..
         """
 
         kappa = np.abs(self.__beta-self.__alpha)
@@ -1020,27 +1003,21 @@ class AlgebraicDifferentiator(object):
         window.
 
         :param der: The sought derivative.
-        :type der: integer
+        :type der: int
         
         :param tol: The tolerance that for reducing the filter length
         :type tol: float
         
-        Returns
-        -------
-        tau1: float
-            New starting point of the window. The value 0, i.e., the old
-            starting point, is taken as the reference.
-        tau2: float
-            New end point of the window. The value 0, i.e., the old starting
-            point, is taken as the reference.
-        d: numpy array
-            Distribution function used for the truncation.
-        t: numpy array
-            Times instants where distribution function has been evaluated.
-        n: int
-            Factor relating the sampling rate of the measurements and the
-            sampling rate used for the evaluation of the distribution
-            function.
+        :returns:
+        	- tau1 (:py:class:`float`) - New starting point of the window. The value 0, i.e., the old
+            		starting point, is taken as the reference.
+        	- tau2 (:py:class:`float`) - New end point of the window. The value 0, i.e., the old starting
+           	 	point, is taken as the reference.
+        	- d (:py:class:`numpy array`) - Distribution function used for the truncation.
+        	- t (:py:class:`numpy array`) - Times instants where distribution function has been evaluated.
+        	- n (:py:class:`int`) - Factor relating the sampling rate of the measurements and the
+			    sampling rate used for the evaluation of the distribution
+			    function.
         """
         # Compute the first moment of the n-th derivative of the kernel
         n = 10
