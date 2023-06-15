@@ -6,3 +6,5 @@ __pycache__/
 examples/DetailedExamples_files/
 
 *.dat
+
+docs/build/

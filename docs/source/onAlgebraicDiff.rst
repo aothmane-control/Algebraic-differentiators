@@ -59,9 +59,10 @@ also shown.
    :scale: 50 %
    :alt: Visualization of the online estimation
 
-   Figure 4. Amplitude and phase spectra of two different filters and the
-corresponding lowpass approximation of the amplitude spectrum. 
+   Figure 4. Amplitude and phase spectra of two different filters and the corresponding lowpass approximation of the amplitude spectrum. 
    
    
 See `[1] <#1>`__, `[3] <#3>`__, `[4] <#4>`__, and `[5] <#5>`__ for more
 details on the parametrization of these differentiators.
+
+
