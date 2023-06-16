@@ -81,6 +81,9 @@ Different examples are provided as jupyter notebooks and Matlab code in the foll
 * A quick start in [Matlab](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/QuickStart.mlx)
 * A [Matlab](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/examples/DetailedExamples.mlx) code with several examples
 
+# Troubleshooting
+A list of known issues and fixes is also [provided](https://algebraic-differentiators.readthedocs.io/en/latest/troubleshooting.html).
+
 # Documentation
  A detailed [documentation](https://algebraic-differentiators.readthedocs.io/en/latest/documentation.html) for all the functions is also provided in the webpage of the [project](https://algebraic-differentiators.readthedocs.io/en/latest/index.html).
 

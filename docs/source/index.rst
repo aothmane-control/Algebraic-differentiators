@@ -27,6 +27,7 @@ Contents
    onAlgebraicDiff
    gui
    usage
+   troubleshooting
    contact
    license
    references
