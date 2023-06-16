@@ -8,6 +8,21 @@ The toolbox is licensed under the BSD-3-Clause License, which is suitable for bo
 This code has been created for research purposes at the [Chair of Systems Theory and Control Engineering](https://www.uni-saarland.de/en/chair/rudolph.html) of Saarland University, Germany.
  We apply algebraic differentiators to solve different problems related to control theory and signal processing: Parameter estimation, feedback control, fault detection and fault tolerant control, model-free control ...
 
+Table of Contents
+=================
+* [Motivation](#motivation)
+* [On algebraic differentiators](#on-algebraic-differentiators)
+* [GUI](#gui)
+* [Prerequisites for the implementation](#prerequisites-for-the-implementation)
+* [Installation](#installation)
+* [How to use  the implementation](#how-to-use--the-implementation)
+* [Troubleshooting](#troubleshooting)
+* [Documentation](#documentation)
+* [Questions  &amp; Contact](#questions---contact)
+* [License](#license)
+* [References](#references)
+
+
 # Motivation 
 Estimating the derivatives of noisy signals is of paramount importance in many
 fields of engineering and applied mathematics. It is, however, a longstanding ill-posed
