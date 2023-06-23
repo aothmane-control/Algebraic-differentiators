@@ -280,38 +280,60 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
     %% Getter
     methods
         function alpha = get_alpha(obj)
+            %GET_ALPHA Returns the paramater <alpha> of the differentiator.
+            %
             alpha = double(obj.inst.get_alpha());
         end
 
         function beta = get_beta(obj)
+            %GET_BETA Returns the paramater <beta> of the differentiator.
+            %
             beta = double(obj.inst.get_beta());
         end
 
         function N = get_N(obj)
+            %GET_N Returns the paramater <N> of the differentiator.
+            %
             N = double(obj.inst.get_N());
         end
 
         function theta = get_theta(obj)
+            %GET_THETA Returns the paramater <theta> of the differentiator.
+            %
             theta = double(obj.inst.get_theta());
         end
 
         function ts = get_ts(obj)
+            %GET_TS Returns the sampling period.
+            %
             ts = double(obj.inst.get_ts());
         end
 
         function T = get_T(obj)
+            %GET_T Returns the filter window length of the algebraic
+            %differentiator
+            %
             T = double(obj.inst.get_T());
         end
 
         function wc = get_cutoffFreq(obj)
+            %GET_CUTOFFFREQ Returns the cutoff frequency, omega_c, of the
+            %algebraic differentiator
+            %
             wc = double(obj.inst.get_cutoffFreq());
         end
 
         function delay = get_delay(obj)
+            %GET_DELAY Returns the estimation delay, delta_t, of the
+            %algebraic differentiator
+            %
             delay = double(obj.inst.get_delay());
         end
 
         function gamma = get_degreeExactness(obj, n)
+            %GET_DEGREEEXACTNESS Returns the degree of exactness, gamma,
+            %when the <n>-th derivative is approximated
+            %
             arguments
                 obj (1,1) AlgDiff
                 n (1,1) {mustBeInteger,mustBeNonnegative}
@@ -332,6 +354,74 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
 
             obj.inst.set_theta(theta, logical(rootJacobiPol));
 
+        end
+
+        function set_T(obj, T)
+            %SET_T Sets the window length of the algebraic differentiator
+            %to the value <T>
+            %
+            arguments
+                obj (1,1) AlgDiff
+                T {mustBePositive,mustBeReal}
+            end
+
+            obj.inst.set_T(double(T));
+        end
+
+        function set_samplingPeriod(obj, ts)
+            %SET_SAMPLINGPERIOD Sets the sampling period of the discrete 
+            %algebraic differentiator to the value <ts>
+            %
+            arguments
+                obj (1,1) AlgDiff
+                ts {mustBePositive,mustBeReal}
+            end
+
+            obj.inst.set_samplingPeriod(double(ts));
+        end
+
+        function set_alpha(obj, alpha)
+            %SET_ALPHA Sets the parameter alpha of the weight function of
+            %the algebraic differentiator to the value <alpha>.
+            %   The value must satisfy alpha > n-1, where n it the highest
+            %   derivative to be estimated
+            %
+            arguments
+                obj (1,1) AlgDiff
+                alpha {mustBeReal}
+            end
+
+            obj.inst.set_alpha(double(alpha));
+        end
+
+        function set_beta(obj, beta)
+            %SET_BETA Sets the parameter beta of the weight function of
+            %the algebraic differentiator to the value <beta>.
+            %   The value must satisfy beta > n-1, where n it the highest
+            %   derivative to be estimated.
+            %   If a filter was discretized earlier, the function also
+            %   computes the discretized filter with this new parameter.
+            %
+            arguments
+                obj (1,1) AlgDiff
+                beta {mustBeReal}
+            end
+
+            obj.inst.set_beta(double(beta));
+        end
+
+        function set_N(obj, N)
+            %SET_N Sets the parameter N of the weight function of
+            %the algebraic differentiator to the value <N>.
+            %   If a filter was discretized earlier, the function also
+            %   computes the discretized filter with this new parameter.
+            %
+            arguments
+                obj (1,1) AlgDiff
+                N {mustBeInteger,mustBeNonnegative}
+            end
+
+            obj.inst.set_N(int32(N));
         end
     end
 
