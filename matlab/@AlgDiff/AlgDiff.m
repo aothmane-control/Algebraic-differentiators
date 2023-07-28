@@ -1,8 +1,16 @@
 classdef AlgDiff <  matlab.mixin.CustomDisplay
     %ALGDIFF Wrapper for py.AlgDiff.AlgebraicDifferentiator.
+    %
+    %   This class implements an algebraic differentiator and all the
+    %   methods necessary for its use, analysis, tuning, and discretization.
+    %   The differentiators which are LTI filters can be parametrized to
+    %   achieve desired filter characteristics: Cutoff frequency and
+    %   stopband slope.
+    %
     %   For more information and installation instructions, see <a href=
-    %   "matlab:web('https://github.com/aothmane-control/Algebraic-differentiators')">
-    %   the source repository</a>.
+    %   "matlab:web('https://github.com/aothmane-control/Algebraic-differentiators')">the source repository</a>.
+    %
+    %   See also py.AlgDiff.algebraicDifferentiator
 
     properties (Constant, GetAccess=protected)
         % Error Identifier
@@ -17,25 +25,52 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
     %% Construction
     methods
         function obj = AlgDiff(ts, alpha, beta, N, opts)
-            %ALGDIFF Instantiates an object of the python class
-            %AlgebraicDifferentiator
-            %   For more information see AlgebraicDifferentiator.__init__
+            %ALGDIFF Constructs an algebraic differentiator.
+            %   Either a cutoff frequency, omega_c ('CutoffFrequency'), or a
+            %   filter window length, T ('FilterWindowLength'), can be
+            %   specified. If the filter window length is specified the
+            %   cutoff frequency is computed. For frequencies lower than
+            %   the cutoff frequency the amplitude of the Fourier transform
+            %   is 0 dB. For frequencies higher than the cutoff frequency
+            %   the amplitude falls with min(alpha, beta)+1 dB per decade.
             %
             %   Arguments:
-            %       - ts: sampling period in seconds
-            %       - alpha: parameter alpha of Jacobi polynomials. Has to
-            %       satisfy alpha > n - 1, where n: highest derivative to
-            %       be estimated
-            %       - beta: parameter beta of Jacobi polynomials. Has to
-            %       satisfy beta > n - 1, where n: highest derivative to be
-            %       estimated
-            %       - N: truncation order of generalized Fourier series
+            %     - ts: Sampling period.
+            %     - alpha: Parameter alpha of the weight function of the
+            %         Jacobi polynomials. Has to satisfy alpha > n - 1, 
+            %         where n is highest derivative to be estimated.
+            %     - beta: Parameter beta of the weight function of the
+            %         Jacobi polynomials. Has to satisfy beta > n - 1, 
+            %         where n: highest derivative to be estimated. The
+            %         stopband slope is given by mu=min(alpha, beta)+1, i.e.
+            %         frequencies higher than the cutoff frequency are
+            %         attenuated by 20*mu dB per decade. Frequencies lower
+            %         than the cutoff frequency are attenuated by 0 dB.
+            %     - N: Truncation order (int) of the generalized Fourier 
+            %         series. A delay-free derivative approximation is only
+            %         possible for N >= 1. The differentiator is
+            %         parametrized by default such that the non-zero delay
+            %         is minimized for the choice N >= 1. See the method
+            %         set_theta for more details.
             %
             %   Key-value arguments:
-            %       - Correction: See corr@AlgebraicDifferentiator.__init__ 
-            %       - FilterWindowLength: See T@AlgebraicDifferentiator.__init__ 
-            %       - CutoffFrequency: See wc@AlgebraicDifferentiator.__init__ 
+            %     - FilterWindowLength: Filter window length (float). Takes
+            %         a positive value if the length has to be specified.
+            %         The cutoff frequency is then computed automatically.
+            %         It should take the value [] if the cutoff frequency
+            %         is specified.
+            %     - CutoffFrequency: Cutoff frequency w_c of the 
+            %         differentiator in rad (float). Takes a positive value 
+            %         if the cutoff frequency has to be specified. The 
+            %         filter window length is then computed automatically. 
+            %         It should take the value [] if the filter window 
+            %         length is specified.
+            %     - Correction: Boolean variable that indicates if errors
+            %         in the DC component of the approximated signal
+            %         stemming from the discretization should be corrected.
             %
+            %   See also py.AlgDiff.algebraicDifferentiator.AlgebraicDifferentiator
+
             arguments
                 ts (1,1) {mustBeReal, mustBePositive} = 0.01
                 alpha (1,1) {mustBeReal} = 1
@@ -43,13 +78,21 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
                 N (1,1) {mustBeInteger, mustBeNonnegative} = 0
 
                 opts.Correction (1,1) matlab.lang.OnOffSwitchState = true
-                opts.FilterWindowLength {mustBeScalarOrEmpty} = 1
+                opts.FilterWindowLength {mustBeScalarOrEmpty} = []
                 opts.CutoffFrequency {mustBeScalarOrEmpty} = []
 
             end
 
+            if isempty(opts.FilterWindowLength) ...
+                && isempty(opts.CutoffFrequency)
+
+                % Default to FilterWindowLength=1 if neither is provided
+                opts.FilterWindowLength = 1;
+
+            end
+
             % Either FilterWindowLength or CutoffFrequency has to be
-            % specified
+            % specified.
             if ~isempty(opts.FilterWindowLength)
                 if ~isempty(opts.CutoffFrequency)
                     error(AlgDiff.ErrID + ":algdiff:tooManyArguments", ...
@@ -96,10 +139,15 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
                         "display", false ...
                     ));
             catch ME
-                if contains(ME.message, "Unable to resolve the name")
-                    fprintf("Did not find AlgDiff library on python's path.\n"...
-                          + "See: https://github.com/aothmane-control/Algebraic-differentiators"...
-                          + " for installation instructions.");
+                if strcmp(ME.identifier, "MATLAB:undefinedVarOrClass")
+                    % Missing library
+                    missingLibException = MException( ...
+                        AlgDiff.ErrID + ":algdiff:MissingPythonLibrary", ...
+                        "Could not load the AlgDiff library from python. " ...
+                        + "See https://github.com/aothmane-control/Algebraic-differentiators" ...
+                        + " for installation instructions");
+
+                    throw(missingLibException.addCause(ME));
                 end
 
                 rethrow(ME);
@@ -404,51 +452,6 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
             end
             
         end
-
-        function coeff = get_filter_coefficients(obj, der, opts)
-            arguments
-                obj (1,1) AlgDiff
-                der (1,1) {mustBeInteger,mustBeNonnegative}
-
-                opts.Method {mustBeMember(opts.Method, ["mid-point", ...
-                    "trapezoidal", "simpson rule",  "analytic"])} ...
-                    = "mid-point";
-                opts.ReduceFilterLength (1,1) matlab.lang.OnOffSwitchState ...
-                    = "off";
-            end
-
-            % Query dictionary
-            w = obj.get_property_w();
-            
-            % First key
-            data = w.get(int32(der));
-            if isa(data, "py.NoneType")
-                % Not in dictionary
-                error(AlgDiff.ErrID + ":algdiff:MissingDiscretization", ...
-                      "%d-th derivative was not yet discretized", ...
-                      der);
-
-            end
-
-            % Second key
-            key = opts.Method;
-            if opts.ReduceFilterLength
-                key = key + "-red";
-            end
-
-            data = data.get(key);
-            if isa(data, "py.NoneType")
-                % Not in dictionary
-                error(AlgDiff.ErrID + ":algdiff:MissingDiscretization", ...
-                      "Method '%s' with ReduceFilterLength='%s'" ...
-                      + " was not yet discretized for %d-th derivative", ...
-                      opts.Method, opts.ReduceFilterLength, der);
-
-            end
-
-            coeff = double(data);
-
-        end
     end
 
     %% Setter
@@ -533,10 +536,62 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
         end
     end
 
+    %% Custom methods
+    methods
+        
+        function coeff = get_filter_coefficients(obj, der, opts)
+            arguments
+                obj (1,1) AlgDiff
+                der (1,1) {mustBeInteger,mustBeNonnegative}
+
+                opts.Method {mustBeMember(opts.Method, ["mid-point", ...
+                    "trapezoidal", "simpson rule",  "analytic"])} ...
+                    = "mid-point";
+                opts.ReduceFilterLength (1,1) matlab.lang.OnOffSwitchState ...
+                    = "off";
+            end
+
+            % Query dictionary
+            w = obj.get_property_w();
+            
+            % First key
+            data = w.get(int32(der));
+            if isa(data, "py.NoneType")
+                % Not in dictionary
+                error(AlgDiff.ErrID + ":algdiff:MissingDiscretization", ...
+                      "%d-th derivative was not yet discretized", ...
+                      der);
+
+            end
+
+            % Second key
+            key = opts.Method;
+            if opts.ReduceFilterLength
+                key = key + "-red";
+            end
+
+            data = data.get(key);
+            if isa(data, "py.NoneType")
+                % Not in dictionary
+                error(AlgDiff.ErrID + ":algdiff:MissingDiscretization", ...
+                      "Method '%s' with ReduceFilterLength='%s'" ...
+                      + " was not yet discretized for %d-th derivative", ...
+                      opts.Method, opts.ReduceFilterLength, der);
+
+            end
+
+            coeff = double(data);
+        end
+
+    end
+
     %% Display (i.e. disp(obj))
     methods (Access = protected)
+
         function s = getFooter(obj)
-            %GETFOOTER
+            %GETFOOTER Prints properties of the implemented differentiator
+            %into a string
+            %
             s = sprintf(['\tParameters of the differentiator:\n', ...
                             '\t\tAlpha: %.6f\n', ...
                             '\t\tBeta: %.6f\n', ...
@@ -557,15 +612,22 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
                         obj.get_cutoffFreq() / (2*pi), ...
                         int32(obj.get_T() / obj.get_ts()));
         end
+
     end
     
     %% Property access helpers
     methods (Access = protected)
+
         function w = get_property_w(obj)
+            %GET_PROPERTY_W Returns the property '__w' as a py.dict
+            %
             w = py.getattr(obj.inst, "_AlgebraicDifferentiator__w");
         end
 
         function delayDisc = get_property_delayDisc(obj)
+            %GET_PROPERTY_DELAYDISC Returns the property '__delayDisc' as a
+            %py.dict
+            %
             delayDisc = py.getattr(obj.inst, "_AlgebraicDifferentiator__delayDisc");
         end
     end
