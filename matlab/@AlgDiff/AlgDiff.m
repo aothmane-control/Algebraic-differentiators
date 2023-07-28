@@ -275,6 +275,10 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
             mB = double(data{3});
 
         end
+    
+        function t = timeShift(obj, t)
+            t = double(obj.inst.timeShift(py.numpy.array(t)));
+        end
     end
 
     %% Getter
@@ -340,6 +344,110 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
             end
 
             gamma = double(obj.inst.get_degreeExactness(int32(n)));
+        end
+
+        function k_N = get_ratioNyquistCutoff(obj, k)
+            arguments
+                obj (1,1) AlgDiff
+                k {mustBeVector,mustBeInteger,mustBeNonnegative}
+            end
+
+            k_N = double(obj.inst.get_ratioNyquistCutoff(py.numpy.array(k)));
+        end
+
+        function J = get_discretizationError(obj, k, omega, opts)
+            arguments
+                obj (1,1) AlgDiff
+                k (1,1) {mustBeInteger,mustBeNonnegative}
+                omega (1,1) {mustBeFloat,mustBeNonnegative}
+
+                opts.NumerOfParts (1,1) {mustBeInteger,mustBePositive} = 1000; 
+                opts.Method {mustBeTextScalar,mustBeMember(opts.Method, ["mid-point",...
+                    "trapezoidal", "analytic"])} = "mid-point";
+            end
+
+            J = double(obj.inst.get_discretizationError( ...
+                int32(k), omega, int32(opts.NumerOfParts), opts.Method ...
+                ));
+        end
+
+        function delta_t_d = get_delayDiscrete(obj, method, opts)
+            arguments
+                obj (1,1) AlgDiff
+                method {mustBeTextScalar,mustBeMember(method, ["mid-point",...
+                    "trapezoidal", "analytic"])}
+                
+                opts.ReduceFilterLength (1,1) matlab.lang.OnOffSwitchState ...
+                    = "off";
+            end
+
+            % Dictionary key
+            key = method;
+            if opts.ReduceFilterLength
+                key = key + "-red";
+            end
+
+            % Access dict
+            data = obj.get_property_delayDisc();
+            value = data.get(key);
+
+            if isnumeric(value)
+                delta_t_d = value;
+
+            else
+                % Not in dictionary
+                error(AlgDiff.ErrID + ":algdiff:MissingDiscretization", ...
+                      "Method '%s' with ReduceFilterLength='%s'" ...
+                      + " was not yet discretized", ...
+                      method, opts.ReduceFilterLength);
+
+            end
+            
+        end
+
+        function coeff = get_filter_coefficients(obj, der, opts)
+            arguments
+                obj (1,1) AlgDiff
+                der (1,1) {mustBeInteger,mustBeNonnegative}
+
+                opts.Method {mustBeMember(opts.Method, ["mid-point", ...
+                    "trapezoidal", "simpson rule",  "analytic"])} ...
+                    = "mid-point";
+                opts.ReduceFilterLength (1,1) matlab.lang.OnOffSwitchState ...
+                    = "off";
+            end
+
+            % Query dictionary
+            w = obj.get_property_w();
+            
+            % First key
+            data = w.get(int32(der));
+            if isa(data, "py.NoneType")
+                % Not in dictionary
+                error(AlgDiff.ErrID + ":algdiff:MissingDiscretization", ...
+                      "%d-th derivative was not yet discretized", ...
+                      der);
+
+            end
+
+            % Second key
+            key = opts.Method;
+            if opts.ReduceFilterLength
+                key = key + "-red";
+            end
+
+            data = data.get(key);
+            if isa(data, "py.NoneType")
+                % Not in dictionary
+                error(AlgDiff.ErrID + ":algdiff:MissingDiscretization", ...
+                      "Method '%s' with ReduceFilterLength='%s'" ...
+                      + " was not yet discretized for %d-th derivative", ...
+                      opts.Method, opts.ReduceFilterLength, der);
+
+            end
+
+            coeff = double(data);
+
         end
     end
 
@@ -450,6 +558,16 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
                         int32(obj.get_T() / obj.get_ts()));
         end
     end
+    
+    %% Property access helpers
+    methods (Access = protected)
+        function w = get_property_w(obj)
+            w = py.getattr(obj.inst, "_AlgebraicDifferentiator__w");
+        end
 
+        function delayDisc = get_property_delayDisc(obj)
+            delayDisc = py.getattr(obj.inst, "_AlgebraicDifferentiator__delayDisc");
+        end
+    end
 end
 
