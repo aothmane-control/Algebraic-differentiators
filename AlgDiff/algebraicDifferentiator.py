@@ -173,7 +173,6 @@ class AlgebraicDifferentiator(object):
                 else:
                     out[i] = p[i%order]
             out[-1] = p[-1]
-            print(out)
             return out
 
                 
