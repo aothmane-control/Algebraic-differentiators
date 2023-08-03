@@ -238,10 +238,8 @@ class AlgebraicDifferentiator(object):
         elif method=="simpson rule":
             order = 3
             self.__L = L0
-            print(self.__L)
             if self.__L%(order)!=0:
                 self.__L += order-self.__L%order
-            print(self.__L)
             theta = theta0
             self.__delayDisc[method+red] = self.get_delay()-tau1*self.__ts
             k = np.linspace(0,self.__T,self.__L)
@@ -261,10 +259,8 @@ class AlgebraicDifferentiator(object):
         elif method=="simpson 3/8 rule":
             order = 4
             self.__L = L0
-            print(self.__L)
             if self.__L%(order)!=0:
                 self.__L += order-self.__L%order
-            print(self.__L)
             theta = theta0
             self.__delayDisc[method+red] = self.get_delay()-tau1*self.__ts
             k = np.linspace(0,self.__T,self.__L)
@@ -326,10 +322,8 @@ class AlgebraicDifferentiator(object):
         elif method=="newton-cotes order 7":
             order = 7
             self.__L = L0
-            print(self.__L)
             if self.__L%(order)!=0:
                 self.__L += order-self.__L%order
-            print(self.__L)
             theta = theta0
             self.__delayDisc[method+red] = self.get_delay()-tau1*self.__ts
             k = np.linspace(0,self.__T,self.__L)
