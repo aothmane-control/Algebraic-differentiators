@@ -349,6 +349,24 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
         end
 
         function [amp, phase] = get_ampSpectrumDiscreteFilter(obj, omega, n, opts)
+            %GET_AMPSPECTRUMDISCRETEFILTER Computes the amplitude spectrum
+            %of the discretized filter for the estimation of the 'n'-th.
+            %derivative at the frequencies 'omega'.
+            %   The filter is discretized using the given method.
+            %
+            %   Arguments:
+            %     - omega: Frequencies (as a vector) where the amplitude
+            %       should be evaluated.
+            %     - n: Order of derivative to be estimated (int).
+            %
+            %   Returns:
+            %     - amp: Amplitude of the Fourier transform of the
+            %       discretized filter evaluated at omega.
+            %     - phase: Phase of the Fourier transform of the
+            %       discretized filter evaluated at omega.
+            %
+            %   See also AlgDiff.discretize
+
             arguments
                 obj (1,1) AlgDiff
                 omega {mustBeVector,mustBeReal}
@@ -430,6 +448,26 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
         end
 
         function [uB, lB, mB] = get_asymptotesAmpFilter(obj, omega)
+            %GET_ASYMPTOTESAMPFILTER Evaluates the upper and lower bounds
+            %of the amplitude of the Fourier transform of the algebraic
+            %differentiator at the frequencies 'omega'.
+            %   Note that these bounds hold only for frequencies greater
+            %   than the cutoff frequency.
+            %   The function also returns the approximation as a low pass
+            %   filter.
+            %
+            %   Arguments:
+            %     - omega: Frequencies (as a vector) where the bounds
+            %       should be evaluated.
+            %
+            %   Returns:
+            %     - uB: Upper bound for the ampltitude spectrum evaluated
+            %       at 'omega'.
+            %     - lB: Lower bound for the ampltitude spectrum evaluated
+            %       at 'omega'.
+            %     - mB: Lowpass approximation of the filter evaluated
+            %       at 'omega'.
+
             arguments
                 obj (1,1) AlgDiff
                 omega {mustBeVector,mustBeReal}
@@ -486,6 +524,47 @@ classdef AlgDiff <  matlab.mixin.CustomDisplay
             w = double(obj.inst.weightFcn(a, b, py.numpy.array(t)));
         end
 
+        function [tau1, tau2, disFcn, t, n] = reduceFilterLength(obj, der, opts)
+            %REDUCEFILTERLENGTH Returns a distribution function that can be
+            %used to reduce the filter window length. The length is reduced
+            %such that the truncation is of the same amount on both sides
+            %of the filter window.
+            %   Arguments:
+            %     - der: Order of derivative (int).
+            %
+            %   Key-value arguments:
+            %     - RedTol: The tolerance for reducing the filter length.
+            %       Defaults to 0.01.
+            %
+            %   Returns:
+            %     - tau1: New starting point of the window. The value 0,
+            %       i.e. the old starting point, is taken as the reference.
+            %     - tau2: New ending point of the window. The value 0,
+            %       i.e. the old starting point, is taken as the reference.
+            %     - disFcn: Evaluated distribution function used for the
+            %       truncation.
+            %     - t: Time instants where the distribution function has
+            %       been evaluated.
+            %     - n: Factor relating the sampling rate of the
+            %       measurements and the sampling rate used for the
+            %       evaluation of the distribution function.
+
+            arguments
+                obj (1,1) AlgDiff
+                der (1,1) {mustBeInteger,mustBeNonnegative}
+
+                opts.RedTol (1,1) {mustBeNonnegative} = 0.01;
+            end
+
+            % Returns tuple
+            data = obj.inst.reduceFilterLength(int32(der), pyargs("tol", opts.RedTol));
+            
+            tau1 = double(data{1});
+            tau2 = double(data{2});
+            disFcn = double(data{3});
+            t = double(data{4});
+            n = int32(data{5});
+        end
     end
 
     %% Getter
