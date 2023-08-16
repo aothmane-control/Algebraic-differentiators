@@ -1,7 +1,7 @@
 [![PyPI version](https://badge.fury.io/py/AlgDiff.svg)](https://badge.fury.io/py/AlgDiff)
 # AlgDiff
 AlgDiff: A Python class that provides all necessary tools for the design, analysis, and discretization of algebraic differentiators. An interface to Matlab is also provided.
-This implementation was released as part of the survey [[1]](#1).  
+This implementation was released as part of the survey [[1]](#1).  A tutorial for algebraic differentiators and this package can be found in [[6]](#6).
 
 The toolbox is licensed under the BSD-3-Clause License, which is suitable for both academic and industrial/commercial purposes.
 
@@ -122,4 +122,5 @@ IEEE Conf. on Decision and Control, Firenze, Italy, 2013, pp. 7010–
 <a id="3">[4]</a> M. Mboup and S. Riachy, "Frequency-domain analysis and tuning of the algebraic differentiators," Int. J. Control , 91 (9), 2073–2081, 2018, https://doi.org/10.1080/00207179.2017.1421776 
 
 <a id="4">[5]</a> A. Othmane, J. Rudolph, and H. Mounier, "Systematic comparison of numerical differentiators and an application to model-free control", Eur. J. Control. https://doi.org/10.1016/j.ejcon.2021.06.020
+<a id="6">[6]</a> A. Othmane and J. Rudolph "AlgDiff: an open source toolbox for the design, analysis and discretisation of algebraic differentiators", at - Automatisierungstechnik https://doi.org/10.1515/auto-2023-0035 https://arxiv.org/abs/2308.04888
 

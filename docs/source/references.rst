@@ -22,3 +22,7 @@ https://doi.org/10.1080/00207179.2017.1421776
 [5] A. Othmane, J. Rudolph, and H. Mounier, “Systematic comparison of
 numerical differentiators and an application to model-free control”,
 Eur. J. Control. https://doi.org/10.1016/j.ejcon.2021.06.020
+
+[6] A. Othmane and J. Rudolph "AlgDiff: an open source toolbox for the design,
+analysis and discretisation of algebraic differentiators",
+at - Automatisierungstechnik https://doi.org/10.1515/auto-2023-0035 https://arxiv.org/abs/2308.04888
