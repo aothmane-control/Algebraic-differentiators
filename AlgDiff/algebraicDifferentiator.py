@@ -7,7 +7,9 @@ The implementation of the class AlgebraicDifferentiator
 from scipy import special
 from mpmath import *
 import numpy as np
+import warnings
 import math
+
 
 class AlgebraicDifferentiator(object):
     """
@@ -86,6 +88,7 @@ class AlgebraicDifferentiator(object):
         # Continuous window length
         if T is not None:
             self.__T = T
+            self.checkParameters()
             self.__wc = self.get_cutoffFreq()
             self.__setUp = 'T'
         elif wc is not None:
@@ -93,7 +96,7 @@ class AlgebraicDifferentiator(object):
             self.computeTfromWc(self.__wc)
             self.__setUp = 'wc'
         else:
-            print('Error: wc or T have to be given')
+            raise Exception('Cutoff frequency wx or window length T have to be given.')
 
         # Create dict to save the discretized filter values for each der.
         self.__w = {}
@@ -102,6 +105,40 @@ class AlgebraicDifferentiator(object):
         # Print all properties of differentiator
         if display:
             self.printParam()
+
+        self.warningRelativeAttenuation = -10
+
+    def checkParameters(self, der=None):
+        """
+            Check if window length is too small. Function raises an error if T<ts and gives a warning
+            if aliasing effects are to be expected.
+        """
+        if self.__T < self.__ts:
+            e = "Window length T of the filter is smaller than the given sampling period ts" + \
+                    " Choose a larger window, i.e., increase the parameter T."
+            raise Exception(e)
+        if der is not None:
+            # Check if parameters alpha and beta satisfy conditions
+            if not (np.min((self.__alpha, self.__beta)) > der-1):
+                print('OK')
+                txt = "The parameters \u03B1 have  \u03B2 have to satisfy min(\u03B1,\u03B2)>n-1," \
+                      " with n the order of the sought " \
+                      "derivative. Increase min(\u03B1,\u03B2)."
+                raise Exception(txt)
+            # Check for aliasing effects
+            wc = self.__wc
+            wN = np.pi/self.__ts
+            mu = np.min((self.__alpha, self.__beta))+1
+            attNum = (wc/wN)**(mu-der)
+            if attNum > self.warningRelativeAttenuation:
+                txt = "Attention: \n\tAliasing effects are to be expected. Compare for example the amplitude" \
+                      " spectra of the continuous-time and the discrete-time filters. You can use the implemented" \
+                      " functions for these computations." \
+                      "\nPossible solutions:\
+                            \n\tincrease min(\u03B1,\u03B2)\
+                            \n\tdecrease the cutoff frequency (if in cutoff frequency mode)\
+                            \n\tincrease window length (if in window length mode)"
+                warnings.warn(txt)
 
     def discretize(self,der,method="mid-point",redFilLength=False,\
                    redTol=0.01,discreteSpectrum=False):
@@ -157,6 +194,7 @@ class AlgebraicDifferentiator(object):
         	- theta (:py:class:`float`) - If discreteSpectrum is set then the parameter\
         		 :math:`\\theta` is also returned.
         """
+        self.checkParameters(der)
         theta0 = 0
         theta = theta0
         L0 = int(self.__T/self.__ts)
@@ -789,6 +827,8 @@ class AlgebraicDifferentiator(object):
         # Compute filter winfow length and convert to a muliple of ts
         self.__T = int(1./wc*np.power(q/special.gamma(mu+kappa),1/mu)\
                        /self.__ts)*self.__ts
+        self.checkParameters()
+
 
     def get_delay(self):
         """
@@ -823,8 +863,8 @@ class AlgebraicDifferentiator(object):
         :type T: float
         
         """
-
         self.__T = T
+        self.checkParameters()
         self.__L = np.round(self.__T/self.__ts)
         for der in self.__w.keys():
             for m in self.__w[der].keys():
