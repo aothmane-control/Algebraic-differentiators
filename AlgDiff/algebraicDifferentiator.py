@@ -130,7 +130,7 @@ class AlgebraicDifferentiator(object):
             wN = np.pi/self.__ts
             mu = np.min((self.__alpha, self.__beta))+1
             attNum = (wc/wN)**(mu-der)
-            if attNum > self.warningRelativeAttenuation:
+            if 20*np.log10(attNum) > self.warningRelativeAttenuation:
                 txt = "Attention: \n\tAliasing effects are to be expected. Compare for example the amplitude" \
                       " spectra of the continuous-time and the discrete-time filters. You can use the implemented" \
                       " functions for these computations." \
