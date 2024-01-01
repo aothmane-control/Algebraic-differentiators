@@ -16,7 +16,7 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
 ]
-dependencies = ['scipy', 'mpmath', 'numpy', 'sphinx-rtd-theme']
+dependencies = ['scipy', 'mpmath', 'numpy']
 license = {file = "LICENSE"}
 keywords = ['numerical-differentiation ', 'fir-filters', 'orthogonal-polynomials', 'numerical-methods ']
 
