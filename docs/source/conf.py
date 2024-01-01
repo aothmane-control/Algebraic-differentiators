@@ -10,18 +10,18 @@ sys.path.insert(0, target_dir)
 #for mod_name in MOCK_MODULES:
 #	sys.modules[mod_name] = mock.Mock()
 
-print(target_dir)
+#print(target_dir)
 
 # Configuration file for the Sphinx documentation builder.
 
 # -- Project information
 
 project = 'Algebraic differentiators'
-copyright = '2023, Amine Othmane'
+copyright = '2024, Amine Othmane'
 author = 'Amine Othmane'
 
 # The full version, including alpha/beta/rc tags
-release = '2.1'
+release = '2.2.1.1'
 
 # -- General configuration
 
