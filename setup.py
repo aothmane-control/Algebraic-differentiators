@@ -22,7 +22,8 @@ setup(
   install_requires=[
           'scipy',
           'mpmath',
-          'numpy'
+          'numpy',
+          'sphinx_rtd_theme'
       ],
   classifiers=[
     'License :: OSI Approved :: BSD License',
