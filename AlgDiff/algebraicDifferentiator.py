@@ -4,7 +4,7 @@ algebraicDifferentiator.py
 The implementation of the class AlgebraicDifferentiator
 """
 
-from scipy import special
+from scipy import special, integrate
 from mpmath import *
 import numpy as np
 import warnings
@@ -384,10 +384,18 @@ class AlgebraicDifferentiator(object):
             self.__delayDisc[method+red] = self.get_delay()-self.__ts/2\
                                             -tau1*self.__ts
             if der==0:
-                print("Error: Method not available for this derivative order")
+                theta = 0.5 + theta0
+                k = (np.array(range(self.__L))) * self.__ts
+                w = np.zeros((len(k),))
+                for i in range(len(w)-1):
+                    w[i], _ = integrate.quad(self.evalKernel,k[i],k[i+1],epsabs=1.49e-20,limit=1000)
+                if der in self.__w.keys():
+                    self.__w[der][method + red] = w
+                else:
+                    self.__w[der] = {method + red: w}
             elif der>1:
                 theta = 0.5+theta0
-                k = (np.array(range(self.__L))+theta)*self.__ts
+                k = (np.array(range(self.__L)))*self.__ts
                 p1 = self.evalKernelDer(k,der-1)
                 p2 = self.evalKernelDer(k+self.__ts,der-1)
                 if der in self.__w.keys():
@@ -396,7 +404,7 @@ class AlgebraicDifferentiator(object):
                     self.__w[der] = {method+red:p2-p1}
             elif der==1:
                 theta = 0.5+theta0
-                k = (np.array(range(self.__L))+theta)*self.__ts
+                k = (np.array(range(self.__L)))*self.__ts
                 p1 = self.evalKernel(k)
                 p2 = self.evalKernel(k+self.__ts)
                 if der in self.__w.keys():
@@ -579,6 +587,8 @@ class AlgebraicDifferentiator(object):
         :type t: numpy array
         :return: Evaluated weight function in a numpy array.
         """
+        if isinstance(t, float):
+            t = np.array([t])
         if a<0 or b<0:
             t[t>=1] = 1
             t[t<=-1] = -1
