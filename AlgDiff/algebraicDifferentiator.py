@@ -385,10 +385,10 @@ class AlgebraicDifferentiator(object):
                                             -tau1*self.__ts
             if der==0:
                 theta = 0.5 + theta0
-                k = (np.array(range(self.__L))) * self.__ts
-                w = np.zeros((len(k),))
-                for i in range(len(w)-1):
-                    w[i], _ = integrate.quad(self.evalKernel,k[i],k[i+1],epsabs=1.49e-20,limit=1000)
+                w = np.zeros((self.__L,))
+                for i in range(self.__L):
+                    w[i] = self.get_integralKernel((i+1)*self.__ts)\
+                            -self.get_integralKernel(i*self.__ts)
                 if der in self.__w.keys():
                     self.__w[der][method + red] = w
                 else:
@@ -430,6 +430,38 @@ class AlgebraicDifferentiator(object):
             else:
                 return self.__w
 
+    def get_integralKernel(self,t):
+        """
+        This function returns the integral of the kernel of the algebraic with 
+        respect to the time variable. The integration is performed from 0 to t.
+
+        :param t: Time instants where the step response should be evaluated.
+        :type t: numpy array
+        :return: The value of the integral
+        """
+        a = self.__alpha
+        b = self.__beta
+        theta = self.__theta
+        N = self.__N
+        T = self.__T
+        def get_cNK_ab(a,b,N,k):
+            return (-1)**k*special.binom(N,k)*special.gamma(a+N+1)*special.gamma(a+b+N+k+1)/(2**k*math.factorial(N)*special.gamma(a+b+N+1)*special.gamma(a+k+1))
+
+        def get_jacnorm(a,b,i):
+            return math.pow(2.,a+b+1)*special.gamma(i+a+1)*special.gamma(i+b+1)\
+                            /(math.factorial(i)*(2*i+a+b+1)*special.gamma(i+a+b+1))
+
+        # Get the incomplete beta function
+        def get_B(x,a,b):
+            return special.betainc(a,b,x)*special.gamma(a)*special.gamma(b)/special.gamma(a+b)
+        out = 0
+        for j in range(N+1):
+            tmp = 0
+            for k in range(j+1):
+                tmp += 2**(a+b+k+1)*get_cNK_ab(a,b,j,k)*get_B(t/T,a+k+1,b+1)
+            out += tmp*special.eval_jacobi(j,a,b,theta)/get_jacnorm(a,b,j)
+        return out
+    
     def estimateDer(self,k,x,method="mid-point",conv='same',\
                     redFilLength=False,redTol=0.01):
         """
