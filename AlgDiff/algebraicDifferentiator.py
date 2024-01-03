@@ -429,7 +429,6 @@ class AlgebraicDifferentiator(object):
                     else:
                         w[k] = (self.get_integralKernel((k+1)*ts,nested=2)-2*self.get_integralKernel(k*ts,nested=2)\
                                 +self.get_integralKernel((k-1)*ts,nested=2))/ts   
-                print(w)
                 if der in self.__w.keys():
                     self.__w[der][method + red] = w
                 else:
