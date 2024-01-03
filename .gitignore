@@ -8,3 +8,19 @@ examples/DetailedExamples_files/
 *.dat
 
 docs/build/
+
+\*.rst
+
+gh-md-toc
+
+.idea/
+
+AlgDiff.egg-info/
+
+build/
+
+dist/
+
+docs/
+
+AlgDiff/test.ipynb
