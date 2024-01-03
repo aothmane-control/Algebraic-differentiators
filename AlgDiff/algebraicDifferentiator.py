@@ -4,7 +4,7 @@ algebraicDifferentiator.py
 The implementation of the class AlgebraicDifferentiator
 """
 
-from scipy import special, integrate
+from scipy import special
 from mpmath import *
 import numpy as np
 import warnings
