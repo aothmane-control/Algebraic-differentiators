@@ -146,12 +146,12 @@ class AlgebraicDifferentiator(object):
         This function performs the discretization of the filter for the 
         estimation of the derivative of order :math:`der`.
         Three discretization schemes are implemented: midpoint, trapezoidal
-        and using the analytical integration. The mid-point rule uses one
-        filter coefficient less than the trapezoidal rule. It also reduces
+        and using the analytical integration. The mid-point and the analytic integration
+        methods uses one
+        filter coefficient less than the remaining. It also reduces
         the estimation delay by half a sampling period. The analytical
-        integration rule is recommended for small filter window lengths,
-        i.e., in general less than 20 filter coefficients. This discretization
-        method can only be used for the first order or any higher derivative.
+        integration rules are recommended for small filter window lengths,
+        i.e., in general less than 20 filter coefficients.
         The error stemming from
         the discretization is corrected using a correction factor, if the 
         differentiator has been initialized to do so.
@@ -168,7 +168,7 @@ class AlgebraicDifferentiator(object):
         :param der: Order of the derivative to be estimated.
         :type der: int
         :param method: Discretization scheme: "mid-point", "trapezoidal",\
-            "analytic", "simpson rule".
+            "analytic", "simpson rule", and "analytic trapezoidal".
         :type method: string
         :param reduceFilLength: Reduce or not the filter window length.
         :type reduceFilLength: bool
@@ -411,6 +411,63 @@ class AlgebraicDifferentiator(object):
                     self.__w[der][method+red] = p2-p1
                 else:
                     self.__w[der] = {method+red:p2-p1}
+        elif method=="analytic trapezoidal":
+            self.__L = L0
+            self.__delayDisc[method+red] = self.get_delay()-self.__ts/2\
+                                            -tau1*self.__ts
+            ts = self.__ts
+            if der==0:
+                theta = 0+theta0
+                w = np.zeros((self.__L+1,))
+                for k in range(self.__L+1):
+                    if k == 0:
+                        w[k] = (self.get_integralKernel((k+1)*ts,nested=2)-self.get_integralKernel(k*ts,nested=2))/ts\
+                                - self.get_integralKernel(k*ts,nested=1)
+                    elif k == self.__L:
+                        w[k] = self.get_integralKernel(k*ts,nested=1) \
+                                +(self.get_integralKernel((k-1)*ts,nested=2)-self.get_integralKernel(k*ts,nested=2))/ts
+                    else:
+                        w[k] = (self.get_integralKernel((k+1)*ts,nested=2)-2*self.get_integralKernel(k*ts,nested=2)\
+                                +self.get_integralKernel((k-1)*ts,nested=2))/ts   
+                print(w)
+                if der in self.__w.keys():
+                    self.__w[der][method + red] = w
+                else:
+                    self.__w[der] = {method + red: w}
+            elif der>=2:
+                theta = 0+theta0
+                w = np.zeros((self.__L+1,))
+                for k in range(self.__L+1):
+                    if k == 0:
+                        w[k] = (self.evalKernelDer((k+1)*ts,der-2)-self.evalKernelDer(k*ts,der-2))/ts\
+                                - self.evalKernelDer(k*ts,der-1)
+                    elif k == self.__L:
+                        w[k] = self.evalKernelDer(k*ts,der-1) \
+                                +(self.evalKernelDer((k-1)*ts,der-2)-self.evalKernelDer(k*ts,der-2))/ts
+                    else:
+                        w[k] = (self.evalKernelDer((k+1)*ts,der-2)-2*self.evalKernelDer(k*ts,der-2)\
+                                +self.evalKernelDer((k-1)*ts,der-2))/ts   
+                if der in self.__w.keys():
+                    self.__w[der][method + red] = w
+                else:
+                    self.__w[der] = {method + red: w}           
+            elif der==1:
+                theta = 0+theta0
+                w = np.zeros((self.__L+1,))
+                for k in range(self.__L+1):
+                    if k == 0:
+                        w[k] = (self.get_integralKernel((k+1)*ts)-self.get_integralKernel(k*ts))/ts\
+                                - self.evalKernelDer(k*ts,der-1)
+                    elif k == self.__L:
+                        w[k] = self.evalKernelDer(k*ts,der-1) \
+                                +(self.get_integralKernel((k-1)*ts)-self.get_integralKernel(k*ts))/ts
+                    else:
+                        w[k] = (self.get_integralKernel((k+1)*ts)-2*self.get_integralKernel(k*ts)\
+                                +self.get_integralKernel((k-1)*ts))/ts   
+                if der in self.__w.keys():
+                    self.__w[der][method + red] = w
+                else:
+                    self.__w[der] = {method + red: w}
 
         # Correction discretization error
         if self.correction:
@@ -430,13 +487,15 @@ class AlgebraicDifferentiator(object):
             else:
                 return self.__w
 
-    def get_integralKernel(self,t):
+    def get_integralKernel(self,t,nested=1):
         """
-        This function returns the integral of the kernel of the algebraic with 
+        This function returns the nested integral of the kernel of the algebraic with 
         respect to the time variable. The integration is performed from 0 to t.
 
         :param t: Time instants where the step response should be evaluated.
         :type t: numpy array
+        :param t: order of nested integrals
+        :type t: numpy int
         :return: The value of the integral
         """
         a = self.__alpha
@@ -450,17 +509,28 @@ class AlgebraicDifferentiator(object):
         def get_jacnorm(a,b,i):
             return math.pow(2.,a+b+1)*special.gamma(i+a+1)*special.gamma(i+b+1)\
                             /(math.factorial(i)*(2*i+a+b+1)*special.gamma(i+a+b+1))
-
+        
         # Get the incomplete beta function
         def get_B(x,a,b):
             return special.betainc(a,b,x)*special.gamma(a)*special.gamma(b)/special.gamma(a+b)
-        out = 0
-        for j in range(N+1):
-            tmp = 0
-            for k in range(j+1):
-                tmp += 2**(a+b+k+1)*get_cNK_ab(a,b,j,k)*get_B(t/T,a+k+1,b+1)
-            out += tmp*special.eval_jacobi(j,a,b,theta)/get_jacnorm(a,b,j)
-        return out
+        if nested == 1:
+            out = 0
+            for j in range(N+1):
+                tmp = 0
+                for k in range(j+1):
+                    tmp += 2**(a+b+k+1)*get_cNK_ab(a,b,j,k)*get_B(t/T,a+k+1,b+1)
+                out += tmp*special.eval_jacobi(j,a,b,theta)/get_jacnorm(a,b,j)
+            return out
+        elif nested == 2:
+            out = 0
+            for j in range(N+1):
+                tmp = 0
+                for k in range(j+1):
+                    tmp += 2**(a+b+k+1)*get_cNK_ab(a,b,j,k)*(t/T*get_B(t/T,a+k+1,b+1)-get_B(t/T,a+k+2,b+1))
+                out += tmp*special.eval_jacobi(j,a,b,theta)/get_jacnorm(a,b,j)
+            return out*T
+        else:
+            raise Exception("Nested integrals of order higher than 2 not implemented yet.")
     
     def estimateDer(self,k,x,method="mid-point",conv='same',\
                     redFilLength=False,redTol=0.01):
@@ -699,7 +769,8 @@ class AlgebraicDifferentiator(object):
         :return: Evaluated derivative in a numpy array with same dimensions as
             t.
         """
-
+        if k==0:
+            return self.evalKernel(t)
         a = self.__alpha
         b = self.__beta
         dg = 0
