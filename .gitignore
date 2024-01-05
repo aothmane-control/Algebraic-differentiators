@@ -9,18 +9,14 @@ examples/DetailedExamples_files/
 
 docs/build/
 
-\*.rst
-
 gh-md-toc
-
-.idea/
-
-AlgDiff.egg-info/
-
-build/
 
 dist/
 
-docs/
+build/
 
-AlgDiff/test.ipynb
+AlgDiff.egg-info/
+
+AlgDiff/
+
+.idea/
