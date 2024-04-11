@@ -1193,3 +1193,50 @@ class AlgebraicDifferentiator(object):
         tau1 = np.argmax(disFcn>=tol)
         tau2 = np.argmax(disFcn>=1-disFcn[tau1])
         return t[tau1], t[tau2], disFcn, t, n
+    
+    def exportFilterCoefficients2Ccode(self,n,method='mid-point',filename='g',header='G'):
+        """
+        Export the filter coefficients to a C header file.
+
+        Parameters:
+            n (int): The filter length.
+            method (str, optional): The discretization method. Defaults to 'mid-point'.
+            filename (str, optional): The base name of the header file. Defaults to 'g'.
+            header (str, optional): The prefix for the header guard. Defaults to 'G'.
+
+        Returns:
+            None
+
+        This method exports the filter coefficients computed by the AlgebraicDifferentiator 
+        object to a C header file. The filter coefficients are discretized using the specified 
+        method and written to a C array in the header file.
+        After running the above example the function for n=1 would generate the following header file:
+
+        .. code-block:: c
+        
+            #ifndef G1_H
+            #define G1_H
+
+            double AlgDiff_g1[] = {
+                0.123456789012345678901234567890,
+                0.234567890123456789012345678901,
+                // More coefficients...
+            };
+
+            #endif // G1_H
+        """
+        g = diff.discretize(n,method=method)[n][method]
+        with open(filename+str(n)+'.h', 'w') as f:
+            # Write the array declaration
+            f.write('#ifndef '+header+str(n)+'_H\n')
+            f.write('#define '+header+str(n)+'_H\n\n')
+            f.write('double AlgDiff_g'+str(n)+'[] = {\n')
+
+            # Write the array values
+            for value in g:
+                f.write('    %.30f,\n' % value)  # Adjust the precision as needed
+
+            # Close the array declaration
+            f.write('};\n\n')
+            f.write('#endif // '+header+str(n)+'_H\n')
+            
