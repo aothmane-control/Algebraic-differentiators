@@ -173,7 +173,7 @@ class AlgebraicDifferentiator(object):
         :param reduceFilLength: Reduce or not the filter window length.
         :type reduceFilLength: bool
         :param redTol: Tolerance to be used when the filter length is reduced.
-        :type redTol: float.
+        :type redTol: float
         :param discreteSpectrum: If it is set, then the parameter \
             :math:`\\theta` used in the discretization is returned. See survey paper
             for more details.
@@ -185,13 +185,13 @@ class AlgebraicDifferentiator(object):
             		keys the used discretization methods. If the correction of the DC \
             		component has been enabled with the parameter corr of the class \
             		initialization, this output contains the corrected filter coefficients.
-        	- tau_1 (:py:class:`float`) - If redFilLength is set, tau_1 is the time where the filter \
+        	- tau_1 (`float <https://docs.python.org/3/library/functions.html#float>`_) - If redFilLength is set, tau_1 is the time where the filter \
         		window is reduced \
             		before at the left side of the interval. The estimation delay is reduced by tau_1.
-        	- tau_2 (:py:class:`float`) - If redFilLength is set, tau_2 is the time where the filter \
+        	- tau_2 (`float <https://docs.python.org/3/library/functions.html#float>`_) - If redFilLength is set, tau_2 is the time where the filter \
         	 	window is reduced\
             		before at the right side of the interval. This value does not affect the delay.
-        	- theta (:py:class:`float`) - If discreteSpectrum is set then the parameter\
+        	- theta (`float <https://docs.python.org/3/library/functions.html#float>`_) - If discreteSpectrum is set then the parameter\
         		 :math:`\\theta` is also returned.
         """
         self.checkParameters(der)
@@ -489,13 +489,15 @@ class AlgebraicDifferentiator(object):
     def get_integralKernel(self,t,nested=1):
         """
         This function returns the nested integral of the kernel of the algebraic with 
-        respect to the time variable. The integration is performed from 0 to t.
+        respect to the time variable. The integration is performed from 0 to t. Raises
+        and error if the order of the nested integral is higher than 2.
 
         :param t: Time instants where the step response should be evaluated.
-        :type t: numpy array
-        :param t: order of nested integrals
-        :type t: numpy int
-        :return: The value of the integral
+        :type t: numpy.ndarray
+        :param nested: order of nested integrals
+        :type nested: int
+        :return: 
+            - The value of the integral (`float <https://docs.python.org/3/library/functions.html#float>`_) - The value of the integral.
         """
         a = self.__alpha
         b = self.__beta
@@ -542,21 +544,21 @@ class AlgebraicDifferentiator(object):
         :param k: Order of the derivative to be estimated.
         :type k: int
         :param x: Signal whose derivative has to be estimated.
-        :type x: numpy array
+        :type x: `numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_
         :param conv: Parameter to specify the type of convolution
                 the numpy conv function does. See the numpy documentation
                 for more details.
         :param method: Discretization method: "mid-point",
                 "trapezoidal", "analytic"
 
-        :type method: string
-        :type conv: string
+        :type method: str
+        :type conv: str
         :param reduceFilterLength: Specify whether or not the filter window
                 length should be reduced or not. See the discretize method for more
                 details.
         :type reduceFilterLength: bool
         :param redTol: Tolerance to be used when the filter length is reduced
-        :type redTol: float.
+        :type redTol: float
         :return: Estimated derivative in a numpy array with the same dimensions
             as the variable x
         """
@@ -586,7 +588,8 @@ class AlgebraicDifferentiator(object):
         """
         This function returns the parameter :math:`\\alpha`.
 
-        :return: :math:`\\alpha` as a float.
+        :return:
+            - :math:`\\alpha` (`float <https://docs.python.org/3/library/functions.html#float>`_) - The parameter :math:`\\alpha`.
         """
 
         return self.__alpha
@@ -595,7 +598,8 @@ class AlgebraicDifferentiator(object):
         """
         This function returns the parameter :math:`\\beta`.
         
-        :return: :math:`\\beta` as a float.
+        :returns:
+            - :math:`\\beta` (`float <https://docs.python.org/3/library/functions.html#float>`_) - The parameter :math:`\\beta`.
         """
 
         return self.__beta
@@ -604,7 +608,8 @@ class AlgebraicDifferentiator(object):
         """
         This function returns the parameter :math:`N`.
 
-        :return: :math:`N` as a float.
+        :return:
+            - :math:`N` (`float <https://docs.python.org/3/library/functions.html#float>`_) - The parameter :math:`N`.
         """
 
         return self.__N
@@ -613,7 +618,8 @@ class AlgebraicDifferentiator(object):
         """
         This function returns the parameter :math:`\\vartheta`.
 
-        :return: :math:`\\vartheta` as a float.
+        :return:
+            - :math:`\\vartheta` (`float <https://docs.python.org/3/library/functions.html#float>`_) - The parameter :math:`\\vartheta`.
         """
 
         return self.__theta
@@ -622,7 +628,8 @@ class AlgebraicDifferentiator(object):
         """
         This function returns the sampling period.
 
-        :return: Sampling period as a float.
+        :return:
+            - :math:`t_{s}` (`float <https://docs.python.org/3/library/functions.html#float>`_) - The sampling period :math:`t_{s}`.
         """
 
         return self.__ts
@@ -631,7 +638,8 @@ class AlgebraicDifferentiator(object):
         """
         This function returns the filter window length of the algebraic differentiator.
 
-        :return: Filter window length as a float.
+        :return:
+            - :math:`T` (`float <https://docs.python.org/3/library/functions.html#float>`_) - The filter window length  :math:`T`.
         """
 
         return self.__T
@@ -641,7 +649,8 @@ class AlgebraicDifferentiator(object):
         This function returns the degree of exactness :math:`\gamma`\
                 when the :math:`n`-th derivative is approximated.
 
-        :return: Degree of exactness as an integer.
+        :return:
+            - :math:`\gamma` (`int <https://docs.python.org/3/library/functions.html#int>`_) - The degree of exactness  :math:`\gamma`.
         """
 
         if (self.__N==0) or (self.__thetaBool):
@@ -656,7 +665,8 @@ class AlgebraicDifferentiator(object):
         This function returns the cutoff frequency :math:`\omega_c`\
         of the algebraic differentiator.
 
-        :return: Cutoff frequency as a float.
+        :return:
+            - :math:`\omega_c` (`float <https://docs.python.org/3/library/functions.html#float>`_) - The cutoff frequency  :math:`\omega_c`.
         """
 
         a,b,c = self.get_asymptotesAmpFilter(np.array([1.0]))
@@ -711,8 +721,9 @@ class AlgebraicDifferentiator(object):
         evaluated at the time instants in t.
 
         :param t: Time instants where the step response should be evaluated.
-        :type t: numpy array
-        :return: Evaluated step response in a numpy array.
+        :type t: numpy.ndarray
+        :return: 
+            - h (`numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_) - Evaluated step response
         """
         response = np.zeros(t.shape)
         a = self.__alpha + 1
@@ -738,8 +749,9 @@ class AlgebraicDifferentiator(object):
         times t. It corresponds to the impulse response of the filter. 
 
         :param t: Time instants where the kernel should be evaluated.
-        :type t: numpy array
-        :return: Evaluated kernel in a numpy array with same dimensions as t.
+        :type t: `numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_
+        :return: 
+            - g (`numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_) -  Evaluated kernel in a  with same dimensions as t.
         """
 
         a = self.__alpha
@@ -911,9 +923,6 @@ class AlgebraicDifferentiator(object):
 
         :param wc: Cutoff frequency.
         :type wc: float
-
-        :returns:
-        	- T (:py:class:`float`) -  filter window length
         """
 
         kappa = np.abs(self.__beta-self.__alpha)
@@ -947,7 +956,9 @@ class AlgebraicDifferentiator(object):
         This function returns the estimation delay :math:`\delta_t` of the\
         the algebraic differentiator. 
 
-        :return:  :math:`\delta_t` as a float 
+        :return:
+            - :math:`\delta_t` (`float <https://docs.python.org/3/library/functions.html#float>`_) -  The delay :math:`\delta_t`\
+                of the continuous time differentiator 
         """
         if self.__N==0:
             delay = (self.__alpha+1)/(self.__alpha+self.__beta+2)*self.__T
@@ -1105,9 +1116,10 @@ class AlgebraicDifferentiator(object):
         """This function computes the ratio
         :math:`k_N=20\\log_{10}\\left(\\frac{\omega_N^k\\big|\mathcal{G}(\omega_N)\\big|}{\omega_c^k\Big|\mathcal{G}(\omega_c)\Big|}\\right)`, with :math:`\omega_N=\pi/t_s`, the Nyquist frequency and :math:`\omega_c` the                cutoff frequency.
 
-        :param k: Orders of derivatives to be estimated.
-        :type k: list of natural numbers
-        :return:  :math:`k_N` in a numpy array with same dimensions as the
+        :param k: Orders of derivatives to be estimated. Must be a list of natural numbers.
+        :type k: list
+        :return:  
+            -:math:`k_N` (`numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_) - :math:`k_N` with same dimensions as the
             variable k 
         """
 
@@ -1126,11 +1138,11 @@ class AlgebraicDifferentiator(object):
         The integral is approximated using the trapezoidal rule.
 
         :param k: Order of derivative to be estimated.
-        :type k: integer
+        :type k: int
         :param Omega: Upper bound of integration interval.
         :type Omega: float
         :param n: The interval :math:`[0,\\Omega]` is divided into n parts. 
-        :type n: integer
+        :type n: int
         :return:  cost function :math:`\\mathcal{J}`
         """
 
@@ -1156,13 +1168,13 @@ class AlgebraicDifferentiator(object):
         :type tol: float
         
         :returns:
-        	- tau1 (:py:class:`float`) - New starting point of the window. The value 0, i.e., the old
+        	- tau1 (`float <https://docs.python.org/3/library/functions.html#float>`_) - New starting point of the window. The value 0, i.e., the old
             		starting point, is taken as the reference.
-        	- tau2 (:py:class:`float`) - New end point of the window. The value 0, i.e., the old starting
+        	- tau2 (`float <https://docs.python.org/3/library/functions.html#float>`_) - New end point of the window. The value 0, i.e., the old starting
            	 	point, is taken as the reference.
-        	- d (:py:class:`numpy array`) - Distribution function used for the truncation.
-        	- t (:py:class:`numpy array`) - Times instants where distribution function has been evaluated.
-        	- n (:py:class:`int`) - Factor relating the sampling rate of the measurements and the
+        	- d (`numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_) - Distribution function used for the truncation.
+        	- t (`numpy.ndarray <https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html>`_) - Times instants where distribution function has been evaluated.
+        	- n (`int <https://docs.python.org/3/library/functions.html#int>`_) - Factor relating the sampling rate of the measurements and the
 			    sampling rate used for the evaluation of the distribution
 			    function.
         """
