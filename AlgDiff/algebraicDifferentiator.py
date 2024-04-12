@@ -1198,35 +1198,44 @@ class AlgebraicDifferentiator(object):
         """
         Export the filter coefficients to a C header file.
 
-        Parameters:
-            n (int): The filter length.
-            method (str, optional): The discretization method. Defaults to 'mid-point'.
-            filename (str, optional): The base name of the header file. Defaults to 'g'.
-            header (str, optional): The prefix for the header guard. Defaults to 'G'.
-
-        Returns:
-            None
-
         This method exports the filter coefficients computed by the AlgebraicDifferentiator 
         object to a C header file. The filter coefficients are discretized using the specified 
         method and written to a C array in the header file. The sampling period and the 
         filter coefficients are hard coded. The user should not adjust the filter coefficients
         in the header file. Instead, the filter coefficients should be adjusted in the
         Python code and the header file should be regenerated.
-        After running the above example the function for n=1 would generate the following header file:
+        For an algebraic differentiator with window length T=20*ts, with ts the sampling period, 
+        the function `exportFilterCoefficients2Ccode` generates for n=1 the following header file:
 
         .. code-block:: c
         
             #ifndef G1_H
             #define G1_H
 
-            double AlgDiff_g1[] = {
+            #define WINDOW_LENGTH_G1 20
+            #define TS_AlgDiff 0.0100000000
+            
+            static const double g1[] = {
                 0.123456789012345678901234567890,
                 0.234567890123456789012345678901,
                 // More coefficients...
             };
 
             #endif // G1_H
+            
+        :param n: The filter length.
+        :type n: int
+        :param method: The discretization method. Defaults to 'mid-point'.
+        :type method: str, optional   
+        :param filename: The base name of the header file. Defaults to 'g'.
+        :type filename: str, optional
+        :param header: The prefix for the header guard. Defaults to 'G'.
+        :type header: str, optional
+        
+        Returns:
+            None
+
+        
         """
         g = self.discretize(n,method=method)[n][method]
         with open(filename+str(n)+'.h', 'w') as f:
