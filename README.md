@@ -45,19 +45,19 @@ for higher-order derivatives of noisy signals are well suited for real-time embe
 
 The approximation-theoretic derivation recalled in the survey [[1]](#1) permits the interpretation of the estimation process by the following three steps illustrated in the figure below stemming from [[1]](#1):
 
-1. Projection: At time $t$, the sough <img src="https://render.githubusercontent.com/render/math?math=n">-th order time derivative <img src="https://render.githubusercontent.com/render/math?math=y^{(n)}"> over the interval <img src="https://render.githubusercontent.com/render/math?math=I_{T}(t)"> is projected onto the space of polynomials of degree <img src="https://render.githubusercontent.com/render/math?math=\mathrm{N}">. This yields the polynomial <img src="https://render.githubusercontent.com/render/math?math=p_\mathrm{N}"> depicted in the left and middle part of Figure 2.
-2. Evaluation: The polynomial <img src="https://render.githubusercontent.com/render/math?math=p_\mathrm{N}"> is evaluated at <img src="https://render.githubusercontent.com/render/math?math=t-\delta_t">, which gives an estimate <img src="https://render.githubusercontent.com/render/math?math={\hat{y}^{(n)}(t)=p_{\N}(t-\delta_t)}"> for the derivative <img src="https://render.githubusercontent.com/render/math?math=y^{(n)}(t)"> as depicted in the central part of Figure 2. Choosing the delay to be the largest root of a special Jacobi polynomial increases the approximation order by 1 with a minimal delay. Alternatively, a delay-free estimation or even a prediction of the future derivative might be
+1. Projection: At time $t$, the sough $n$-th order time derivative $y^{(n)}$ over the interval $I_{T}(t)$ is projected onto the space of polynomials of degree $\mathrm{N}$. This yields the polynomial $p_\mathrm{N}$ depicted in the left and middle part of Figure 2.
+2. Evaluation: The polynomial $p_\mathrm{N}$ is evaluated at $t-\delta_t$, which gives an estimate ${\hat{y}^{(n)}(t)=p_{\N}(t-\delta_t)}$ for the derivative $y^{(n)}(t)$ as depicted in the central part of Figure 2. Choosing the delay to be the largest root of a special Jacobi polynomial increases the approximation order by 1 with a minimal delay. Alternatively, a delay-free estimation or even a prediction of the future derivative might be
     selected, at the cost of a reduced accuracy.
-3. Repetition: The first two steps are repeated at each discrete time instant <img src="https://render.githubusercontent.com/render/math?math=t_i"> while keeping the parameters of the differentiator constant. This yields  the estimate <img src="https://render.githubusercontent.com/render/math?math=\hat{y}^{(n)}"> depicted in the right part of the Figure 2.
+3. Repetition: The first two steps are repeated at each discrete time instant $t_i$ while keeping the parameters of the differentiator constant. This yields  the estimate $\hat{y}^{(n)}$ depicted in the right part of the Figure 2.
 
 | ![filter_characteristics](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/interpretationDifferentiators.png) |
 |:--:| 
-| Figure 2. Three-step process of the estimation of the  <img src="https://render.githubusercontent.com/render/math?math=n">-th order derivative <img src="https://render.githubusercontent.com/render/math?math={y^{(n)}:t\mapsto y^{(n)}(t)}"> of a signal <img src="https://render.githubusercontent.com/render/math?math=y:t\mapsto y(t)"> using  algebraic differentiators (figure from [[1]](#1)) |
+| Figure 2. Three-step process of the estimation of the  $n$-th order derivative ${y^{(n)}:t\mapsto y^{(n)}(t)}$ of a signal $y:t\mapsto y(t)$ using  algebraic differentiators (figure from [[1]](#1)) |
 
 
 Algebraic differentiators can be interpreted as linear time-invariant filters with a finite-duration impulse response. Figure 3 visualizes the online estimation process of the first derivative of a noisy signal. The filter window, the buffered signal, and the filter kernel can be clearly seen. 
 
-|  <img src="https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/animationEstimation.gif" height="500">|
+|  <img src="https://github.com/aothmane-control/Algebraic-differentiators/blob/master/data/animationEstimation.gif" height="500$|
 |:--:| 
 | Figure 3. Visualization of the online estimation of the first derivative a noisy signal using an algebraic differentiator.|
 
@@ -109,19 +109,19 @@ Feel free to contact [Amine](https://www.uni-saarland.de/en/chair/rudolph/staff/
 BSD 3-Clause "New" or "Revised" License, see [License-file](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/LICENSE).
 
 # References
-<a id="5">[1]</a> A. Othmane, L. Kiltz, and J. Rudolph, "Survey on algebraic numerical differentiation: historical developments, parametrization, examples, and applications", Int. J. Syst. Sci. https://doi.org/10.1080/00207721.2022.2025948
+<a id="5$[1]</a> A. Othmane, L. Kiltz, and J. Rudolph, "Survey on algebraic numerical differentiation: historical developments, parametrization, examples, and applications", Int. J. Syst. Sci. https://doi.org/10.1080/00207721.2022.2025948
 
-<a id="1">[2]</a> M. Mboup,  C. Join, and M. Fliess, "Numerical differentiation with annihilators in noisy environment", Numerical Algorithms, 50 (4), 439–467, 2009, https://doi.org/10.1007/s11075-008-9236-1
+<a id="1$[2]</a> M. Mboup,  C. Join, and M. Fliess, "Numerical differentiation with annihilators in noisy environment", Numerical Algorithms, 50 (4), 439–467, 2009, https://doi.org/10.1007/s11075-008-9236-1
 
 
-<a id="2">[3]</a> L. Kiltz and J. Rudolph, “Parametrization of algebraic numerical
+<a id="2$[3]</a> L. Kiltz and J. Rudolph, “Parametrization of algebraic numerical
 differentiators to achieve desired filter characteristics,” in Proc. 52nd
 IEEE Conf. on Decision and Control, Firenze, Italy, 2013, pp. 7010–
 7015, https://doi.org/10.1109/CDC.2013.6761000
 
-<a id="3">[4]</a> M. Mboup and S. Riachy, "Frequency-domain analysis and tuning of the algebraic differentiators," Int. J. Control , 91 (9), 2073–2081, 2018, https://doi.org/10.1080/00207179.2017.1421776 
+<a id="3$[4]</a> M. Mboup and S. Riachy, "Frequency-domain analysis and tuning of the algebraic differentiators," Int. J. Control , 91 (9), 2073–2081, 2018, https://doi.org/10.1080/00207179.2017.1421776 
 
-<a id="4">[5]</a> A. Othmane, J. Rudolph, and H. Mounier, "Systematic comparison of numerical differentiators and an application to model-free control", Eur. J. Control. https://doi.org/10.1016/j.ejcon.2021.06.020
+<a id="4$[5]</a> A. Othmane, J. Rudolph, and H. Mounier, "Systematic comparison of numerical differentiators and an application to model-free control", Eur. J. Control. https://doi.org/10.1016/j.ejcon.2021.06.020
 
-<a id="6">[6]</a> A. Othmane and J. Rudolph "AlgDiff: an open source toolbox for the design, analysis and discretisation of algebraic differentiators", at - Automatisierungstechnik https://doi.org/10.1515/auto-2023-0035 https://arxiv.org/abs/2308.04888
+<a id="6$[6]</a> A. Othmane and J. Rudolph "AlgDiff: an open source toolbox for the design, analysis and discretisation of algebraic differentiators", at - Automatisierungstechnik https://doi.org/10.1515/auto-2023-0035 https://arxiv.org/abs/2308.04888
 
