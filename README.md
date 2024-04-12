@@ -46,7 +46,7 @@ for higher-order derivatives of noisy signals are well suited for real-time embe
 The approximation-theoretic derivation recalled in the survey [[1]](#1) permits the interpretation of the estimation process by the following three steps illustrated in the figure below stemming from [[1]](#1):
 
 1. Projection: At time $t$, the sough $n$-th order time derivative $y^{(n)}$ over the interval $I_{T}(t)$ is projected onto the space of polynomials of degree $\mathrm{N}$. This yields the polynomial $p_\mathrm{N}$ depicted in the left and middle part of Figure 2.
-2. Evaluation: The polynomial $p_\mathrm{N}$ is evaluated at $t-\delta_t$, which gives an estimate ${\hat{y}^{(n)}(t)=p_{\N}(t-\delta_t)}$ for the derivative $y^{(n)}(t)$ as depicted in the central part of Figure 2. Choosing the delay to be the largest root of a special Jacobi polynomial increases the approximation order by 1 with a minimal delay. Alternatively, a delay-free estimation or even a prediction of the future derivative might be
+2. Evaluation: The polynomial $p_\mathrm{N}$ is evaluated at $t-\delta_t$, which gives an estimate ${\hat{y}^{(n)}(t)=p_{N}(t-\delta_t)}$ for the derivative $y^{(n)}(t)$ as depicted in the central part of Figure 2. Choosing the delay to be the largest root of a special Jacobi polynomial increases the approximation order by 1 with a minimal delay. Alternatively, a delay-free estimation or even a prediction of the future derivative might be
     selected, at the cost of a reduced accuracy.
 3. Repetition: The first two steps are repeated at each discrete time instant $t_i$ while keeping the parameters of the differentiator constant. This yields  the estimate $\hat{y}^{(n)}$ depicted in the right part of the Figure 2.
 
