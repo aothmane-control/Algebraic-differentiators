@@ -1,4 +1,4 @@
-version: 2.2
+version: 2.4
 
 build:
   os: "ubuntu-22.04"

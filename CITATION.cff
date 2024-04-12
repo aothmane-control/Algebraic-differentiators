@@ -5,6 +5,6 @@ authors:
   given-names: "Amine"
   orcid: "https://orcid.org/0000-0002-8871-3472"
 title: "AlgDiff: A Python package with Matlab coupling implementing all necessary tools for the design, analysis, and discretization of algebraic differentiators."
-version: 1.1.0
-date-released: 2022-09-17
+version: 2.4
+date-released: 2024-04-12
 url: "https://github.com/aothmane-control/Algebraic-differentiators"
