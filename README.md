@@ -103,7 +103,7 @@ A list of known issues and fixes is also [provided](https://algebraic-differenti
  A detailed [documentation](https://algebraic-differentiators.readthedocs.io/en/latest/documentation.html) for all the functions is also provided in the webpage of the [project](https://algebraic-differentiators.readthedocs.io/en/latest/index.html).
 
 # Questions  & Contact
-Feel free to contact [Amine](https://www.uni-saarland.de/en/chair/rudolph/staff/aothmane.html) in case of suggestions or questions.
+Feel free to contact A. Othmane in case of suggestions or questions via email by amine.othmane [at] uni-saarland [dot] de.
 
 # License
 BSD 3-Clause "New" or "Revised" License, see [License-file](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/LICENSE).
