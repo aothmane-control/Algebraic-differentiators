@@ -82,9 +82,7 @@ The code is implemented in Python 3. To use all functionalities the required pac
 # Installation
 To use AlgDiff using pip run the following in the command line: 
 
-```
    $ pip install AlgDiff
-```
 
 # How to use  the implementation
 The contribution of this implementation is an easy to use framework for the design and discretization of algebraic differentiators to achieve desired filter characteristics, i.e., to specify the cutoff frequency and the stopband slope. The file [algebraicDifferentiator.py](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/algebraicDifferentiator.py) implements the class AlgebraicDifferentiator. This class contains all necessary functions for the design, analysis, and discretization of the differentiators.
@@ -108,20 +106,23 @@ Feel free to contact [Amine](https://www.uni-saarland.de/en/chair/rudolph/staff/
 # License
 BSD 3-Clause "New" or "Revised" License, see [License-file](https://github.com/aothmane-control/Algebraic-differentiators/blob/master/LICENSE).
 
+
 # References
-<a id="5$[1]</a> A. Othmane, L. Kiltz, and J. Rudolph, "Survey on algebraic numerical differentiation: historical developments, parametrization, examples, and applications", Int. J. Syst. Sci. https://doi.org/10.1080/00207721.2022.2025948
 
-<a id="1$[2]</a> M. Mboup,  C. Join, and M. Fliess, "Numerical differentiation with annihilators in noisy environment", Numerical Algorithms, 50 (4), 439–467, 2009, https://doi.org/10.1007/s11075-008-9236-1
+<a id="1"></a>
+**[1]** A. Othmane, L. Kiltz, and J. Rudolph, "Survey on algebraic numerical differentiation: historical developments, parametrization, examples, and applications", Int. J. Syst. Sci. [https://doi.org/10.1080/00207721.2022.2025948](https://doi.org/10.1080/00207721.2022.2025948)
 
+<a id="2"></a>
+**[2]** M. Mboup, C. Join, and M. Fliess, "Numerical differentiation with annihilators in noisy environment", Numerical Algorithms, 50 (4), 439–467, 2009. [https://doi.org/10.1007/s11075-008-9236-1](https://doi.org/10.1007/s11075-008-9236-1)
 
-<a id="2$[3]</a> L. Kiltz and J. Rudolph, “Parametrization of algebraic numerical
-differentiators to achieve desired filter characteristics,” in Proc. 52nd
-IEEE Conf. on Decision and Control, Firenze, Italy, 2013, pp. 7010–
-7015, https://doi.org/10.1109/CDC.2013.6761000
+<a id="3"></a>
+**[3]** L. Kiltz and J. Rudolph, "Parametrization of algebraic numerical differentiators to achieve desired filter characteristics," in Proc. 52nd IEEE Conf. on Decision and Control, Firenze, Italy, 2013, pp. 7010–7015. [https://doi.org/10.1109/CDC.2013.6761000](https://doi.org/10.1109/CDC.2013.6761000)
 
-<a id="3$[4]</a> M. Mboup and S. Riachy, "Frequency-domain analysis and tuning of the algebraic differentiators," Int. J. Control , 91 (9), 2073–2081, 2018, https://doi.org/10.1080/00207179.2017.1421776 
+<a id="4"></a>
+**[4]** M. Mboup and S. Riachy, "Frequency-domain analysis and tuning of the algebraic differentiators," Int. J. Control, 91 (9), 2073–2081, 2018. [https://doi.org/10.1080/00207179.2017.1421776](https://doi.org/10.1080/00207179.2017.1421776)
 
-<a id="4$[5]</a> A. Othmane, J. Rudolph, and H. Mounier, "Systematic comparison of numerical differentiators and an application to model-free control", Eur. J. Control. https://doi.org/10.1016/j.ejcon.2021.06.020
+<a id="5"></a>
+**[5]** A. Othmane, J. Rudolph, and H. Mounier, "Systematic comparison of numerical differentiators and an application to model-free control", Eur. J. Control. [https://doi.org/10.1016/j.ejcon.2021.06.020](https://doi.org/10.1016/j.ejcon.2021.06.020)
 
-<a id="6$[6]</a> A. Othmane and J. Rudolph "AlgDiff: an open source toolbox for the design, analysis and discretisation of algebraic differentiators", at - Automatisierungstechnik https://doi.org/10.1515/auto-2023-0035 https://arxiv.org/abs/2308.04888
-
+<a id="6"></a>
+**[6]** A. Othmane and J. Rudolph, "AlgDiff: an open source toolbox for the design, analysis and discretisation of algebraic differentiators", at - Automatisierungstechnik. [https://doi.org/10.1515/auto-2023-0035](https://doi.org/10.1515/auto-2023-0035) [https://arxiv.org/abs/2308.04888](https://arxiv.org/abs/2308.04888)
